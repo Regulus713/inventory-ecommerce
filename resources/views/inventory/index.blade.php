@@ -8,32 +8,32 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; }
         .header h1 { margin-bottom: 10px; font-weight: 700; }
         .header p { opacity: 0.9; }
         .categories { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
-        .category { background: #1e293b; padding: 15px 25px; border-radius: 8px; text-decoration: none; color: #e2e8f0; font-weight: 500; border: 2px solid #334155; transition: all 0.3s ease; }
-        .category:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: transparent; transform: translateY(-2px); }
-        .section-title { margin-bottom: 20px; color: #e2e8f0; font-weight: 600; font-size: 24px; }
+        .category { background: white; padding: 15px 25px; border-radius: 8px; text-decoration: none; color: #1e293b; font-weight: 500; border: 2px solid #e2e8f0; transition: all 0.3s ease; }
+        .category:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: transparent; color: white; transform: translateY(-2px); }
+        .section-title { margin-bottom: 20px; color: #1e293b; font-weight: 600; font-size: 24px; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .product-card { background: #1e293b; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); }
-        .product-image { background: #334155; height: 200px; display: flex; align-items: center; justify-content: center; color: #94a3b8; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
+        .product-image { background: #f1f5f9; height: 200px; display: flex; align-items: center; justify-content: center; color: #64748b; }
         .product-info { padding: 20px; }
-        .product-name { font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #f1f5f9; }
-        .product-description { color: #94a3b8; font-size: 14px; margin-bottom: 15px; line-height: 1.5; }
+        .product-name { font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #1e293b; }
+        .product-description { color: #64748b; font-size: 14px; margin-bottom: 15px; line-height: 1.5; }
         .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
         .product-price { font-size: 20px; font-weight: 700; color: #667eea; }
         .product-stock { font-size: 12px; padding: 5px 10px; border-radius: 4px; font-weight: 500; }
-        .in-stock { background: rgba(102, 126, 234, 0.2); color: #667eea; }
-        .low-stock { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-        .out-of-stock { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .in-stock { background: #dbeafe; color: #1e40af; }
+        .low-stock { background: #fef3c7; color: #92400e; }
+        .out-of-stock { background: #fee2e2; color: #991b1b; }
         .featured { border: 3px solid #667eea; }
         .featured-badge { position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
-        .admin-link { background: rgba(255, 255, 255, 0.1); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease; }
-        .admin-link:hover { background: rgba(255, 255, 255, 0.2); }
+        .admin-link { background: rgba(255, 255, 255, 0.9); color: #667eea; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; border: 1px solid #667eea; transition: all 0.3s ease; }
+        .admin-link:hover { background: #667eea; color: white; }
     </style>
 </head>
 <body>

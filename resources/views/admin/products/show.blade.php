@@ -8,28 +8,28 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
         .container { max-width: 900px; margin: 0 auto; padding: 20px; }
         .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; }
         .header h1 { margin-bottom: 10px; font-weight: 700; }
         .header p { opacity: 0.9; }
-        .detail-container { background: #1e293b; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
-        .detail-row { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #334155; }
+        .detail-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .detail-row { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; }
         .detail-row:last-child { border-bottom: none; }
-        .detail-label { font-weight: 600; color: #f1f5f9; margin-bottom: 5px; }
-        .detail-value { color: #94a3b8; }
+        .detail-label { font-weight: 600; color: #1e293b; margin-bottom: 5px; }
+        .detail-value { color: #64748b; }
         .badge { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
-        .badge-active { background: rgba(102, 126, 234, 0.2); color: #667eea; }
-        .badge-inactive { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .badge-featured { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-        .stock-good { background: rgba(102, 126, 234, 0.2); color: #667eea; }
-        .stock-low { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-        .stock-out { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .badge-active { background: #dbeafe; color: #1e40af; }
+        .badge-inactive { background: #fee2e2; color: #991b1b; }
+        .badge-featured { background: #fef3c7; color: #92400e; }
+        .stock-good { background: #dbeafe; color: #1e40af; }
+        .stock-low { background: #fef3c7; color: #92400e; }
+        .stock-out { background: #fee2e2; color: #991b1b; }
         .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.3s ease; }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
-        .btn-secondary { background: #334155; color: #e2e8f0; }
-        .btn-secondary:hover { background: #475569; }
+        .btn-secondary { background: #e2e8f0; color: #1e293b; }
+        .btn-secondary:hover { background: #cbd5e1; }
     </style>
 </head>
 <body>

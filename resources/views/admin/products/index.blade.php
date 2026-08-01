@@ -8,7 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
         .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
         .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; }
         .header h1 { margin-bottom: 10px; font-weight: 700; }
@@ -16,24 +16,24 @@
         .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.3s ease; }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
-        .btn-danger { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
-        .btn-danger:hover { background: rgba(239, 68, 68, 0.3); }
-        .btn-success { background: rgba(102, 126, 234, 0.2); color: #667eea; border: 1px solid #667eea; }
-        .btn-success:hover { background: rgba(102, 126, 234, 0.3); }
-        .table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
-        .table th, .table td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; }
-        .table th { background: #334155; font-weight: 600; color: #f1f5f9; }
-        .table tr:hover { background: #334155; }
+        .btn-danger { background: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
+        .btn-danger:hover { background: #fecaca; }
+        .btn-success { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; }
+        .btn-success:hover { background: #bfdbfe; }
+        .table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .table th, .table td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .table th { background: #f8fafc; font-weight: 600; color: #1e293b; }
+        .table tr:hover { background: #f8fafc; }
         .badge { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
-        .badge-active { background: rgba(102, 126, 234, 0.2); color: #667eea; }
-        .badge-inactive { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .badge-featured { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-        .stock-good { background: rgba(102, 126, 234, 0.2); color: #667eea; }
-        .stock-low { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-        .stock-out { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .badge-active { background: #dbeafe; color: #1e40af; }
+        .badge-inactive { background: #fee2e2; color: #991b1b; }
+        .badge-featured { background: #fef3c7; color: #92400e; }
+        .stock-good { background: #dbeafe; color: #1e40af; }
+        .stock-low { background: #fef3c7; color: #92400e; }
+        .stock-out { background: #fee2e2; color: #991b1b; }
         .alert { padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-        .alert-success { background: rgba(102, 126, 234, 0.2); color: #667eea; border: 1px solid #667eea; }
-        .alert-error { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+        .alert-success { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; }
+        .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
         .actions { display: flex; gap: 5px; }
         .actions a { padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 500; }
     </style>
