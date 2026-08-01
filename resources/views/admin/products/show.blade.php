@@ -16,15 +16,15 @@
             align-items: flex-start;
             padding: 20px;
         }
-        .sidebar { 
-            width: 260px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 24px; 
+        .sidebar {
+            width: 260px;
+            background: #6366f1;
+            padding: 24px;
             height: 100vh;
             position: fixed;
             left: 0;
             top: 0;
-            box-shadow: 2px 0 32px rgba(102, 126, 234, 0.3);
+            box-shadow: 2px 0 32px rgba(99, 102, 241, 0.15);
             overflow-y: auto;
         }
         .content-wrapper {
@@ -64,13 +64,13 @@
             font-weight: 600;
         }
         .main-content { flex: 1; }
-        .header { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            color: white; 
-            padding: 32px; 
-            margin-bottom: 40px; 
-            border-radius: 20px; 
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        .header {
+            background: #6366f1;
+            color: white;
+            padding: 32px;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
         }
         .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; }
         .header p { opacity: 0.9; font-size: 16px; font-weight: 400; }
@@ -86,12 +86,12 @@
         .detail-label { font-weight: 600; color: #1a1a2e; margin-bottom: 6px; font-size: 14px; }
         .detail-value { color: #666; font-size: 15px; }
         .badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-        .badge-active { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); color: #0f5132; }
-        .badge-inactive { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #c92a2a; }
-        .badge-featured { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #c85a17; }
-        .stock-good { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); color: #0f5132; }
-        .stock-low { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #c85a17; }
-        .stock-out { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #c92a2a; }
+        .badge-active { background: #d1fae5; color: #0f5132; }
+        .badge-inactive { background: #ffe3e3; color: #c92a2a; }
+        .badge-featured { background: #ffedd5; color: #c85a17; }
+        .stock-good { background: #d1fae5; color: #0f5132; }
+        .stock-low { background: #ffedd5; color: #c85a17; }
+        .stock-out { background: #ffe3e3; color: #c92a2a; }
         .btn { 
             padding: 12px 24px; 
             border: none; 
@@ -103,18 +103,18 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
             font-size: 14px;
         }
-        .btn-primary { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .btn-primary {
+            background: #6366f1;
             color: white;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
         }
-        .btn-primary:hover { 
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2);
         }
-        .btn-secondary { 
+        .btn-secondary {
             background: #f8f9fa;
-            color: #667eea;
+            color: #6366f1;
             border: 2px solid #e9ecef;
         }
         .btn-secondary:hover { 
