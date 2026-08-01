@@ -5,30 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Inventory System</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { background: #1e3a8a; color: white; padding: 20px; margin-bottom: 30px; }
-        .header h1 { margin-bottom: 10px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; }
+        .header h1 { margin-bottom: 10px; font-weight: 700; }
+        .header p { opacity: 0.9; }
         .categories { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
-        .category { background: white; padding: 15px 25px; border-radius: 8px; text-decoration: none; color: #1e3a8a; font-weight: bold; border: 2px solid #1e3a8a; transition: all 0.3s; }
-        .category:hover { background: #1e3a8a; color: white; }
-        .section-title { margin-bottom: 20px; color: #1e3a8a; }
+        .category { background: #1e293b; padding: 15px 25px; border-radius: 8px; text-decoration: none; color: #e2e8f0; font-weight: 500; border: 2px solid #334155; transition: all 0.3s ease; }
+        .category:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: transparent; transform: translateY(-2px); }
+        .section-title { margin-bottom: 20px; color: #e2e8f0; font-weight: 600; font-size: 24px; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.3s; }
-        .product-card:hover { transform: translateY(-5px); }
-        .product-image { background: #e5e7eb; height: 200px; display: flex; align-items: center; justify-content: center; color: #6b7280; }
-        .product-info { padding: 15px; }
-        .product-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #1f2937; }
-        .product-description { color: #6b7280; font-size: 14px; margin-bottom: 10px; }
-        .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-        .product-price { font-size: 20px; font-weight: bold; color: #059669; }
-        .product-stock { font-size: 12px; padding: 5px 10px; border-radius: 4px; }
-        .in-stock { background: #d1fae5; color: #065f46; }
-        .low-stock { background: #fef3c7; color: #92400e; }
-        .out-of-stock { background: #fee2e2; color: #991b1b; }
-        .featured { border: 3px solid #f59e0b; }
-        .featured-badge { position: absolute; top: 10px; right: 10px; background: #f59e0b; color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .product-card { background: #1e293b; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); }
+        .product-image { background: #334155; height: 200px; display: flex; align-items: center; justify-content: center; color: #94a3b8; }
+        .product-info { padding: 20px; }
+        .product-name { font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #f1f5f9; }
+        .product-description { color: #94a3b8; font-size: 14px; margin-bottom: 15px; line-height: 1.5; }
+        .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
+        .product-price { font-size: 20px; font-weight: 700; color: #667eea; }
+        .product-stock { font-size: 12px; padding: 5px 10px; border-radius: 4px; font-weight: 500; }
+        .in-stock { background: rgba(102, 126, 234, 0.2); color: #667eea; }
+        .low-stock { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .out-of-stock { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .featured { border: 3px solid #667eea; }
+        .featured-badge { position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+        .admin-link { background: rgba(255, 255, 255, 0.1); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease; }
+        .admin-link:hover { background: rgba(255, 255, 255, 0.2); }
     </style>
 </head>
 <body>
@@ -37,8 +42,8 @@
             <h1>🖥️ Tech Inventory System</h1>
             <p>Manage your technology products efficiently</p>
             <div style="margin-top: 15px;">
-                <a href="{{ route('categories.index') }}" style="background: white; color: #1e3a8a; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: bold;">Manage Categories</a>
-                <a href="{{ route('products.index') }}" style="background: white; color: #1e3a8a; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-left: 10px;">Manage Products</a>
+                <a href="{{ route('categories.index') }}" class="admin-link">Manage Categories</a>
+                <a href="{{ route('products.index') }}" class="admin-link" style="margin-left: 10px;">Manage Products</a>
             </div>
         </div>
     </div>
