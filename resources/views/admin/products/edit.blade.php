@@ -53,8 +53,8 @@
             background: rgba(255, 255, 255, 0.25);
             font-weight: 600;
         }
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; flex: 1; margin-left: 260px; }
-        .main-content { }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; flex: 1; margin-left: 260px; display: flex; justify-content: center; }
+        .main-content { width: 100%; max-width: 1000px; }
         .header { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white; 
