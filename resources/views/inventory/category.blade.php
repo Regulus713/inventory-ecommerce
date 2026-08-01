@@ -14,7 +14,7 @@
             color: #1a1a2e;
             min-height: 100vh;
         }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0; display: flex; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; display: flex; gap: 20px; }
         .sidebar { 
             width: 260px; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -24,6 +24,7 @@
             height: fit-content;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            flex-shrink: 0;
         }
         .sidebar h2 { 
             color: white; 
@@ -54,7 +55,7 @@
             background: rgba(255, 255, 255, 0.25);
             font-weight: 600;
         }
-        .main-content { flex: 1; padding: 20px; }
+        .main-content { flex: 1; }
         .header { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white; 
