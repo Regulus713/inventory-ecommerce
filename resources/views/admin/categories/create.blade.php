@@ -35,7 +35,7 @@
 
     <div class="container">
         <div class="form-container">
-            <form action="{{ route('categories.store') }}" method="POST">
+            <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
@@ -78,8 +78,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="image">Image URL</label>
-                    <input type="text" id="image" name="image" value="{{ old('image') }}">
+                    <label for="image">Category Image</label>
+                    <input type="file" id="image" name="image" accept="image/*">
                     @error('image')
                         <div class="error">{{ $message }}</div>
                     @enderror

@@ -35,13 +35,18 @@ class CategoryController extends Controller
             'slug' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|max:5120',
             'is_active' => 'nullable|boolean',
             'sort_order' => 'nullable|integer',
         ]);
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         Category::create($validated);
 
@@ -80,13 +85,18 @@ class CategoryController extends Controller
             'slug' => 'required|string|max:255|unique:categories,slug,' . $id,
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|max:5120',
             'is_active' => 'nullable|boolean',
             'sort_order' => 'nullable|integer',
         ]);
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         $category->update($validated);
 

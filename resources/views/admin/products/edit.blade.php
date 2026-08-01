@@ -36,7 +36,7 @@
 
     <div class="container">
         <div class="form-container">
-            <form action="{{ route('products.update', $product->id) }}" method="POST">
+            <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -180,8 +180,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="image">Main Image URL</label>
-                    <input type="text" id="image" name="image" value="{{ old('image', $product->image) }}">
+                    <label for="image">Main Image</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                    @if($product->image)
+                        <div style="margin-top: 10px;">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 200px; border-radius: 4px;">
+                            <p style="font-size: 12px; color: #6b7280; margin-top: 5px;">Current image</p>
+                        </div>
+                    @endif
                     @error('image')
                         <div class="error">{{ $message }}</div>
                     @enderror

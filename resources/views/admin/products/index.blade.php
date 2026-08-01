@@ -78,7 +78,12 @@
                 @foreach($products as $product)
                     <tr>
                         <td>{{ $product->id }}</td>
-                        <td>{{ $product->name }}</td>
+                        <td>
+                            @if($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                            @endif
+                            {{ $product->name }}
+                        </td>
                         <td>{{ $product->sku }}</td>
                         <td>{{ $product->category->name }}</td>
                         <td>${{ number_format($product->price, 2) }}</td>

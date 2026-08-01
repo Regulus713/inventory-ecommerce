@@ -76,7 +76,11 @@
                             <div class="featured-badge">FEATURED</div>
                         @endif
                         <div class="product-image">
-                            {{ $product->name }}
+                            @if($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            @else
+                                {{ $product->name }}
+                            @endif
                         </div>
                         <div class="product-info">
                             <div class="product-name">{{ $product->name }}</div>

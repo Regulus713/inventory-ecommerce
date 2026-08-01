@@ -43,6 +43,15 @@
                 <div class="detail-value">{{ $product->id }}</div>
             </div>
 
+            @if($product->image)
+                <div class="detail-row">
+                    <div class="detail-label">Image</div>
+                    <div class="detail-value">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 300px; border-radius: 4px;">
+                    </div>
+                </div>
+            @endif
+
             <div class="detail-row">
                 <div class="detail-label">Name</div>
                 <div class="detail-value">{{ $product->name }}</div>

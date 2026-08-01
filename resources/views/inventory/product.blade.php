@@ -57,7 +57,11 @@
         <div class="product-detail">
             <div class="product-grid">
                 <div class="product-image">
-                    {{ $product->name }}
+                    @if($product->image)
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    @else
+                        {{ $product->name }}
+                    @endif
                 </div>
                 <div class="product-info">
                     <h1>{{ $product->name }}</h1>
@@ -101,7 +105,11 @@
                 @foreach($relatedProducts as $related)
                     <div class="related-card">
                         <div class="related-image">
-                            {{ $related->name }}
+                            @if($related->image)
+                                <img src="{{ asset('storage/' . $related->image) }}" alt="{{ $related->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            @else
+                                {{ $related->name }}
+                            @endif
                         </div>
                         <div class="related-info">
                             <div class="related-name">{{ $related->name }}</div>

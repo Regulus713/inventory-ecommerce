@@ -42,7 +42,7 @@ class ProductController extends Controller
             'barcode' => 'nullable|string|max:255',
             'quantity' => 'required|integer|min:0',
             'low_stock_threshold' => 'required|integer|min:0',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|max:5120',
             'images' => 'nullable|array',
             'is_active' => 'nullable|boolean',
             'is_featured' => 'nullable|boolean',
@@ -57,6 +57,11 @@ class ProductController extends Controller
         $validated['is_active'] = $request->has('is_active');
         $validated['is_featured'] = $request->has('is_featured');
         $validated['is_digital'] = $request->has('is_digital');
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         Product::create($validated);
 
@@ -101,7 +106,7 @@ class ProductController extends Controller
             'barcode' => 'nullable|string|max:255',
             'quantity' => 'required|integer|min:0',
             'low_stock_threshold' => 'required|integer|min:0',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|max:5120',
             'images' => 'nullable|array',
             'is_active' => 'nullable|boolean',
             'is_featured' => 'nullable|boolean',
@@ -116,6 +121,11 @@ class ProductController extends Controller
         $validated['is_active'] = $request->has('is_active');
         $validated['is_featured'] = $request->has('is_featured');
         $validated['is_digital'] = $request->has('is_digital');
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         $product->update($validated);
 

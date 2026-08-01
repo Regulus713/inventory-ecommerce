@@ -50,6 +50,9 @@
             <a href="/" class="category">All Products</a>
             @foreach($categories as $category)
                 <a href="{{ route('inventory.category', $category->slug) }}" class="category">
+                    @if($category->image)
+                        <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; vertical-align: middle; margin-right: 8px;">
+                    @endif
                     {{ $category->name }}
                 </a>
             @endforeach
@@ -63,7 +66,11 @@
                     <div class="product-card featured" style="position: relative;">
                         <div class="featured-badge">FEATURED</div>
                         <div class="product-image">
-                            {{ $product->name }}
+                            @if($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            @else
+                                {{ $product->name }}
+                            @endif
                         </div>
                         <div class="product-info">
                             <div class="product-name">{{ $product->name }}</div>
@@ -86,7 +93,11 @@
             @foreach($allProducts as $product)
                 <div class="product-card">
                     <div class="product-image">
-                        {{ $product->name }}
+                        @if($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        @else
+                            {{ $product->name }}
+                        @endif
                     </div>
                     <div class="product-info">
                         <div class="product-name">{{ $product->name }}</div>
