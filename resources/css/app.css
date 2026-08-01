@@ -11,29 +11,3 @@
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
-
-/* Center headers and titles */
-.header {
-    text-align: center;
-}
-
-.section-title {
-    text-align: center;
-}
-
-/* Center grids and flex containers */
-.products-grid,
-.categories {
-    justify-content: center;
-}
-
-/* Center tables */
-.table {
-    margin: 0 auto;
-}
-
-/* Center pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-}

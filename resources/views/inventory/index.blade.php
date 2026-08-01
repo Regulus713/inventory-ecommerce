@@ -62,10 +62,11 @@
             margin-bottom: 40px; 
             border-radius: 20px; 
             box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            text-align: center;
         }
         .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; }
         .header p { opacity: 0.9; font-size: 16px; font-weight: 400; }
-        .categories { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+        .categories { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center; }
         .category { 
             background: #f8f9fa;
             padding: 14px 24px; 
@@ -90,8 +91,8 @@
             box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
             border-color: transparent;
         }
-        .section-title { margin-bottom: 24px; color: #1a1a2e; font-weight: 700; font-size: 28px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+        .section-title { margin-bottom: 24px; color: #1a1a2e; font-weight: 700; font-size: 28px; text-align: center; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-items: center; }
         .product-card { 
             background: white; 
             border-radius: 20px; 
@@ -155,7 +156,7 @@
         }
     </style>
 </head>
-<body class="has-sidebar">
+<body>
     <div class="sidebar">
         <h2>🖥️ Tech Inventory</h2>
         <div class="nav-links">

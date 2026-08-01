@@ -62,6 +62,7 @@
             margin-bottom: 40px; 
             border-radius: 20px; 
             box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            text-align: center;
         }
         .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; }
         .header p { opacity: 0.9; font-size: 16px; font-weight: 400; }
@@ -76,7 +77,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             border: 1px solid #e9ecef;
         }
-        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; justify-items: center; }
         .product-image { 
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             height: 450px; 
@@ -143,7 +144,7 @@
         }
     </style>
 </head>
-<body class="has-sidebar">
+<body>
     <div class="sidebar">
         <h2>🖥️ Tech Inventory</h2>
         <div class="nav-links">
