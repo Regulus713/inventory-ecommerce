@@ -112,7 +112,7 @@
         }
     </style>
 </head>
-<body>
+<body class="has-sidebar">
     <div class="container">
         <div class="sidebar">
             <h2>⚙️ Admin Panel</h2>

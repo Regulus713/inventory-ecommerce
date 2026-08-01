@@ -140,7 +140,7 @@
         .actions a { padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 600; }
     </style>
 </head>
-<body>
+<body class="has-sidebar">
     <div class="sidebar">
         <h2>⚙️ Admin Panel</h2>
         <div class="nav-links">

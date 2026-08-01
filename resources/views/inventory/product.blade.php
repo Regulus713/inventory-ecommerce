@@ -143,7 +143,7 @@
         }
     </style>
 </head>
-<body>
+<body class="has-sidebar">
     <div class="sidebar">
         <h2>🖥️ Tech Inventory</h2>
         <div class="nav-links">

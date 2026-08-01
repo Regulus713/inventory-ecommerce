@@ -123,7 +123,7 @@
         .error { color: #ee5a24; font-size: 13px; margin-top: 6px; font-weight: 500; }
     </style>
 </head>
-<body>
+<body class="has-sidebar">
     <div class="sidebar">
         <h2>⚙️ Admin Panel</h2>
         <div class="nav-links">
