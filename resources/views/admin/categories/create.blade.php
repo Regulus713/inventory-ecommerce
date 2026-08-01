@@ -14,7 +14,47 @@
             color: #1a1a2e;
             min-height: 100vh;
         }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0; display: flex; }
+        .sidebar { 
+            width: 260px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 24px; 
+            position: sticky; 
+            top: 20px; 
+            height: fit-content;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .sidebar h2 { 
+            color: white; 
+            font-weight: 800; 
+            font-size: 20px; 
+            margin-bottom: 24px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        .nav-links { display: flex; flex-direction: column; gap: 8px; }
+        .nav-link { 
+            color: rgba(255, 255, 255, 0.8); 
+            text-decoration: none; 
+            padding: 12px 16px; 
+            border-radius: 12px; 
+            font-weight: 500; 
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-link:hover, .nav-link.active { 
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .nav-link.active { 
+            background: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+        }
+        .main-content { flex: 1; padding: 20px; }
         .header { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white; 
@@ -84,83 +124,97 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="container">
-            <h1>Create Category</h1>
-            <p>Add a new product category</p>
-        </div>
-    </div>
-
     <div class="container">
-        <div class="form-container">
-            <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+        <div class="sidebar">
+            <h2>⚙️ Admin Panel</h2>
+            <div class="nav-links">
+                <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
+                    <span>🏠</span> Home
+                </a>
+                <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
+                    <span>📦</span> Categories
+                </a>
+                <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
+                    <span>📊</span> Products
+                </a>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Create Category</h1>
+                <p>Add a new product category</p>
+            </div>
 
-                <div class="form-group">
-                    <label for="name">Category Name *</label>
-                    <input type="text" id="name" name="name" value="{{ old('name') }}" required>
-                    @error('name')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+            <div class="form-container">
+                <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
 
-                <div class="form-group">
-                    <label for="slug">Slug *</label>
-                    <input type="text" id="slug" name="slug" value="{{ old('slug') }}" required>
-                    @error('slug')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+                    <div class="form-group">
+                        <label for="name">Category Name *</label>
+                        <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description">{{ old('description') }}</textarea>
-                    @error('description')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+                    <div class="form-group">
+                        <label for="slug">Slug *</label>
+                        <input type="text" id="slug" name="slug" value="{{ old('slug') }}" required>
+                        @error('slug')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="form-group">
-                    <label for="parent_id">Parent Category</label>
-                    <select id="parent_id" name="parent_id">
-                        <option value="">No Parent</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('parent_id') == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('parent_id')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description">{{ old('description') }}</textarea>
+                        @error('description')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="form-group">
-                    <label for="image">Category Image</label>
-                    <input type="file" id="image" name="image" accept="image/*">
-                    @error('image')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+                    <div class="form-group">
+                        <label for="parent_id">Parent Category</label>
+                        <select id="parent_id" name="parent_id">
+                            <option value="">No Parent</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ old('parent_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('parent_id')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="form-group">
-                    <label for="sort_order">Sort Order</label>
-                    <input type="number" id="sort_order" name="sort_order" value="{{ old('sort_order', 0) }}">
-                    @error('sort_order')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+                    <div class="form-group">
+                        <label for="image">Category Image</label>
+                        <input type="file" id="image" name="image" accept="image/*">
+                        @error('image')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }}>
-                    <label for="is_active" style="margin: 0;">Active</label>
-                </div>
+                    <div class="form-group">
+                        <label for="sort_order">Sort Order</label>
+                        <input type="number" id="sort_order" name="sort_order" value="{{ old('sort_order', 0) }}">
+                        @error('sort_order')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div style="display: flex; gap: 10px; margin-top: 30px;">
-                    <button type="submit" class="btn btn-primary">Create Category</button>
-                    <a href="{{ route('categories.index') }}" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }}>
+                        <label for="is_active" style="margin: 0;">Active</label>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 30px;">
+                        <button type="submit" class="btn btn-primary">Create Category</button>
+                        <a href="{{ route('categories.index') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>

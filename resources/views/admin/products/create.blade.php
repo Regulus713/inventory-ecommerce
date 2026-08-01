@@ -14,7 +14,47 @@
             color: #1a1a2e;
             min-height: 100vh;
         }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0; display: flex; }
+        .sidebar { 
+            width: 260px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 24px; 
+            position: sticky; 
+            top: 20px; 
+            height: fit-content;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .sidebar h2 { 
+            color: white; 
+            font-weight: 800; 
+            font-size: 20px; 
+            margin-bottom: 24px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        .nav-links { display: flex; flex-direction: column; gap: 8px; }
+        .nav-link { 
+            color: rgba(255, 255, 255, 0.8); 
+            text-decoration: none; 
+            padding: 12px 16px; 
+            border-radius: 12px; 
+            font-weight: 500; 
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-link:hover, .nav-link.active { 
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .nav-link.active { 
+            background: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+        }
+        .main-content { flex: 1; padding: 20px; }
         .header { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white; 
@@ -85,191 +125,205 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="container">
-            <h1>Create Product</h1>
-            <p>Add a new tech product</p>
-        </div>
-    </div>
-
     <div class="container">
-        <div class="form-container">
-            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+        <div class="sidebar">
+            <h2>⚙️ Admin Panel</h2>
+            <div class="nav-links">
+                <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
+                    <span>🏠</span> Home
+                </a>
+                <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
+                    <span>📦</span> Categories
+                </a>
+                <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
+                    <span>📊</span> Products
+                </a>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Create Product</h1>
+                <p>Add a new tech product</p>
+            </div>
 
-                <div class="form-group">
-                    <label for="name">Product Name *</label>
-                    <input type="text" id="name" name="name" value="{{ old('name') }}" required>
-                    @error('name')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
+            <div class="form-container">
+                <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
 
-                <div class="form-row">
                     <div class="form-group">
-                        <label for="slug">Slug *</label>
-                        <input type="text" id="slug" name="slug" value="{{ old('slug') }}" required>
-                        @error('slug')
+                        <label for="name">Product Name *</label>
+                        <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="slug">Slug *</label>
+                            <input type="text" id="slug" name="slug" value="{{ old('slug') }}" required>
+                            @error('slug')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sku">SKU *</label>
+                            <input type="text" id="sku" name="sku" value="{{ old('sku') }}" required>
+                            @error('sku')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description">{{ old('description') }}</textarea>
+                        @error('description')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category_id">Category *</label>
+                            <select id="category_id" name="category_id" required>
+                                <option value="">Select Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="barcode">Barcode</label>
+                            <input type="text" id="barcode" name="barcode" value="{{ old('barcode') }}">
+                            @error('barcode')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Price ($) *</label>
+                            <input type="number" id="price" name="price" step="0.01" value="{{ old('price') }}" required>
+                            @error('price')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="compare_price">Compare Price ($)</label>
+                            <input type="number" id="compare_price" name="compare_price" step="0.01" value="{{ old('compare_price') }}">
+                            @error('compare_price')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity">Quantity *</label>
+                            <input type="number" id="quantity" name="quantity" value="{{ old('quantity', 0) }}" required>
+                            @error('quantity')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="low_stock_threshold">Low Stock Threshold *</label>
+                            <input type="number" id="low_stock_threshold" name="low_stock_threshold" value="{{ old('low_stock_threshold', 10) }}" required>
+                            @error('low_stock_threshold')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="manufacturer">Manufacturer</label>
+                            <input type="text" id="manufacturer" name="manufacturer" value="{{ old('manufacturer') }}">
+                            @error('manufacturer')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="model">Model</label>
+                            <input type="text" id="model" name="model" value="{{ old('model') }}">
+                            @error('model')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="warranty">Warranty</label>
+                            <input type="text" id="warranty" name="warranty" value="{{ old('warranty') }}">
+                            @error('warranty')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" name="weight" step="0.01" value="{{ old('weight') }}">
+                            @error('weight')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dimensions">Dimensions</label>
+                        <input type="text" id="dimensions" name="dimensions" value="{{ old('dimensions') }}" placeholder="e.g., 24.4 x 16.8 x 1.6 cm">
+                        @error('dimensions')
                             <div class="error">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="sku">SKU *</label>
-                        <input type="text" id="sku" name="sku" value="{{ old('sku') }}" required>
-                        @error('sku')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description">{{ old('description') }}</textarea>
-                    @error('description')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="category_id">Category *</label>
-                        <select id="category_id" name="category_id" required>
-                            <option value="">Select Category</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('category_id')
+                        <label for="image">Main Image</label>
+                        <input type="file" id="image" name="image" accept="image/*">
+                        @error('image')
                             <div class="error">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="barcode">Barcode</label>
-                        <input type="text" id="barcode" name="barcode" value="{{ old('barcode') }}">
-                        @error('barcode')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="price">Price ($) *</label>
-                        <input type="number" id="price" name="price" step="0.01" value="{{ old('price') }}" required>
-                        @error('price')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }}>
+                            <label for="is_active" style="margin: 0;">Active</label>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="compare_price">Compare Price ($)</label>
-                        <input type="number" id="compare_price" name="compare_price" step="0.01" value="{{ old('compare_price') }}">
-                        @error('compare_price')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="quantity">Quantity *</label>
-                        <input type="number" id="quantity" name="quantity" value="{{ old('quantity', 0) }}" required>
-                        @error('quantity')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="is_featured" name="is_featured" value="1" {{ old('is_featured') ? 'checked' : '' }}>
+                            <label for="is_featured" style="margin: 0;">Featured Product</label>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="low_stock_threshold">Low Stock Threshold *</label>
-                        <input type="number" id="low_stock_threshold" name="low_stock_threshold" value="{{ old('low_stock_threshold', 10) }}" required>
-                        @error('low_stock_threshold')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="manufacturer">Manufacturer</label>
-                        <input type="text" id="manufacturer" name="manufacturer" value="{{ old('manufacturer') }}">
-                        @error('manufacturer')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="is_digital" name="is_digital" value="1" {{ old('is_digital') ? 'checked' : '' }}>
+                            <label for="is_digital" style="margin: 0;">Digital Product</label>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="model">Model</label>
-                        <input type="text" id="model" name="model" value="{{ old('model') }}">
-                        @error('model')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
+                    <div style="display: flex; gap: 10px; margin-top: 30px;">
+                        <button type="submit" class="btn btn-primary">Create Product</button>
+                        <a href="{{ route('products.index') }}" class="btn btn-secondary">Cancel</a>
                     </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="warranty">Warranty</label>
-                        <input type="text" id="warranty" name="warranty" value="{{ old('warranty') }}">
-                        @error('warranty')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="weight">Weight (kg)</label>
-                        <input type="number" id="weight" name="weight" step="0.01" value="{{ old('weight') }}">
-                        @error('weight')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="dimensions">Dimensions</label>
-                    <input type="text" id="dimensions" name="dimensions" value="{{ old('dimensions') }}" placeholder="e.g., 24.4 x 16.8 x 1.6 cm">
-                    @error('dimensions')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="image">Main Image</label>
-                    <input type="file" id="image" name="image" accept="image/*">
-                    @error('image')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }}>
-                        <label for="is_active" style="margin: 0;">Active</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="is_featured" name="is_featured" value="1" {{ old('is_featured') ? 'checked' : '' }}>
-                        <label for="is_featured" style="margin: 0;">Featured Product</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="is_digital" name="is_digital" value="1" {{ old('is_digital') ? 'checked' : '' }}>
-                        <label for="is_digital" style="margin: 0;">Digital Product</label>
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 10px; margin-top: 30px;">
-                    <button type="submit" class="btn btn-primary">Create Product</button>
-                    <a href="{{ route('products.index') }}" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </body>

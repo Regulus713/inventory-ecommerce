@@ -14,7 +14,47 @@
             color: #1a1a2e;
             min-height: 100vh;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0; display: flex; }
+        .sidebar { 
+            width: 260px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 24px; 
+            position: sticky; 
+            top: 20px; 
+            height: fit-content;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .sidebar h2 { 
+            color: white; 
+            font-weight: 800; 
+            font-size: 20px; 
+            margin-bottom: 24px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        .nav-links { display: flex; flex-direction: column; gap: 8px; }
+        .nav-link { 
+            color: rgba(255, 255, 255, 0.8); 
+            text-decoration: none; 
+            padding: 12px 16px; 
+            border-radius: 12px; 
+            font-weight: 500; 
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-link:hover, .nav-link.active { 
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .nav-link.active { 
+            background: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+        }
+        .main-content { flex: 1; padding: 20px; }
         .header { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white; 
@@ -101,75 +141,89 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="container">
-            <h1>Category Management</h1>
-            <p>Manage your product categories</p>
-        </div>
-    </div>
-
     <div class="container">
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+        <div class="sidebar">
+            <h2>⚙️ Admin Panel</h2>
+            <div class="nav-links">
+                <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
+                    <span>🏠</span> Home
+                </a>
+                <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
+                    <span>📦</span> Categories
+                </a>
+                <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
+                    <span>📊</span> Products
+                </a>
             </div>
-        @endif
-
-        @if(session('error'))
-            <div class="alert alert-error">
-                {{ session('error') }}
-            </div>
-        @endif
-
-        <div style="margin-bottom: 20px;">
-            <a href="{{ route('categories.create') }}" class="btn btn-primary">+ Add New Category</a>
-            <a href="{{ route('inventory.index') }}" class="btn btn-success">← Back to Inventory</a>
         </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Category Management</h1>
+                <p>Manage your product categories</p>
+            </div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Slug</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Sort Order</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($categories as $category)
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-error">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <div style="margin-bottom: 20px;">
+                <a href="{{ route('categories.create') }}" class="btn btn-primary">+ Add New Category</a>
+                <a href="{{ route('inventory.index') }}" class="btn btn-success">← Back to Inventory</a>
+            </div>
+
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{ $category->id }}</td>
-                        <td>{{ $category->name }}</td>
-                        <td>{{ $category->slug }}</td>
-                        <td>{{ Str::limit($category->description, 50) }}</td>
-                        <td>
-                            <span class="badge {{ $category->is_active ? 'badge-active' : 'badge-inactive' }}">
-                                {{ $category->is_active ? 'Active' : 'Inactive' }}
-                            </span>
-                        </td>
-                        <td>{{ $category->sort_order }}</td>
-                        <td>
-                            <div class="actions">
-                                <a href="{{ route('categories.show', $category->id) }}" style="background: #3b82f6; color: white;">View</a>
-                                <a href="{{ route('categories.edit', $category->id) }}" style="background: #f59e0b; color: white;">Edit</a>
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" style="background: #dc2626; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
-                                </form>
-                            </div>
-                        </td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Slug</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Sort Order</th>
+                        <th>Actions</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($categories as $category)
+                        <tr>
+                            <td>{{ $category->id }}</td>
+                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->slug }}</td>
+                            <td>{{ Str::limit($category->description, 50) }}</td>
+                            <td>
+                                <span class="badge {{ $category->is_active ? 'badge-active' : 'badge-inactive' }}">
+                                    {{ $category->is_active ? 'Active' : 'Inactive' }}
+                                </span>
+                            </td>
+                            <td>{{ $category->sort_order }}</td>
+                            <td>
+                                <div class="actions">
+                                    <a href="{{ route('categories.show', $category->id) }}" style="background: #3b82f6; color: white;">View</a>
+                                    <a href="{{ route('categories.edit', $category->id) }}" style="background: #f59e0b; color: white;">Edit</a>
+                                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" style="background: #dc2626; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
-        @if($categories->count() === 0)
-            <p style="text-align: center; color: #6b7280; padding: 40px;">No categories found. <a href="{{ route('categories.create') }}">Create one</a></p>
-        @endif
+            @if($categories->count() === 0)
+                <p style="text-align: center; color: #6b7280; padding: 40px;">No categories found. <a href="{{ route('categories.create') }}">Create one</a></p>
+            @endif
+        </div>
     </div>
 </body>
 </html>

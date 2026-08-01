@@ -14,7 +14,47 @@
             color: #1a1a2e;
             min-height: 100vh;
         }
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0; display: flex; }
+        .sidebar { 
+            width: 260px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 24px; 
+            position: sticky; 
+            top: 20px; 
+            height: fit-content;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .sidebar h2 { 
+            color: white; 
+            font-weight: 800; 
+            font-size: 20px; 
+            margin-bottom: 24px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        .nav-links { display: flex; flex-direction: column; gap: 8px; }
+        .nav-link { 
+            color: rgba(255, 255, 255, 0.8); 
+            text-decoration: none; 
+            padding: 12px 16px; 
+            border-radius: 12px; 
+            font-weight: 500; 
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-link:hover, .nav-link.active { 
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .nav-link.active { 
+            background: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+        }
+        .main-content { flex: 1; padding: 20px; }
         .header { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white; 
@@ -105,96 +145,110 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="container">
-            <h1>Product Management</h1>
-            <p>Manage your tech products</p>
-        </div>
-    </div>
-
     <div class="container">
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+        <div class="sidebar">
+            <h2>⚙️ Admin Panel</h2>
+            <div class="nav-links">
+                <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
+                    <span>🏠</span> Home
+                </a>
+                <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
+                    <span>📦</span> Categories
+                </a>
+                <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
+                    <span>📊</span> Products
+                </a>
             </div>
-        @endif
-
-        @if(session('error'))
-            <div class="alert alert-error">
-                {{ session('error') }}
-            </div>
-        @endif
-
-        <div style="margin-bottom: 20px;">
-            <a href="{{ route('products.create') }}" class="btn btn-primary">+ Add New Product</a>
-            <a href="{{ route('categories.index') }}" class="btn btn-success">Manage Categories</a>
-            <a href="{{ route('inventory.index') }}" class="btn btn-success">← Back to Inventory</a>
         </div>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>SKU</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($products as $product)
-                    <tr>
-                        <td>{{ $product->id }}</td>
-                        <td>
-                            @if($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
-                            @endif
-                            {{ $product->name }}
-                        </td>
-                        <td>{{ $product->sku }}</td>
-                        <td>{{ $product->category->name }}</td>
-                        <td>${{ number_format($product->price, 2) }}</td>
-                        <td>
-                            <span class="badge {{ $product->isInStock() ? 'stock-good' : ($product->isLowStock() ? 'stock-low' : 'stock-out') }}">
-                                {{ $product->quantity }}
-                            </span>
-                        </td>
-                        <td>
-                            @if($product->is_featured)
-                                <span class="badge badge-featured">Featured</span>
-                            @endif
-                            <span class="badge {{ $product->is_active ? 'badge-active' : 'badge-inactive' }}">
-                                {{ $product->is_active ? 'Active' : 'Inactive' }}
-                            </span>
-                        </td>
-                        <td>
-                            <div class="actions">
-                                <a href="{{ route('products.show', $product->id) }}" style="background: #3b82f6; color: white;">View</a>
-                                <a href="{{ route('products.edit', $product->id) }}" style="background: #f59e0b; color: white;">Edit</a>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" style="background: #dc2626; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        @if($products->hasPages())
-            <div style="margin-top: 30px; text-align: center;">
-                {{ $products->links() }}
+        <div class="main-content">
+            <div class="header">
+                <h1>Product Management</h1>
+                <p>Manage your tech products</p>
             </div>
-        @endif
 
-        @if($products->count() === 0)
-            <p style="text-align: center; color: #6b7280; padding: 40px;">No products found. <a href="{{ route('products.create') }}">Create one</a></p>
-        @endif
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-error">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <div style="margin-bottom: 20px;">
+                <a href="{{ route('products.create') }}" class="btn btn-primary">+ Add New Product</a>
+                <a href="{{ route('categories.index') }}" class="btn btn-success">Manage Categories</a>
+                <a href="{{ route('inventory.index') }}" class="btn btn-success">← Back to Inventory</a>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>SKU</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($products as $product)
+                        <tr>
+                            <td>{{ $product->id }}</td>
+                            <td>
+                                @if($product->image)
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                                @endif
+                                {{ $product->name }}
+                            </td>
+                            <td>{{ $product->sku }}</td>
+                            <td>{{ $product->category->name }}</td>
+                            <td>${{ number_format($product->price, 2) }}</td>
+                            <td>
+                                <span class="badge {{ $product->isInStock() ? 'stock-good' : ($product->isLowStock() ? 'stock-low' : 'stock-out') }}">
+                                    {{ $product->quantity }}
+                                </span>
+                            </td>
+                            <td>
+                                @if($product->is_featured)
+                                    <span class="badge badge-featured">Featured</span>
+                                @endif
+                                <span class="badge {{ $product->is_active ? 'badge-active' : 'badge-inactive' }}">
+                                    {{ $product->is_active ? 'Active' : 'Inactive' }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a href="{{ route('products.show', $product->id) }}" style="background: #3b82f6; color: white;">View</a>
+                                    <a href="{{ route('products.edit', $product->id) }}" style="background: #f59e0b; color: white;">Edit</a>
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" style="background: #dc2626; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            @if($products->hasPages())
+                <div style="margin-top: 30px; text-align: center;">
+                    {{ $products->links() }}
+                </div>
+            @endif
+
+            @if($products->count() === 0)
+                <p style="text-align: center; color: #6b7280; padding: 40px;">No products found. <a href="{{ route('products.create') }}">Create one</a></p>
+            @endif
+        </div>
     </div>
 </body>
 </html>
