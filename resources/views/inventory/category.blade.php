@@ -38,6 +38,10 @@
         <div class="container">
             <h1>🖥️ Tech Inventory System</h1>
             <p>Manage your technology products efficiently</p>
+            <div style="margin-top: 15px;">
+                <a href="{{ route('categories.index') }}" style="background: white; color: #1e3a8a; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: bold;">Manage Categories</a>
+                <a href="{{ route('products.index') }}" style="background: white; color: #1e3a8a; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-left: 10px;">Manage Products</a>
+            </div>
         </div>
     </div>
 
