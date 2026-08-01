@@ -16,21 +16,21 @@
             align-items: flex-start;
             padding: 20px;
         }
-        .layout-wrapper {
-            display: flex;
-            gap: 20px;
-            max-width: 1400px;
-            width: 100%;
-        }
         .sidebar { 
             width: 260px; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 24px; 
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-            height: fit-content;
-            position: sticky;
-            top: 20px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-shadow: 2px 0 32px rgba(102, 126, 234, 0.3);
+            overflow-y: auto;
+        }
+        .content-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
         .sidebar h2 { 
             color: white; 
@@ -61,7 +61,7 @@
             background: rgba(255, 255, 255, 0.25);
             font-weight: 600;
         }
-        .container { flex: 1; max-width: 1000px; }
+        .container { max-width: 1000px; margin: 0 auto; }
         .main-content { width: 100%; }
         .header { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
@@ -168,21 +168,21 @@
     </style>
 </head>
 <body>
-    <div class="layout-wrapper">
-        <div class="sidebar">
-            <h2>🖥️ Tech Inventory</h2>
-            <div class="nav-links">
-                <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
-                    <span>🏠</span> Home
-                </a>
-                <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
-                    <span>📦</span> Categories
-                </a>
-                <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
-                    <span>📊</span> Products
-                </a>
-            </div>
+    <div class="sidebar">
+        <h2>🖥️ Tech Inventory</h2>
+        <div class="nav-links">
+            <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
+                <span>🏠</span> Home
+            </a>
+            <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
+                <span>📦</span> Categories
+            </a>
+            <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
+                <span>📊</span> Products
+            </a>
         </div>
+    </div>
+    <div class="content-wrapper">
         <div class="container">
         <div class="main-content">
             <div class="header">
@@ -249,7 +249,6 @@
                 <p style="text-align: center; color: #6b7280; padding: 40px;">No products found in this category.</p>
             @endif
         </div>
-    </div>
     </div>
 </body>
 </html>
