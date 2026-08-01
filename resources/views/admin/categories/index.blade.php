@@ -5,33 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories - Admin</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
-        .header p { opacity: 0.9; font-size: 14px; }
-        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.2s ease; font-size: 14px; }
-        .btn-primary { background: #4285F4; color: white; }
-        .btn-primary:hover { background: #3367D6; }
-        .btn-danger { background: #ea4335; color: white; }
-        .btn-danger:hover { background: #d93025; }
-        .btn-success { background: #34a853; color: white; }
-        .btn-success:hover { background: #2d9e4d; }
-        .table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); border: 1px solid #e0e0e0; }
-        .table th, .table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #e0e0e0; }
-        .table th { background: #f8f9fa; font-weight: 500; color: #202124; font-size: 14px; }
-        .table tr:hover { background: #f8f9fa; }
-        .badge { padding: 4px 8px; border-radius: 2px; font-size: 12px; font-weight: 500; }
-        .badge-active { background: #e8f5e9; color: #137333; }
-        .badge-inactive { background: #ffebee; color: #c62828; }
-        .alert { padding: 16px; border-radius: 4px; margin-bottom: 20px; font-size: 14px; }
-        .alert-success { background: #e8f5e9; color: #137333; border: 1px solid #34a853; }
-        .alert-error { background: #ffebee; color: #c62828; border: 1px solid #ea4335; }
+        .header { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #1a1a2e; 
+            padding: 32px; 
+            margin-bottom: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .header p { opacity: 0.7; font-size: 16px; font-weight: 400; }
+        .btn { 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            text-decoration: none; 
+            display: inline-block; 
+            font-weight: 600; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            font-size: 14px;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+        }
+        .btn-danger { 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(238, 90, 36, 0.3);
+        }
+        .btn-danger:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(238, 90, 36, 0.4);
+        }
+        .btn-success { 
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(68, 160, 141, 0.3);
+        }
+        .btn-success:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(68, 160, 141, 0.4);
+        }
+        .table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .table th, .table td { padding: 16px 20px; text-align: left; border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+        .table th { 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-weight: 700; 
+            color: #1a1a2e; 
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .table tr:hover { background: rgba(102, 126, 234, 0.05); }
+        .badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-active { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); color: #0f5132; }
+        .badge-inactive { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #c92a2a; }
+        .alert { padding: 20px; border-radius: 16px; margin-bottom: 24px; font-size: 14px; font-weight: 500; }
+        .alert-success { 
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+            color: #0f5132; 
+            border: 1px solid #96e6a1;
+        }
+        .alert-error { 
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #c92a2a; 
+            border: 1px solid #ff9a9e;
+        }
         .actions { display: flex; gap: 8px; }
-        .actions a { padding: 4px 8px; border-radius: 2px; text-decoration: none; font-size: 12px; font-weight: 500; }
+        .actions a { padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 600; }
     </style>
 </head>
 <body>

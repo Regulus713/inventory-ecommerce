@@ -5,31 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details - Admin</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
         .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
-        .header p { opacity: 0.9; font-size: 14px; }
-        .detail-container { background: white; padding: 24px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); border: 1px solid #e0e0e0; }
-        .detail-row { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #e0e0e0; }
+        .header { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #1a1a2e; 
+            padding: 32px; 
+            margin-bottom: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .header p { opacity: 0.7; font-size: 16px; font-weight: 400; }
+        .detail-container { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 32px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .detail-row { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
         .detail-row:last-child { border-bottom: none; }
-        .detail-label { font-weight: 500; color: #202124; margin-bottom: 4px; font-size: 14px; }
-        .detail-value { color: #5f6368; font-size: 14px; }
-        .badge { padding: 4px 8px; border-radius: 2px; font-size: 12px; font-weight: 500; }
-        .badge-active { background: #e8f5e9; color: #137333; }
-        .badge-inactive { background: #ffebee; color: #c62828; }
-        .badge-featured { background: #fff3e0; color: #f57c00; }
-        .stock-good { background: #e8f5e9; color: #137333; }
-        .stock-low { background: #fff3e0; color: #f57c00; }
-        .stock-out { background: #ffebee; color: #c62828; }
-        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.2s ease; font-size: 14px; }
-        .btn-primary { background: #4285F4; color: white; }
-        .btn-primary:hover { background: #3367D6; }
-        .btn-secondary { background: #f1f3f4; color: #202124; }
-        .btn-secondary:hover { background: #e8eaed; }
+        .detail-label { font-weight: 600; color: #1a1a2e; margin-bottom: 6px; font-size: 14px; }
+        .detail-value { color: #666; font-size: 15px; }
+        .badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-active { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); color: #0f5132; }
+        .badge-inactive { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #c92a2a; }
+        .badge-featured { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #c85a17; }
+        .stock-good { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); color: #0f5132; }
+        .stock-low { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #c85a17; }
+        .stock-out { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #c92a2a; }
+        .btn { 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            text-decoration: none; 
+            display: inline-block; 
+            font-weight: 600; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            font-size: 14px;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary { 
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+        .btn-secondary:hover { 
+            background: rgba(102, 126, 234, 0.1);
+        }
     </style>
 </head>
 <body>

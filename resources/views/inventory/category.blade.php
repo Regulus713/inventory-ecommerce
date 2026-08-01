@@ -5,39 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $category->name }} - Tech Inventory</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
-        .header p { opacity: 0.9; font-size: 14px; }
-        .breadcrumb { margin-bottom: 20px; color: #5f6368; font-size: 14px; }
-        .breadcrumb a { color: #4285F4; text-decoration: none; }
+        .header { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #1a1a2e; 
+            padding: 32px; 
+            margin-bottom: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .header p { opacity: 0.7; font-size: 16px; font-weight: 400; }
+        .breadcrumb { margin-bottom: 24px; color: #666; font-size: 14px; font-weight: 500; }
+        .breadcrumb a { color: #667eea; text-decoration: none; font-weight: 600; }
         .breadcrumb a:hover { text-decoration: underline; }
-        .categories { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
-        .category { background: #f1f3f4; padding: 12px 20px; border-radius: 4px; text-decoration: none; color: #202124; font-weight: 500; border: none; transition: all 0.2s ease; }
-        .category:hover { background: #e8eaed; }
-        .category.active { background: #4285F4; color: white; }
-        .section-title { margin-bottom: 20px; color: #202124; font-weight: 500; font-size: 22px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-        .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); transition: all 0.2s ease; border: 1px solid #e0e0e0; }
-        .product-card:hover { box-shadow: 0 4px 6px rgba(0,0,0,0.15); transform: translateY(-2px); }
-        .product-image { background: #f8f9fa; height: 200px; display: flex; align-items: center; justify-content: center; color: #5f6368; }
-        .product-info { padding: 16px; }
-        .product-name { font-size: 16px; font-weight: 500; margin-bottom: 8px; color: #202124; }
-        .product-description { color: #5f6368; font-size: 14px; margin-bottom: 12px; line-height: 1.5; }
-        .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
-        .product-price { font-size: 18px; font-weight: 500; color: #202124; }
-        .product-stock { font-size: 12px; padding: 4px 8px; border-radius: 2px; font-weight: 500; }
-        .in-stock { background: #e8f5e9; color: #137333; }
-        .low-stock { background: #fff3e0; color: #f57c00; }
-        .out-of-stock { background: #ffebee; color: #c62828; }
-        .featured { border: 2px solid #4285F4; }
-        .featured-badge { position: absolute; top: 8px; right: 8px; background: #4285F4; color: white; padding: 4px 8px; border-radius: 2px; font-size: 11px; font-weight: 500; }
-        .admin-link { background: #f1f3f4; color: #4285F4; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; border: none; transition: all 0.2s ease; }
-        .admin-link:hover { background: #e8eaed; }
+        .categories { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+        .category { 
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 14px 24px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            color: #1a1a2e; 
+            font-weight: 600; 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .category:hover { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
+        .category.active { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
+        .section-title { margin-bottom: 24px; color: #1a1a2e; font-weight: 700; font-size: 28px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+        .product-card { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .product-card:hover { 
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+        .product-image { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 220px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #667eea;
+            font-weight: 600;
+        }
+        .product-info { padding: 24px; }
+        .product-name { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #1a1a2e; }
+        .product-description { color: #666; font-size: 14px; margin-bottom: 16px; line-height: 1.6; }
+        .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+        .product-price { font-size: 22px; font-weight: 800; color: #667eea; }
+        .product-stock { font-size: 12px; padding: 6px 12px; border-radius: 20px; font-weight: 600; }
+        .in-stock { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); color: #0f5132; }
+        .low-stock { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #c85a17; }
+        .out-of-stock { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #c92a2a; }
+        .featured { border: 2px solid #667eea; }
+        .featured-badge { 
+            position: absolute; 
+            top: 12px; 
+            right: 12px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            font-size: 11px; 
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .admin-link { 
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: #667eea; 
+            padding: 10px 20px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .admin-link:hover { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
     </style>
 </head>
 <body>

@@ -5,40 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $product->name }} - Tech Inventory</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
-        .header p { opacity: 0.9; font-size: 14px; }
-        .breadcrumb { margin-bottom: 20px; color: #5f6368; font-size: 14px; }
-        .breadcrumb a { color: #4285F4; text-decoration: none; }
+        .header { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #1a1a2e; 
+            padding: 32px; 
+            margin-bottom: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .header p { opacity: 0.7; font-size: 16px; font-weight: 400; }
+        .breadcrumb { margin-bottom: 24px; color: #666; font-size: 14px; font-weight: 500; }
+        .breadcrumb a { color: #667eea; text-decoration: none; font-weight: 600; }
         .breadcrumb a:hover { text-decoration: underline; }
-        .product-detail { background: white; border-radius: 8px; padding: 24px; margin-bottom: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); border: 1px solid #e0e0e0; }
-        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .product-image { background: #f8f9fa; height: 400px; display: flex; align-items: center; justify-content: center; color: #5f6368; border-radius: 4px; }
-        .product-info h1 { color: #202124; margin-bottom: 12px; font-weight: 500; font-size: 28px; }
-        .product-price { font-size: 28px; font-weight: 500; color: #202124; margin-bottom: 16px; }
-        .product-description { color: #5f6368; line-height: 1.6; margin-bottom: 16px; font-size: 14px; }
-        .product-meta { margin-bottom: 16px; }
-        .meta-item { margin-bottom: 8px; }
-        .meta-label { font-weight: 500; color: #202124; }
-        .stock-badge { display: inline-block; padding: 6px 12px; border-radius: 2px; font-weight: 500; font-size: 12px; }
-        .in-stock { background: #e8f5e9; color: #137333; }
-        .low-stock { background: #fff3e0; color: #f57c00; }
-        .out-of-stock { background: #ffebee; color: #c62828; }
-        .section-title { margin-bottom: 20px; color: #202124; font-weight: 500; font-size: 22px; }
-        .related-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
-        .related-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); transition: all 0.2s ease; border: 1px solid #e0e0e0; }
-        .related-card:hover { box-shadow: 0 4px 6px rgba(0,0,0,0.15); transform: translateY(-2px); }
-        .related-image { background: #f8f9fa; height: 150px; display: flex; align-items: center; justify-content: center; color: #5f6368; }
-        .related-info { padding: 16px; }
-        .related-name { font-weight: 500; margin-bottom: 4px; color: #202124; font-size: 16px; }
-        .related-price { color: #202124; font-weight: 500; font-size: 16px; }
-        .admin-link { background: #f1f3f4; color: #4285F4; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; border: none; transition: all 0.2s ease; }
-        .admin-link:hover { background: #e8eaed; }
+        .product-detail { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px; 
+            padding: 32px; 
+            margin-bottom: 40px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .product-image { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 450px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #667eea;
+            font-weight: 600;
+            border-radius: 16px;
+        }
+        .product-info h1 { color: #1a1a2e; margin-bottom: 16px; font-weight: 800; font-size: 36px; }
+        .product-price { font-size: 36px; font-weight: 800; color: #667eea; margin-bottom: 20px; }
+        .product-description { color: #666; line-height: 1.7; margin-bottom: 20px; font-size: 16px; }
+        .product-meta { margin-bottom: 20px; }
+        .meta-item { margin-bottom: 12px; }
+        .meta-label { font-weight: 600; color: #1a1a2e; }
+        .stock-badge { display: inline-block; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; }
+        .in-stock { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); color: #0f5132; }
+        .low-stock { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #c85a17; }
+        .out-of-stock { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #c92a2a; }
+        .section-title { margin-bottom: 24px; color: #1a1a2e; font-weight: 700; font-size: 28px; }
+        .related-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+        .related-card { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .related-card:hover { 
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+        .related-image { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 180px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #667eea;
+            font-weight: 600;
+        }
+        .related-info { padding: 20px; }
+        .related-name { font-weight: 700; margin-bottom: 8px; color: #1a1a2e; font-size: 16px; }
+        .related-price { color: #667eea; font-weight: 800; font-size: 18px; }
+        .admin-link { 
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: #667eea; 
+            padding: 10px 20px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .admin-link:hover { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
     </style>
 </head>
 <body>

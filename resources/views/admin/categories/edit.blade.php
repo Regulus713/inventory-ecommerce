@@ -5,28 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Category - Admin</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
-        .header p { opacity: 0.9; font-size: 14px; }
-        .form-container { background: white; padding: 24px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); border: 1px solid #e0e0e0; }
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #202124; font-size: 14px; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 14px; background: white; color: #202124; }
-        .form-group textarea { resize: vertical; min-height: 100px; }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #4285F4; }
-        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.2s ease; font-size: 14px; }
-        .btn-primary { background: #4285F4; color: white; }
-        .btn-primary:hover { background: #3367D6; }
-        .btn-secondary { background: #f1f3f4; color: #202124; }
-        .btn-secondary:hover { background: #e8eaed; }
-        .checkbox-group { display: flex; align-items: center; gap: 8px; }
+        .header { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #1a1a2e; 
+            padding: 32px; 
+            margin-bottom: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .header p { opacity: 0.7; font-size: 16px; font-weight: 400; }
+        .form-container { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 32px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: #1a1a2e; font-size: 14px; }
+        .form-group input, .form-group textarea, .form-group select { 
+            width: 100%; 
+            padding: 14px 16px; 
+            border: 2px solid rgba(102, 126, 234, 0.2); 
+            border-radius: 12px; 
+            font-size: 14px; 
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a1a2e;
+            transition: all 0.3s ease;
+        }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { 
+            outline: none; 
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        .btn { 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            text-decoration: none; 
+            display: inline-block; 
+            font-weight: 600; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            font-size: 14px;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary { 
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+        .btn-secondary:hover { 
+            background: rgba(102, 126, 234, 0.1);
+        }
+        .checkbox-group { display: flex; align-items: center; gap: 12px; }
         .checkbox-group input { width: auto; }
-        .error { color: #ea4335; font-size: 12px; margin-top: 4px; }
+        .error { color: #ee5a24; font-size: 13px; margin-top: 6px; font-weight: 500; }
     </style>
 </head>
 <body>
