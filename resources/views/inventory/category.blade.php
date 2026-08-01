@@ -10,66 +10,62 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Inter', sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            background-attachment: fixed;
+            background: #ffffff;
             color: #1a1a2e;
             min-height: 100vh;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         .header { 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            color: #1a1a2e; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white; 
             padding: 32px; 
             margin-bottom: 40px; 
             border-radius: 20px; 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
         }
-        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .header p { opacity: 0.7; font-size: 16px; font-weight: 400; }
+        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; }
+        .header p { opacity: 0.9; font-size: 16px; font-weight: 400; }
         .breadcrumb { margin-bottom: 24px; color: #666; font-size: 14px; font-weight: 500; }
         .breadcrumb a { color: #667eea; text-decoration: none; font-weight: 600; }
         .breadcrumb a:hover { text-decoration: underline; }
         .categories { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
         .category { 
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background: #f8f9fa;
             padding: 14px 24px; 
             border-radius: 12px; 
             text-decoration: none; 
             color: #1a1a2e; 
             font-weight: 600; 
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid #e9ecef;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
         .category:hover { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             transform: translateY(-3px);
             box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+            border-color: transparent;
         }
         .category.active { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+            border-color: transparent;
         }
         .section-title { margin-bottom: 24px; color: #1a1a2e; font-weight: 700; font-size: 28px; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
         .product-card { 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: white; 
             border-radius: 20px; 
             overflow: hidden; 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid #e9ecef;
         }
         .product-card:hover { 
             transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
         }
         .product-image { 
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -104,21 +100,21 @@
         }
         .admin-link { 
             background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
             color: #667eea; 
             padding: 10px 20px; 
             border-radius: 12px; 
             text-decoration: none; 
             font-weight: 600; 
-            border: 1px solid rgba(102, 126, 234, 0.2);
+            border: 2px solid rgba(102, 126, 234, 0.2);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
         .admin-link:hover { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+            border-color: transparent;
         }
     </style>
 </head>

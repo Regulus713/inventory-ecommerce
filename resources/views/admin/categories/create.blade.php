@@ -10,42 +10,37 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Inter', sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            background-attachment: fixed;
+            background: #ffffff;
             color: #1a1a2e;
             min-height: 100vh;
         }
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
         .header { 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            color: #1a1a2e; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white; 
             padding: 32px; 
             margin-bottom: 40px; 
             border-radius: 20px; 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
         }
-        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .header p { opacity: 0.7; font-size: 16px; font-weight: 400; }
+        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; }
+        .header p { opacity: 0.9; font-size: 16px; font-weight: 400; }
         .form-container { 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: white; 
             padding: 32px; 
             border-radius: 20px; 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
         }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: #1a1a2e; font-size: 14px; }
         .form-group input, .form-group textarea, .form-group select { 
             width: 100%; 
             padding: 14px 16px; 
-            border: 2px solid rgba(102, 126, 234, 0.2); 
+            border: 2px solid #e9ecef; 
             border-radius: 12px; 
             font-size: 14px; 
-            background: rgba(255, 255, 255, 0.9);
+            background: white;
             color: #1a1a2e;
             transition: all 0.3s ease;
         }
@@ -76,12 +71,12 @@
             box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
         }
         .btn-secondary { 
-            background: rgba(255, 255, 255, 0.9);
+            background: #f8f9fa;
             color: #667eea;
-            border: 2px solid rgba(102, 126, 234, 0.2);
+            border: 2px solid #e9ecef;
         }
         .btn-secondary:hover { 
-            background: rgba(102, 126, 234, 0.1);
+            background: #e9ecef;
         }
         .checkbox-group { display: flex; align-items: center; gap: 12px; }
         .checkbox-group input { width: auto; }
