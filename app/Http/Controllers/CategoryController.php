@@ -36,9 +36,12 @@ class CategoryController extends Controller
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
             'image' => 'nullable|string',
-            'is_active' => 'boolean',
-            'sort_order' => 'integer',
+            'is_active' => 'nullable|boolean',
+            'sort_order' => 'nullable|integer',
         ]);
+
+        $validated['is_active'] = $request->has('is_active');
+        $validated['sort_order'] = $request->input('sort_order', 0);
 
         Category::create($validated);
 
@@ -78,9 +81,12 @@ class CategoryController extends Controller
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
             'image' => 'nullable|string',
-            'is_active' => 'boolean',
-            'sort_order' => 'integer',
+            'is_active' => 'nullable|boolean',
+            'sort_order' => 'nullable|integer',
         ]);
+
+        $validated['is_active'] = $request->has('is_active');
+        $validated['sort_order'] = $request->input('sort_order', 0);
 
         $category->update($validated);
 

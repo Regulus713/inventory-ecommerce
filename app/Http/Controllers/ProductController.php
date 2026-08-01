@@ -44,15 +44,19 @@ class ProductController extends Controller
             'low_stock_threshold' => 'required|integer|min:0',
             'image' => 'nullable|string',
             'images' => 'nullable|array',
-            'is_active' => 'boolean',
-            'is_featured' => 'boolean',
-            'is_digital' => 'boolean',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
+            'is_digital' => 'nullable|boolean',
             'weight' => 'nullable|numeric|min:0',
             'dimensions' => 'nullable|string',
             'manufacturer' => 'nullable|string|max:255',
             'model' => 'nullable|string|max:255',
             'warranty' => 'nullable|string|max:255',
         ]);
+
+        $validated['is_active'] = $request->has('is_active');
+        $validated['is_featured'] = $request->has('is_featured');
+        $validated['is_digital'] = $request->has('is_digital');
 
         Product::create($validated);
 
@@ -99,15 +103,19 @@ class ProductController extends Controller
             'low_stock_threshold' => 'required|integer|min:0',
             'image' => 'nullable|string',
             'images' => 'nullable|array',
-            'is_active' => 'boolean',
-            'is_featured' => 'boolean',
-            'is_digital' => 'boolean',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
+            'is_digital' => 'nullable|boolean',
             'weight' => 'nullable|numeric|min:0',
             'dimensions' => 'nullable|string',
             'manufacturer' => 'nullable|string|max:255',
             'model' => 'nullable|string|max:255',
             'warranty' => 'nullable|string|max:255',
         ]);
+
+        $validated['is_active'] = $request->has('is_active');
+        $validated['is_featured'] = $request->has('is_featured');
+        $validated['is_digital'] = $request->has('is_digital');
 
         $product->update($validated);
 
