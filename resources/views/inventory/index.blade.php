@@ -4,27 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Inventory System</title>
+    @vite(['resources/css/app.css'])
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif; 
+        body {
             background: #ffffff;
             color: #1a1a2e;
             min-height: 100vh;
+            display: flex;
         }
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; display: flex; gap: 20px; }
         .sidebar { 
             width: 260px; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 24px; 
-            position: sticky; 
-            top: 20px; 
-            height: fit-content;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-            flex-shrink: 0;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-shadow: 2px 0 32px rgba(102, 126, 234, 0.3);
+            overflow-y: auto;
         }
         .sidebar h2 { 
             color: white; 
@@ -55,7 +53,8 @@
             background: rgba(255, 255, 255, 0.25);
             font-weight: 600;
         }
-        .main-content { flex: 1; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; flex: 1; margin-left: 260px; }
+        .main-content { }
         .header { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white; 
@@ -157,21 +156,21 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>🖥️ Tech Inventory</h2>
-            <div class="nav-links">
-                <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
-                    <span>🏠</span> Home
-                </a>
-                <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
-                    <span>📦</span> Categories
-                </a>
-                <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
-                    <span>📊</span> Products
-                </a>
-            </div>
+    <div class="sidebar">
+        <h2>🖥️ Tech Inventory</h2>
+        <div class="nav-links">
+            <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
+                <span>🏠</span> Home
+            </a>
+            <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
+                <span>📦</span> Categories
+            </a>
+            <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
+                <span>📊</span> Products
+            </a>
         </div>
+    </div>
+    <div class="container">
         <div class="main-content">
             <div class="header">
                 <h1>Tech Inventory System</h1>
@@ -179,26 +178,53 @@
             </div>
 
             <!-- Categories -->
-        <h2 class="section-title">Categories</h2>
-        <div class="categories">
-            <a href="/" class="category">All Products</a>
-            @foreach($categories as $category)
-                <a href="{{ route('inventory.category', $category->slug) }}" class="category">
-                    @if($category->image)
-                        <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; vertical-align: middle; margin-right: 8px;">
-                    @endif
-                    {{ $category->name }}
-                </a>
-            @endforeach
-        </div>
+            <h2 class="section-title">Categories</h2>
+            <div class="categories">
+                <a href="/" class="category">All Products</a>
+                @foreach($categories as $category)
+                    <a href="{{ route('inventory.category', $category->slug) }}" class="category">
+                        @if($category->image)
+                            <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; vertical-align: middle; margin-right: 8px;">
+                        @endif
+                        {{ $category->name }}
+                    </a>
+                @endforeach
+            </div>
 
-        <!-- Featured Products -->
-        @if($featuredProducts->count() > 0)
-            <h2 class="section-title">⭐ Featured Products</h2>
+            <!-- Featured Products -->
+            @if($featuredProducts->count() > 0)
+                <h2 class="section-title">⭐ Featured Products</h2>
+                <div class="products-grid">
+                    @foreach($featuredProducts as $product)
+                        <div class="product-card featured" style="position: relative;">
+                            <div class="featured-badge">FEATURED</div>
+                            <div class="product-image">
+                                @if($product->image)
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                @else
+                                    {{ $product->name }}
+                                @endif
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">{{ $product->name }}</div>
+                                <div class="product-description">{{ Str::limit($product->description, 80) }}</div>
+                                <div class="product-meta">
+                                    <div class="product-price">${{ number_format($product->price, 2) }}</div>
+                                    <div class="product-stock {{ $product->isInStock() ? 'in-stock' : ($product->isLowStock() ? 'low-stock' : 'out-of-stock') }}">
+                                        {{ $product->quantity }} in stock
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            <!-- All Products -->
+            <h2 class="section-title">All Products</h2>
             <div class="products-grid">
-                @foreach($featuredProducts as $product)
-                    <div class="product-card featured" style="position: relative;">
-                        <div class="featured-badge">FEATURED</div>
+                @foreach($allProducts as $product)
+                    <div class="product-card">
                         <div class="product-image">
                             @if($product->image)
                                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
@@ -219,39 +245,12 @@
                     </div>
                 @endforeach
             </div>
-        @endif
 
-        <!-- All Products -->
-        <h2 class="section-title">All Products</h2>
-        <div class="products-grid">
-            @foreach($allProducts as $product)
-                <div class="product-card">
-                    <div class="product-image">
-                        @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
-                        @else
-                            {{ $product->name }}
-                        @endif
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">{{ $product->name }}</div>
-                        <div class="product-description">{{ Str::limit($product->description, 80) }}</div>
-                        <div class="product-meta">
-                            <div class="product-price">${{ number_format($product->price, 2) }}</div>
-                            <div class="product-stock {{ $product->isInStock() ? 'in-stock' : ($product->isLowStock() ? 'low-stock' : 'out-of-stock') }}">
-                                {{ $product->quantity }} in stock
-                            </div>
-                        </div>
-                    </div>
+            @if($allProducts->hasPages())
+                <div style="margin-top: 30px; text-align: center;">
+                    {{ $allProducts->links() }}
                 </div>
-            @endforeach
-        </div>
-
-        @if($allProducts->hasPages())
-            <div style="margin-top: 30px; text-align: center;">
-                {{ $allProducts->links() }}
-            </div>
-        @endif
+            @endif
         </div>
     </div>
 </body>

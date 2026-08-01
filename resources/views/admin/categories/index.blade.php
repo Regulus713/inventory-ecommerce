@@ -4,27 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories - Admin</title>
+    @vite(['resources/css/app.css'])
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif; 
+        body {
             background: #ffffff;
             color: #1a1a2e;
             min-height: 100vh;
+            display: flex;
         }
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; display: flex; gap: 20px; }
         .sidebar { 
             width: 260px; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 24px; 
-            position: sticky; 
-            top: 20px; 
-            height: fit-content;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-            flex-shrink: 0;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-shadow: 2px 0 32px rgba(102, 126, 234, 0.3);
+            overflow-y: auto;
         }
         .sidebar h2 { 
             color: white; 
@@ -55,7 +53,8 @@
             background: rgba(255, 255, 255, 0.25);
             font-weight: 600;
         }
-        .main-content { flex: 1; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; flex: 1; margin-left: 260px; }
+        .main-content { }
         .header { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white; 
@@ -142,21 +141,21 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>⚙️ Admin Panel</h2>
-            <div class="nav-links">
-                <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
-                    <span>🏠</span> Home
-                </a>
-                <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
-                    <span>📦</span> Categories
-                </a>
-                <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
-                    <span>📊</span> Products
-                </a>
-            </div>
+    <div class="sidebar">
+        <h2>⚙️ Admin Panel</h2>
+        <div class="nav-links">
+            <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
+                <span>🏠</span> Home
+            </a>
+            <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
+                <span>📦</span> Categories
+            </a>
+            <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
+                <span>📊</span> Products
+            </a>
         </div>
+    </div>
+    <div class="container">
         <div class="main-content">
             <div class="header">
                 <h1>Category Management</h1>
