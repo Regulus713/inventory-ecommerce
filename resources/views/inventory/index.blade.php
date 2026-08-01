@@ -5,41 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Inventory System</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
+        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; }
-        .header h1 { margin-bottom: 10px; font-weight: 700; }
-        .header p { opacity: 0.9; }
-        .categories { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
-        .category { background: white; padding: 15px 25px; border-radius: 8px; text-decoration: none; color: #1e293b; font-weight: 500; border: 2px solid #e2e8f0; transition: all 0.3s ease; }
-        .category:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: transparent; color: white; transform: translateY(-2px); }
-        .section-title { margin-bottom: 20px; color: #1e293b; font-weight: 600; font-size: 24px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
-        .product-image { background: #f1f5f9; height: 200px; display: flex; align-items: center; justify-content: center; color: #64748b; }
-        .product-info { padding: 20px; }
-        .product-name { font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #1e293b; }
-        .product-description { color: #64748b; font-size: 14px; margin-bottom: 15px; line-height: 1.5; }
-        .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
-        .product-price { font-size: 20px; font-weight: 700; color: #667eea; }
-        .product-stock { font-size: 12px; padding: 5px 10px; border-radius: 4px; font-weight: 500; }
-        .in-stock { background: #dbeafe; color: #1e40af; }
-        .low-stock { background: #fef3c7; color: #92400e; }
-        .out-of-stock { background: #fee2e2; color: #991b1b; }
-        .featured { border: 3px solid #667eea; }
-        .featured-badge { position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
-        .admin-link { background: rgba(255, 255, 255, 0.9); color: #667eea; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; border: 1px solid #667eea; transition: all 0.3s ease; }
-        .admin-link:hover { background: #667eea; color: white; }
+        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .categories { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
+        .category { background: #f1f3f4; padding: 12px 20px; border-radius: 4px; text-decoration: none; color: #202124; font-weight: 500; border: none; transition: all 0.2s ease; }
+        .category:hover { background: #e8eaed; }
+        .category.active { background: #4285F4; color: white; }
+        .section-title { margin-bottom: 20px; color: #202124; font-weight: 500; font-size: 22px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+        .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); transition: all 0.2s ease; border: 1px solid #e0e0e0; }
+        .product-card:hover { box-shadow: 0 4px 6px rgba(0,0,0,0.15); transform: translateY(-2px); }
+        .product-image { background: #f8f9fa; height: 200px; display: flex; align-items: center; justify-content: center; color: #5f6368; }
+        .product-info { padding: 16px; }
+        .product-name { font-size: 16px; font-weight: 500; margin-bottom: 8px; color: #202124; }
+        .product-description { color: #5f6368; font-size: 14px; margin-bottom: 12px; line-height: 1.5; }
+        .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+        .product-price { font-size: 18px; font-weight: 500; color: #202124; }
+        .product-stock { font-size: 12px; padding: 4px 8px; border-radius: 2px; font-weight: 500; }
+        .in-stock { background: #e8f5e9; color: #137333; }
+        .low-stock { background: #fff3e0; color: #f57c00; }
+        .out-of-stock { background: #ffebee; color: #c62828; }
+        .featured { border: 2px solid #4285F4; }
+        .featured-badge { position: absolute; top: 8px; right: 8px; background: #4285F4; color: white; padding: 4px 8px; border-radius: 2px; font-size: 11px; font-weight: 500; }
+        .admin-link { background: #f1f3f4; color: #4285F4; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; border: none; transition: all 0.2s ease; }
+        .admin-link:hover { background: #e8eaed; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="container">
-            <h1>🖥️ Tech Inventory System</h1>
+            <h1>Tech Inventory System</h1>
             <p>Manage your technology products efficiently</p>
             <div style="margin-top: 15px;">
                 <a href="{{ route('categories.index') }}" class="admin-link">Manage Categories</a>

@@ -5,33 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category Details - Admin</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
+        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; }
-        .header h1 { margin-bottom: 10px; font-weight: 700; }
-        .header p { opacity: 0.9; }
-        .detail-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .detail-row { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; }
+        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .detail-container { background: white; padding: 24px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); border: 1px solid #e0e0e0; }
+        .detail-row { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #e0e0e0; }
         .detail-row:last-child { border-bottom: none; }
-        .detail-label { font-weight: 600; color: #1e293b; margin-bottom: 5px; }
-        .detail-value { color: #64748b; }
-        .badge { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
-        .badge-active { background: #dbeafe; color: #1e40af; }
-        .badge-inactive { background: #fee2e2; color: #991b1b; }
-        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.3s ease; }
-        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
-        .btn-secondary { background: #e2e8f0; color: #1e293b; }
-        .btn-secondary:hover { background: #cbd5e1; }
+        .detail-label { font-weight: 500; color: #202124; margin-bottom: 4px; font-size: 14px; }
+        .detail-value { color: #5f6368; font-size: 14px; }
+        .badge { padding: 4px 8px; border-radius: 2px; font-size: 12px; font-weight: 500; }
+        .badge-active { background: #e8f5e9; color: #137333; }
+        .badge-inactive { background: #ffebee; color: #c62828; }
+        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.2s ease; font-size: 14px; }
+        .btn-primary { background: #4285F4; color: white; }
+        .btn-primary:hover { background: #3367D6; }
+        .btn-secondary { background: #f1f3f4; color: #202124; }
+        .btn-secondary:hover { background: #e8eaed; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="container">
-            <h1>📦 Category Details</h1>
+            <h1>Category Details</h1>
             <p>View category information</p>
         </div>
     </div>

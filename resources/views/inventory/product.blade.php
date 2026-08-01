@@ -5,46 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $product->name }} - Tech Inventory</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
+        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; }
-        .header h1 { margin-bottom: 10px; font-weight: 700; }
-        .header p { opacity: 0.9; }
-        .breadcrumb { margin-bottom: 20px; color: #64748b; }
-        .breadcrumb a { color: #667eea; text-decoration: none; }
+        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .breadcrumb { margin-bottom: 20px; color: #5f6368; font-size: 14px; }
+        .breadcrumb a { color: #4285F4; text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
-        .product-detail { background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .product-image { background: #f1f5f9; height: 400px; display: flex; align-items: center; justify-content: center; color: #64748b; border-radius: 8px; }
-        .product-info h1 { color: #1e293b; margin-bottom: 15px; font-weight: 700; }
-        .product-price { font-size: 32px; font-weight: 700; color: #667eea; margin-bottom: 20px; }
-        .product-description { color: #64748b; line-height: 1.6; margin-bottom: 20px; }
-        .product-meta { margin-bottom: 20px; }
-        .meta-item { margin-bottom: 10px; }
-        .meta-label { font-weight: 600; color: #1e293b; }
-        .stock-badge { display: inline-block; padding: 8px 16px; border-radius: 4px; font-weight: 600; }
-        .in-stock { background: #dbeafe; color: #1e40af; }
-        .low-stock { background: #fef3c7; color: #92400e; }
-        .out-of-stock { background: #fee2e2; color: #991b1b; }
-        .section-title { margin-bottom: 20px; color: #1e293b; font-weight: 600; font-size: 24px; }
-        .related-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .related-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }
-        .related-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
-        .related-image { background: #f1f5f9; height: 150px; display: flex; align-items: center; justify-content: center; color: #64748b; }
-        .related-info { padding: 15px; }
-        .related-name { font-weight: 600; margin-bottom: 5px; color: #1e293b; }
-        .related-price { color: #667eea; font-weight: 700; }
-        .admin-link { background: rgba(255, 255, 255, 0.9); color: #667eea; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; border: 1px solid #667eea; transition: all 0.3s ease; }
-        .admin-link:hover { background: #667eea; color: white; }
+        .product-detail { background: white; border-radius: 8px; padding: 24px; margin-bottom: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); border: 1px solid #e0e0e0; }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .product-image { background: #f8f9fa; height: 400px; display: flex; align-items: center; justify-content: center; color: #5f6368; border-radius: 4px; }
+        .product-info h1 { color: #202124; margin-bottom: 12px; font-weight: 500; font-size: 28px; }
+        .product-price { font-size: 28px; font-weight: 500; color: #202124; margin-bottom: 16px; }
+        .product-description { color: #5f6368; line-height: 1.6; margin-bottom: 16px; font-size: 14px; }
+        .product-meta { margin-bottom: 16px; }
+        .meta-item { margin-bottom: 8px; }
+        .meta-label { font-weight: 500; color: #202124; }
+        .stock-badge { display: inline-block; padding: 6px 12px; border-radius: 2px; font-weight: 500; font-size: 12px; }
+        .in-stock { background: #e8f5e9; color: #137333; }
+        .low-stock { background: #fff3e0; color: #f57c00; }
+        .out-of-stock { background: #ffebee; color: #c62828; }
+        .section-title { margin-bottom: 20px; color: #202124; font-weight: 500; font-size: 22px; }
+        .related-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+        .related-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); transition: all 0.2s ease; border: 1px solid #e0e0e0; }
+        .related-card:hover { box-shadow: 0 4px 6px rgba(0,0,0,0.15); transform: translateY(-2px); }
+        .related-image { background: #f8f9fa; height: 150px; display: flex; align-items: center; justify-content: center; color: #5f6368; }
+        .related-info { padding: 16px; }
+        .related-name { font-weight: 500; margin-bottom: 4px; color: #202124; font-size: 16px; }
+        .related-price { color: #202124; font-weight: 500; font-size: 16px; }
+        .admin-link { background: #f1f3f4; color: #4285F4; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; border: none; transition: all 0.2s ease; }
+        .admin-link:hover { background: #e8eaed; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="container">
-            <h1>🖥️ Tech Inventory System</h1>
+            <h1>Tech Inventory System</h1>
             <p>Manage your technology products efficiently</p>
             <div style="margin-top: 15px;">
                 <a href="{{ route('categories.index') }}" class="admin-link">Manage Categories</a>

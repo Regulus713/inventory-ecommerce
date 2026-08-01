@@ -5,43 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products - Admin</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
+        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
         .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; }
-        .header h1 { margin-bottom: 10px; font-weight: 700; }
-        .header p { opacity: 0.9; }
-        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.3s ease; }
-        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
-        .btn-danger { background: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
-        .btn-danger:hover { background: #fecaca; }
-        .btn-success { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; }
-        .btn-success:hover { background: #bfdbfe; }
-        .table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .table th, .table td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-        .table th { background: #f8fafc; font-weight: 600; color: #1e293b; }
-        .table tr:hover { background: #f8fafc; }
-        .badge { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
-        .badge-active { background: #dbeafe; color: #1e40af; }
-        .badge-inactive { background: #fee2e2; color: #991b1b; }
-        .badge-featured { background: #fef3c7; color: #92400e; }
-        .stock-good { background: #dbeafe; color: #1e40af; }
-        .stock-low { background: #fef3c7; color: #92400e; }
-        .stock-out { background: #fee2e2; color: #991b1b; }
-        .alert { padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-        .alert-success { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; }
-        .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
-        .actions { display: flex; gap: 5px; }
-        .actions a { padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 500; }
+        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.2s ease; font-size: 14px; }
+        .btn-primary { background: #4285F4; color: white; }
+        .btn-primary:hover { background: #3367D6; }
+        .btn-danger { background: #ea4335; color: white; }
+        .btn-danger:hover { background: #d93025; }
+        .btn-success { background: #34a853; color: white; }
+        .btn-success:hover { background: #2d9e4d; }
+        .table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); border: 1px solid #e0e0e0; }
+        .table th, .table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+        .table th { background: #f8f9fa; font-weight: 500; color: #202124; font-size: 14px; }
+        .table tr:hover { background: #f8f9fa; }
+        .badge { padding: 4px 8px; border-radius: 2px; font-size: 12px; font-weight: 500; }
+        .badge-active { background: #e8f5e9; color: #137333; }
+        .badge-inactive { background: #ffebee; color: #c62828; }
+        .badge-featured { background: #fff3e0; color: #f57c00; }
+        .stock-good { background: #e8f5e9; color: #137333; }
+        .stock-low { background: #fff3e0; color: #f57c00; }
+        .stock-out { background: #ffebee; color: #c62828; }
+        .alert { padding: 16px; border-radius: 4px; margin-bottom: 20px; font-size: 14px; }
+        .alert-success { background: #e8f5e9; color: #137333; border: 1px solid #34a853; }
+        .alert-error { background: #ffebee; color: #c62828; border: 1px solid #ea4335; }
+        .actions { display: flex; gap: 8px; }
+        .actions a { padding: 4px 8px; border-radius: 2px; text-decoration: none; font-size: 12px; font-weight: 500; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="container">
-            <h1>🖥️ Product Management</h1>
+            <h1>Product Management</h1>
             <p>Manage your tech products</p>
         </div>
     </div>

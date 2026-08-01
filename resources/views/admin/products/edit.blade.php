@@ -5,35 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product - Admin</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
+        body { font-family: 'Roboto', sans-serif; background: #ffffff; color: #202124; }
         .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-bottom: 30px; border-radius: 12px; }
-        .header h1 { margin-bottom: 10px; font-weight: 700; }
-        .header p { opacity: 0.9; }
-        .form-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #1e293b; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; background: white; color: #1e293b; }
+        .header { background: #4285F4; color: white; padding: 24px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header h1 { margin-bottom: 8px; font-weight: 500; font-size: 24px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .form-container { background: white; padding: 24px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); border: 1px solid #e0e0e0; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #202124; font-size: 14px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 14px; background: white; color: #202124; }
         .form-group textarea { resize: vertical; min-height: 100px; }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #667eea; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.3s ease; }
-        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
-        .btn-secondary { background: #e2e8f0; color: #1e293b; }
-        .btn-secondary:hover { background: #cbd5e1; }
-        .checkbox-group { display: flex; align-items: center; gap: 10px; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #4285F4; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.2s ease; font-size: 14px; }
+        .btn-primary { background: #4285F4; color: white; }
+        .btn-primary:hover { background: #3367D6; }
+        .btn-secondary { background: #f1f3f4; color: #202124; }
+        .btn-secondary:hover { background: #e8eaed; }
+        .checkbox-group { display: flex; align-items: center; gap: 8px; }
         .checkbox-group input { width: auto; }
-        .error { color: #ef4444; font-size: 12px; margin-top: 5px; }
+        .error { color: #ea4335; font-size: 12px; margin-top: 4px; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="container">
-            <h1>🖥️ Edit Product</h1>
+            <h1>Edit Product</h1>
             <p>Update product: {{ $product->name }}</p>
         </div>
     </div>
