@@ -12,63 +12,19 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-/* Global centering styles for main content areas */
-body:not(.has-sidebar) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-}
-
-/* Center main content when no sidebar */
-body:not(.has-sidebar) .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Center main content areas */
-.main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-/* Center headers */
+/* Center headers and titles */
 .header {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
 }
 
-/* Center section titles */
 .section-title {
     text-align: center;
-    width: 100%;
 }
 
 /* Center grids and flex containers */
 .products-grid,
 .categories {
-    display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
 }
 
 /* Center tables */
@@ -76,35 +32,8 @@ body:not(.has-sidebar) .container {
     margin: 0 auto;
 }
 
-/* Center buttons and actions */
-.btn,
-.actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Center forms */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-/* Center product cards within grid */
-.product-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 /* Center pagination */
 .pagination {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100%;
 }
