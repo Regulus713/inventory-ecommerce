@@ -197,14 +197,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .user-sidebar-collapsed .site-header {
     margin-left: 70px;
+    width: calc(100% - 70px);
 }
 
 body.user-sidebar .site-header {
     margin-left: 240px;
+    width: calc(100% - 240px);
 }
 
 body.admin-sidebar .site-header {
     margin-left: 260px;
+    width: calc(100% - 260px);
 }
 
 body.user-sidebar .main-content.user-content {
@@ -213,6 +216,7 @@ body.user-sidebar .main-content.user-content {
 
 body.user-sidebar-collapsed .site-header {
     margin-left: 70px;
+    width: calc(100% - 70px);
 }
 
 body.user-sidebar-collapsed .main-content.user-content {
@@ -1551,6 +1555,7 @@ body.user-sidebar-collapsed .main-content.user-content {
     body.admin-sidebar .site-header,
     body.user-sidebar-collapsed .site-header {
         margin-left: 0;
+        width: 100%;
     }
 
     body.user-sidebar .main-content.user-content,
