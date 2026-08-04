@@ -222,9 +222,11 @@ Extracted the storefront header into a shared partial and included it in both th
 - The shared header provides search, category navigation, notifications, dashboard/profile/admin/cart actions, and mobile nav on every page
 
 ### Sidebar Adjustments
-- Updated `.app-sidebar` base CSS to use `padding-top: 120px` so the sticky header does not overlap sidebar content
-- Added a mobile close button to the admin sidebar
-- Adjusted the user and admin mobile close buttons to sit below the header
+- The sticky storefront/admin header now sits to the right of the sidebar on desktop so the sidebar no longer needs extra top padding
+- Added `body.user-sidebar` and `body.admin-sidebar` classes to control header margin
+- User sidebar collapse now also shrinks the header and main content
+- Replaced the busy admin gear brand icon with a simple shield icon
+- Mobile: header returns to full width and sidebars slide over content; close buttons hide on desktop
 
 ### Files Modified
 - `resources/views/partials/site-header.blade.php` (new)
@@ -236,6 +238,7 @@ Extracted the storefront header into a shared partial and included it in both th
 ### Git Commits
 - `8a1ea0d` - "feat: Share site header across storefront, admin, and user pages"
 - `b9bd56d` - "fix: Provide cartCount to shared header partial in admin layout"
+- `9bb467c` - "style: Cleaner sidebar layout with header beside sidebar"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
