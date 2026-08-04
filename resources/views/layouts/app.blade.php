@@ -6,16 +6,16 @@
     <title>@yield('title', config('app.name', 'Tech Inventory'))</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body {{ auth()->check() ? 'class="user-sidebar"' : '' }}>
     @include('partials.site-header')
 
     @auth
         <aside class="app-sidebar user-sidebar" id="user-sidebar">
-            <button class="mobile-close-btn" aria-label="Close navigation menu" style="position: absolute; top: 120px; right: 0.75rem;">
+            <button class="mobile-close-btn" aria-label="Close navigation menu" style="position: absolute; top: 0.75rem; right: 0.75rem;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
 
-            <div class="app-sidebar-brand" style="margin-top: 1.5rem;">
+            <div class="app-sidebar-brand">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span class="user-nav-label">User Panel</span>
                 <button type="button" id="user-sidebar-toggle" class="user-sidebar-toggle" aria-label="Toggle sidebar" title="Toggle sidebar">

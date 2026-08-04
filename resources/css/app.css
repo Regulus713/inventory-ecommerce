@@ -155,7 +155,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .app-sidebar.user-sidebar {
     width: 240px;
-    padding-top: 120px;
     z-index: 40;
     transition: width 0.2s ease;
     display: flex;
@@ -189,10 +188,28 @@ h1, h2, h3, h4, h5, h6 {
 
 .user-sidebar-collapsed .app-sidebar.user-sidebar {
     width: 70px;
-    padding: 120px 0.5rem 0.5rem 0.5rem;
+    padding: 1.5rem 0.5rem 1.5rem 0.5rem;
 }
 
-.user-sidebar-collapsed .main-content.user-content {
+.user-sidebar-collapsed .main-content.user-content,
+.user-sidebar-collapsed .site-header {
+    margin-left: 70px;
+}
+
+body.user-sidebar .site-header {
+    margin-left: 240px;
+}
+
+body.admin-sidebar .site-header {
+    margin-left: 260px;
+}
+
+body.user-sidebar .main-content.user-content {
+    margin-left: 240px;
+}
+
+body.user-sidebar-collapsed .site-header,
+body.user-sidebar-collapsed .main-content.user-content {
     margin-left: 70px;
 }
 
@@ -428,6 +445,16 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-text-subtle);
     cursor: pointer;
     padding: 0.25rem;
+}
+
+.app-sidebar .mobile-close-btn {
+    color: white;
+}
+
+@media (min-width: 769px) {
+    .app-sidebar .mobile-close-btn {
+        display: none;
+    }
 }
 
 .mobile-nav-links {
@@ -1514,6 +1541,17 @@ h1, h2, h3, h4, h5, h6 {
     .app-content {
         margin-left: 0;
         padding: 4.5rem 1rem 1.5rem;
+    }
+
+    body.user-sidebar .site-header,
+    body.admin-sidebar .site-header,
+    body.user-sidebar-collapsed .site-header {
+        margin-left: 0;
+    }
+
+    body.user-sidebar .main-content.user-content,
+    body.user-sidebar-collapsed .main-content.user-content {
+        margin-left: 0;
     }
 
     .app-header {
