@@ -27,6 +27,7 @@
 - `f3ded1d` - "style: Modernize ecommerce UI with shared layouts, Google Fonts, and responsive design"
 - `d600752` - "style: Remove category thumbnail image from storefront category tabs"
 - `e13d621` - "feat: Add product search bar above categories with name/SKU/manufacturer/model filtering"
+- `03fd797` - "feat: Add real-time product search with debounced AJAX and JSON API"
 - Branch: `feature/ui-modernization`
 
 ## Project Overview
