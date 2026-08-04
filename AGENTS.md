@@ -255,6 +255,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `ce7e83d` - "fix: Show 'Panel' after the user's name in sidebar"
 - `7ffb16d` - "fix: Move user sidebar logout to bottom with separator"
 - `4aab5ee` - "style: Add red hover to user sidebar logout"
+- `a03662d` - "fix: Prevent cart subtotal header from cropping in admin user view"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -306,6 +307,11 @@ Extracted the storefront header into a shared partial and included it in both th
 - `layouts/app.blade.php` selects the correct sidebar and body class (admin vs user)
 - Added `body.user-sidebar` CSS for the header wrapper and main content margin
 - `layouts/admin.blade.php` reuses the same partial
+
+### Admin User View
+- Fixed the `Current Cart` table in `resources/views/admin/users/show.blade.php` so the `Subtotal` column header is not cropped
+- Set `table-layout: fixed` and percentage column widths on the cart table
+- Product name cells break to multiple lines so the price, quantity, and subtotal columns have enough room
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
