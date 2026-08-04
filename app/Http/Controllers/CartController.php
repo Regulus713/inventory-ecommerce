@@ -39,6 +39,13 @@ class CartController extends Controller
 
         if ($quantity < 1) $quantity = 1;
         if ($quantity > $product->quantity) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Only ' . $product->quantity . ' units available.',
+                    'cart_count' => array_sum($request->session()->get(self::CART_KEY, [])),
+                ]);
+            }
             return back()->with('error', 'Only ' . $product->quantity . ' units available.');
         }
 
@@ -47,6 +54,13 @@ class CartController extends Controller
         if (isset($cart[$slug])) {
             $newQuantity = $cart[$slug] + $quantity;
             if ($newQuantity > $product->quantity) {
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Only ' . $product->quantity . ' units available.',
+                        'cart_count' => array_sum($cart),
+                    ]);
+                }
                 return back()->with('error', 'Only ' . $product->quantity . ' units available.');
             }
             $cart[$slug] = $newQuantity;
@@ -56,7 +70,18 @@ class CartController extends Controller
 
         $request->session()->put(self::CART_KEY, $cart);
 
-        return back()->with('success', $product->name . ' added to cart.');
+        $message = $product->name . ' added to cart.';
+        $cartCount = array_sum($cart);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'cart_count' => $cartCount,
+            ]);
+        }
+
+        return back()->with('success', $message);
     }
 
     public function update(Request $request, $slug)
