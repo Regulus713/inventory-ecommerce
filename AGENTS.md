@@ -248,6 +248,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `84c7630` - "fix: Force user sidebar expanded on all storefront pages"
 - `e2e7a03` - "feat: Force user sidebar always expanded for logged-in users"
 - `00f7b9e` - "fix: Wrap header in wrapper so sidebar is not cut off on user pages"
+- `687cf00` - "refactor: Remove user side panel, keep admin side panel"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -275,11 +276,12 @@ Extracted the storefront header into a shared partial and included it in both th
 - `data-force-expanded` is set on the `body` whenever `auth()->check()` is true
 - The collapse toggle is hidden and the saved collapsed state is ignored
 
-### Header Wrapper Fix
-- Wrapped the site header in a `.site-header-wrapper` div in `resources/views/partials/site-header.blade.php`
-- Moved the `margin-left` for sidebars from `.site-header` to `.site-header-wrapper`
-- `.site-header` keeps `position: sticky` while the wrapper pushes it right of the sidebar
-- This ensures the user panel extends to the top of the viewport on the home page and all user pages, matching the admin panel
+### User Side Panel Removed
+- Removed the user/customer side panel from `resources/views/layouts/app.blade.php`
+- Removed all user-sidebar CSS (`.app-sidebar.user-sidebar`, `.user-content`, `.user-sidebar-toggle`, `.user-nav-label`, `.user-sidebar-collapsed` states)
+- Removed `initUserSidebar` and `data-force-expanded` from `resources/js/app.js`
+- Storefront and customer pages now use only the shared top header; no side panel
+- Admin side panel (`resources/views/layouts/admin.blade.php`) is unchanged and remains the only sidebar
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
