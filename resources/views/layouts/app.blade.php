@@ -6,7 +6,7 @@
     <title>@yield('title', config('app.name', 'Tech Inventory'))</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body {{ auth()->check() ? 'class="user-sidebar"' : '' }}>
+<body {{ auth()->check() ? 'class="user-sidebar"' . (request()->routeIs('inventory.index') ? ' data-force-expanded="1"' : '') : '' }}>
     @include('partials.site-header')
 
     @auth

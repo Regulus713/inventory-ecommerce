@@ -407,6 +407,11 @@ function initUserSidebar() {
 
     if (!toggle || !sidebar) return;
 
+    if (document.body.dataset.forceExpanded) {
+        toggle.hidden = true;
+        return;
+    }
+
     const key = 'userSidebarCollapsed';
     const isCollapsed = localStorage.getItem(key) === 'true';
 
