@@ -196,15 +196,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .user-sidebar-collapsed .site-header {
-    left: 70px;
+    margin-left: 70px;
 }
 
 body.user-sidebar .site-header {
-    left: 240px;
+    margin-left: 240px;
 }
 
 body.admin-sidebar .site-header {
-    left: 260px;
+    margin-left: 260px;
 }
 
 body.user-sidebar .main-content.user-content {
@@ -212,7 +212,7 @@ body.user-sidebar .main-content.user-content {
 }
 
 body.user-sidebar-collapsed .site-header {
-    left: 70px;
+    margin-left: 70px;
 }
 
 body.user-sidebar-collapsed .main-content.user-content {
@@ -236,8 +236,6 @@ body.user-sidebar-collapsed .main-content.user-content {
 .site-header {
     position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 50;
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
@@ -1552,7 +1550,7 @@ body.user-sidebar-collapsed .main-content.user-content {
     body.user-sidebar .site-header,
     body.admin-sidebar .site-header,
     body.user-sidebar-collapsed .site-header {
-        left: 0;
+        margin-left: 0;
     }
 
     body.user-sidebar .main-content.user-content,
