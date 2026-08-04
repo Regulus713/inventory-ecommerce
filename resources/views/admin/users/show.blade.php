@@ -35,7 +35,7 @@
                             <p style="margin: 0.25rem 0 0 0; color: var(--color-text-muted);">{{ $user->username }}</p>
                         </div>
                     </div>
-                    <p><strong>Role:</strong> <span class="role-badge {{ $user->role }}">{{ $user->role }}</span></p>
+                    <p><strong>User Type:</strong> <span class="role-badge {{ $user->role }}">{{ $user->role }}</span></p>
                     <p><strong>Joined:</strong> {{ $user->created_at->format('M j, Y') }}</p>
                     <p><strong>Total Orders:</strong> {{ $user->orders_count }}</p>
                 </div>

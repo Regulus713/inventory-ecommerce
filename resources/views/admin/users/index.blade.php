@@ -47,7 +47,7 @@
                     </thead>
                     <tbody>
                         @foreach($users as $user)
-                            <tr>
+                            <tr class="clickable-row" data-href="{{ route('admin.users.show', $user->id) }}" onclick="if (!event.target.closest('a, button, form, label, input, .toggle-switch, .user-avatar')) window.location.href = this.dataset.href;">
                                 <td>
                                     <div style="display: flex; align-items: center; gap: 0.75rem;">
                                         <div class="user-avatar">{{ strtoupper($user->name[0]) }}</div>
