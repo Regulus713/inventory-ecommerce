@@ -31,6 +31,7 @@
 - `e53a4c0` - "feat: Implement dummy checkout system with cart, checkout, and inventory adjustment"
 - `152b3e4` - "feat: Add storefront header with category nav, search, and action icons"
 - `666ad98` - "feat: Add toast notification on Add to Cart and update header cart count"
+- `1e9347d` - "feat: Add product sorting and card/list view toggle"
 - Branch: `feature/ui-modernization`
 
 ## Project Overview
