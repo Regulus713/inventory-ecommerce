@@ -261,6 +261,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `f67785c` - "style: Round admin user role dropdown corners"
 - `4dfb702` - "feat: Make admin user rows clickable and clarify user type"
 - `40d07db` - "feat: Add user account disable/enable toggle"
+- `ad2c87f` - "feat: Add hover login dropdown in header"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -333,6 +334,11 @@ Extracted the storefront header into a shared partial and included it in both th
 - Renamed `Role:` to `User Type:` in `resources/views/admin/users/show.blade.php`
 - Added `is_active` column to users; admins can toggle a user's account status (Enabled/Disabled) from the user detail page
 - Disabled accounts are blocked from logging in
+
+### Header Login Dropdown
+- Created `resources/views/livewire/auth/login-dropdown.blade.php` with a compact login form
+- Replaced the header login icon link with a hover dropdown that contains the login form
+- Added CSS for the `.header-action-dropdown` and `.header-dropdown` so the form appears on hover
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
