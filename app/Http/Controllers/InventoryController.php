@@ -52,4 +52,46 @@ class InventoryController extends Controller
 
         return view('inventory.product', compact('product', 'categories', 'relatedProducts'));
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('q');
+        $categorySlug = $request->input('category');
+
+        $query = Product::where('is_active', true);
+
+        if ($categorySlug) {
+            $category = Category::where('slug', $categorySlug)->where('is_active', true)->first();
+            if ($category) {
+                $query->where('category_id', $category->id);
+            }
+        }
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orWhere('sku', 'like', '%' . $search . '%')
+                    ->orWhere('manufacturer', 'like', '%' . $search . '%')
+                    ->orWhere('model', 'like', '%' . $search . '%');
+            });
+        }
+
+        $products = $query->latest()->take(24)->get();
+
+        return response()->json($products->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'slug' => $product->slug,
+                'description' => $product->description,
+                'price' => $product->price,
+                'quantity' => $product->quantity,
+                'image' => $product->image ? asset('storage/' . $product->image) : null,
+                'stock_status' => $product->isInStock() ? 'in-stock' : ($product->isLowStock() ? 'low-stock' : 'out-of-stock'),
+                'category_slug' => $product->category->slug,
+                'category_name' => $product->category->name,
+            ];
+        }));
+    }
 }

@@ -3,6 +3,8 @@
 @section('title', $category->name . ' - Tech Inventory')
 
 @section('content')
+    @php($currentCategory = $category->slug)
+
     <header class="app-header">
         <h1>Tech Inventory System</h1>
         <p>Manage your technology products efficiently</p>
