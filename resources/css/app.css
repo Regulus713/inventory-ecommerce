@@ -82,6 +82,8 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 40;
     box-shadow: 4px 0 24px rgba(79, 70, 229, 0.18);
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
 }
 
 .app-sidebar-brand {
