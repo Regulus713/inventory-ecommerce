@@ -259,6 +259,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `611b639` - "fix: Widen checkout-grid right column for cart tables"
 - `110dfff` - "feat: Real-time search for admin users"
 - `f67785c` - "style: Round admin user role dropdown corners"
+- `4dfb702` - "feat: Make admin user rows clickable and clarify user type"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -324,6 +325,11 @@ Extracted the storefront header into a shared partial and included it in both th
 
 ### Admin User Search UI
 - Rounded the role dropdown (`#role-filter`) with `--radius-lg` so it matches the pill/rounded theme
+
+### Admin User Management
+- User rows in `resources/views/admin/users/index.blade.php` are now clickable
+- Clicking a row (outside forms/toggles/buttons) opens the user detail page
+- Renamed `Role:` to `User Type:` in `resources/views/admin/users/show.blade.php`
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
