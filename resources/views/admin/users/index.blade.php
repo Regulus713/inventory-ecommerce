@@ -71,7 +71,14 @@
                                 </td>
                                 <td>{{ $user->orders_count }}</td>
                                 <td>{{ $user->created_at->format('M j, Y') }}</td>
-                                <td><a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-secondary btn-sm">View</a></td>
+                                <td>
+                                    <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-secondary btn-sm">View</a>
+                                    <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" style="display: inline;" onsubmit="return confirm('Delete this user?');">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm" {{ $user->id === auth()->id() ? 'disabled' : '' }}>Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
 
 class CartController extends Controller
 {
@@ -70,6 +71,8 @@ class CartController extends Controller
 
         $request->session()->put(self::CART_KEY, $cart);
 
+        $this->syncCartToDatabase($cart);
+
         $message = $product->name . ' added to cart.';
         $cartCount = array_sum($cart);
 
@@ -98,6 +101,8 @@ class CartController extends Controller
         $cart[$slug] = $quantity;
         $request->session()->put(self::CART_KEY, $cart);
 
+        $this->syncCartToDatabase($cart);
+
         return back()->with('success', 'Cart updated.');
     }
 
@@ -106,6 +111,8 @@ class CartController extends Controller
         $cart = $request->session()->get(self::CART_KEY, []);
         unset($cart[$slug]);
         $request->session()->put(self::CART_KEY, $cart);
+
+        $this->syncCartToDatabase($cart);
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
@@ -121,6 +128,8 @@ class CartController extends Controller
     public function clear(Request $request)
     {
         $request->session()->forget(self::CART_KEY);
+
+        $this->syncCartToDatabase([]);
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
@@ -153,5 +162,25 @@ class CartController extends Controller
         }
 
         return view('partials.cart-sidebar', compact('cartItems', 'cartSubtotal'));
+    }
+
+    private function syncCartToDatabase(array $cart): void
+    {
+        if (! auth()->check()) {
+            return;
+        }
+
+        $cartModel = Cart::firstOrCreate(['user_id' => auth()->id()]);
+        $cartModel->items()->delete();
+
+        foreach ($cart as $slug => $quantity) {
+            $product = Product::where('slug', $slug)->where('is_active', true)->first();
+            if ($product) {
+                $cartModel->items()->create([
+                    'product_id' => $product->id,
+                    'quantity' => $quantity,
+                ]);
+            }
+        }
     }
 }

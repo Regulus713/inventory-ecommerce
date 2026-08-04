@@ -36,8 +36,9 @@ class UserController extends Controller
     {
         $user = User::withCount('orders')->findOrFail($id);
         $orders = Order::where('user_id', $user->id)->latest()->paginate(10);
+        $cart = $user->cart()->with('items.product')->first();
 
-        return view('admin.users.show', compact('user', 'orders'));
+        return view('admin.users.show', compact('user', 'orders', 'cart'));
     }
 
     public function updateRole(Request $request, $id)
@@ -56,5 +57,18 @@ class UserController extends Controller
         $user->save();
 
         return back()->with('success', 'User role updated to ' . ucfirst($validated['role']) . '.');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'You cannot delete your own account.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
     }
 }

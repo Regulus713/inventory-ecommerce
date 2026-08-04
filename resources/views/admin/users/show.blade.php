@@ -64,9 +64,63 @@
                     @endif
                 </div>
             </div>
+
+            <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                    <h3>Delete Account</h3>
+                </div>
+                <div style="padding: 1.5rem;">
+                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-danger" {{ $user->id === auth()->id() ? 'disabled' : '' }}>Delete User</button>
+                    </form>
+                    @if($user->id === auth()->id())
+                        <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--color-text-muted);">You cannot delete your own account.</p>
+                    @endif
+                </div>
+            </div>
         </div>
 
         <div>
+            <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                    <h3>Current Cart</h3>
+                </div>
+                <div class="dashboard-section-body">
+                    @if($cart && $cart->items->count() > 0)
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php($cartTotal = 0)
+                                @foreach($cart->items as $item)
+                                    @php($subtotal = $item->product->price * $item->quantity)
+                                    @php($cartTotal += $subtotal)
+                                    <tr>
+                                        <td>{{ $item->product->name }}</td>
+                                        <td>${{ number_format($item->product->price, 2) }}</td>
+                                        <td>{{ $item->quantity }}</td>
+                                        <td>${{ number_format($subtotal, 2) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div style="padding: 1rem; text-align: right; font-weight: 600;">
+                            Cart Total: ${{ number_format($cartTotal, 2) }}
+                        </div>
+                    @else
+                        <p style="padding: 1.5rem; text-align: center; color: var(--color-text-muted);">No items in cart.</p>
+                    @endif
+                </div>
+            </div>
+
             <div class="dashboard-section">
                 <div class="dashboard-section-header">
                     <h3>Order History</h3>
