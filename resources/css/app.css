@@ -191,24 +191,30 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1.5rem 0.5rem 1.5rem 0.5rem;
 }
 
-.user-sidebar-collapsed .main-content.user-content,
-.user-sidebar-collapsed .site-header {
+.user-sidebar-collapsed .main-content.user-content {
     margin-left: 70px;
 }
 
+.user-sidebar-collapsed .site-header {
+    left: 70px;
+}
+
 body.user-sidebar .site-header {
-    margin-left: 240px;
+    left: 240px;
 }
 
 body.admin-sidebar .site-header {
-    margin-left: 260px;
+    left: 260px;
 }
 
 body.user-sidebar .main-content.user-content {
     margin-left: 240px;
 }
 
-body.user-sidebar-collapsed .site-header,
+body.user-sidebar-collapsed .site-header {
+    left: 70px;
+}
+
 body.user-sidebar-collapsed .main-content.user-content {
     margin-left: 70px;
 }
@@ -1546,7 +1552,7 @@ body.user-sidebar-collapsed .main-content.user-content {
     body.user-sidebar .site-header,
     body.admin-sidebar .site-header,
     body.user-sidebar-collapsed .site-header {
-        margin-left: 0;
+        left: 0;
     }
 
     body.user-sidebar .main-content.user-content,
