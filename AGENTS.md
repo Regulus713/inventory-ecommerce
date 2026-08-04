@@ -254,6 +254,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `6567f03` - "feat: Reintroduce user sidebar with user name as title"
 - `ce7e83d` - "fix: Show 'Panel' after the user's name in sidebar"
 - `7ffb16d` - "fix: Move user sidebar logout to bottom with separator"
+- `4aab5ee` - "style: Add red hover to user sidebar logout"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -299,6 +300,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - Created `resources/views/partials/user-sidebar.blade.php`
 - The sidebar title is the authenticated user's name followed by "Panel"
 - Log Out link is pushed to the bottom of the user sidebar with a separator line
+- Log Out link has a subtle red hover effect
 - `.app-sidebar` is now `display: flex; flex-direction: column` so the bottom nav stays at the bottom
 - Includes Dashboard, My Orders, Profile, and Log Out links
 - `layouts/app.blade.php` selects the correct sidebar and body class (admin vs user)
