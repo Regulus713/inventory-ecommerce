@@ -45,31 +45,41 @@
 
     <!-- All Products -->
     <h2 class="section-title" style="margin-top: 2.5rem;" id="all-products-title">All Products</h2>
-    <div class="products-grid" id="all-products-grid">
-        @foreach($allProducts as $product)
-            <div class="card" data-product-id="{{ $product->id }}">
-                <a href="{{ route('inventory.product', $product->slug) }}" class="card-link">
-                    <div class="card-image">
-                        @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
-                        @else
-                            {{ $product->name }}
-                        @endif
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">{{ $product->name }}</h3>
-                        <p class="card-text">{{ Str::limit($product->description, 80) }}</p>
-                        <div class="card-meta">
-                            <span class="card-price">${{ number_format($product->price, 2) }}</span>
-                            <span class="badge {{ $product->isInStock() ? 'badge-success' : ($product->isLowStock() ? 'badge-warning' : 'badge-danger') }}">
-                                {{ $product->quantity }} in stock
-                            </span>
+    @include('partials.product-toolbar')
+
+    @if($view === 'card')
+        <div class="products-grid" id="all-products-grid">
+            @foreach($allProducts as $product)
+                <div class="card" data-product-id="{{ $product->id }}">
+                    <a href="{{ route('inventory.product', $product->slug) }}" class="card-link">
+                        <div class="card-image">
+                            @if($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                            @else
+                                {{ $product->name }}
+                            @endif
                         </div>
-                    </div>
-                </a>
-            </div>
-        @endforeach
-    </div>
+                        <div class="card-body">
+                            <h3 class="card-title">{{ $product->name }}</h3>
+                            <p class="card-text">{{ Str::limit($product->description, 80) }}</p>
+                            <div class="card-meta">
+                                <span class="card-price">${{ number_format($product->price, 2) }}</span>
+                                <span class="badge {{ $product->isInStock() ? 'badge-success' : ($product->isLowStock() ? 'badge-warning' : 'badge-danger') }}">
+                                    {{ $product->quantity }} in stock
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+    @else
+        <div class="products-list" id="all-products-list">
+            @foreach($allProducts as $product)
+                @include('partials.product-list-item', ['product' => $product])
+            @endforeach
+        </div>
+    @endif
 
     <div class="empty-state" id="no-products-message" style="display: none;">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem; color: var(--color-primary-400);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>

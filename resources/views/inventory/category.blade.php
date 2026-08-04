@@ -17,42 +17,50 @@
         <span>{{ $category->name }}</span>
     </nav>
 
-    <!-- Products -->
     <h2 class="section-title">{{ $category->name }}</h2>
     @if($category->description)
         <p class="text-center mb-8" style="color: var(--color-text-muted);">{{ $category->description }}</p>
     @endif
 
-    <!-- Products -->
+    @include('partials.product-toolbar')
+
     @if($products->count() > 0)
-        <div class="products-grid">
-            @foreach($products as $product)
-                <div class="card {{ $product->is_featured ? 'card-featured' : '' }}">
-                    @if($product->is_featured)
-                        <span class="card-badge">Featured</span>
-                    @endif
-                    <a href="{{ route('inventory.product', $product->slug) }}" class="card-link">
-                        <div class="card-image">
-                            @if($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
-                            @else
-                                {{ $product->name }}
-                            @endif
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title">{{ $product->name }}</h3>
-                            <p class="card-text">{{ Str::limit($product->description, 80) }}</p>
-                            <div class="card-meta">
-                                <span class="card-price">${{ number_format($product->price, 2) }}</span>
-                                <span class="badge {{ $product->isInStock() ? 'badge-success' : ($product->isLowStock() ? 'badge-warning' : 'badge-danger') }}">
-                                    {{ $product->quantity }} in stock
-                                </span>
+        @if($view === 'card')
+            <div class="products-grid">
+                @foreach($products as $product)
+                    <div class="card {{ $product->is_featured ? 'card-featured' : '' }}">
+                        @if($product->is_featured)
+                            <span class="card-badge">Featured</span>
+                        @endif
+                        <a href="{{ route('inventory.product', $product->slug) }}" class="card-link">
+                            <div class="card-image">
+                                @if($product->image)
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                                @else
+                                    {{ $product->name }}
+                                @endif
                             </div>
-                        </div>
-                    </a>
-                </div>
-            @endforeach
-        </div>
+                            <div class="card-body">
+                                <h3 class="card-title">{{ $product->name }}</h3>
+                                <p class="card-text">{{ Str::limit($product->description, 80) }}</p>
+                                <div class="card-meta">
+                                    <span class="card-price">${{ number_format($product->price, 2) }}</span>
+                                    <span class="badge {{ $product->isInStock() ? 'badge-success' : ($product->isLowStock() ? 'badge-warning' : 'badge-danger') }}">
+                                        {{ $product->quantity }} in stock
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="products-list">
+                @foreach($products as $product)
+                    @include('partials.product-list-item', ['product' => $product])
+                @endforeach
+            </div>
+        @endif
 
         @if($products->hasPages())
             <div class="pagination">

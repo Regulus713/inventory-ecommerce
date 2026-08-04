@@ -12,6 +12,8 @@ class InventoryController extends Controller
     {
         $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
         $search = $request->input('q');
+        $sort = $this->getSortField($request->input('sort', 'newest'));
+        $view = $this->getView($request->input('view', 'card'));
 
         $productQuery = Product::where('is_active', true);
 
@@ -25,19 +27,27 @@ class InventoryController extends Controller
             });
         }
 
-        $allProducts = $productQuery->latest()->paginate(12)->withQueryString();
+        $productQuery = $this->applySorting($productQuery, $request->input('sort', 'newest'));
+
+        $allProducts = $productQuery->paginate(12)->withQueryString();
         $featuredProducts = $search ? collect() : Product::where('is_active', true)->where('is_featured', true)->get();
 
-        return view('inventory.index', compact('categories', 'featuredProducts', 'allProducts', 'search'));
+        return view('inventory.index', compact('categories', 'featuredProducts', 'allProducts', 'search', 'sort', 'view'));
     }
 
-    public function category($slug)
+    public function category(Request $request, $slug)
     {
         $category = Category::where('slug', $slug)->where('is_active', true)->firstOrFail();
-        $products = $category->products()->where('is_active', true)->paginate(12);
+        $sort = $this->getSortField($request->input('sort', 'newest'));
+        $view = $this->getView($request->input('view', 'card'));
+
+        $productQuery = $category->products()->where('is_active', true);
+        $productQuery = $this->applySorting($productQuery, $request->input('sort', 'newest'));
+
+        $products = $productQuery->paginate(12)->withQueryString();
         $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
 
-        return view('inventory.category', compact('category', 'products', 'categories'));
+        return view('inventory.category', compact('category', 'products', 'categories', 'sort', 'view'));
     }
 
     public function product($slug)
@@ -51,6 +61,30 @@ class InventoryController extends Controller
             ->get();
 
         return view('inventory.product', compact('product', 'categories', 'relatedProducts'));
+    }
+
+    private function getSortField(?string $sort): string
+    {
+        return in_array($sort, ['newest', 'oldest', 'price-asc', 'price-desc', 'name-asc', 'name-desc'])
+            ? $sort
+            : 'newest';
+    }
+
+    private function getView(?string $view): string
+    {
+        return in_array($view, ['card', 'list']) ? $view : 'card';
+    }
+
+    private function applySorting($query, string $sort)
+    {
+        return match ($sort) {
+            'oldest' => $query->oldest(),
+            'price-asc' => $query->orderBy('price', 'asc'),
+            'price-desc' => $query->orderBy('price', 'desc'),
+            'name-asc' => $query->orderBy('name', 'asc'),
+            'name-desc' => $query->orderBy('name', 'desc'),
+            default => $query->latest(),
+        };
     }
 
     public function search(Request $request)
