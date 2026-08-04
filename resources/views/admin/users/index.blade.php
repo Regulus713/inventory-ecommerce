@@ -16,8 +16,8 @@
     @endif
 
     <div class="product-toolbar">
-        <form method="GET" action="{{ route('admin.users.index') }}" class="header-search-form" style="flex: 1; max-width: 300px;">
-            <input type="text" name="q" class="header-search-input" placeholder="Search users..." value="{{ $search }}" autocomplete="off">
+        <form method="GET" action="{{ route('admin.users.index') }}" id="user-search-form" class="header-search-form" style="flex: 1; max-width: 300px;">
+            <input type="text" name="q" id="user-search-input" class="header-search-input" placeholder="Search users..." value="{{ $search }}" autocomplete="off">
         </form>
         <div class="product-sort">
             <label for="role-filter">Role</label>
@@ -30,7 +30,8 @@
         </div>
     </div>
 
-    @if($users->count() > 0)
+    <div id="users-search-results">
+        @if($users->count() > 0)
         <div class="dashboard-section">
             <div class="dashboard-section-body">
                 <table class="data-table">
@@ -96,4 +97,5 @@
             <p>No users found.</p>
         </div>
     @endif
+    </div>
 @endsection

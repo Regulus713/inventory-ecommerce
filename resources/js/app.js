@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLiveSearch();
     initAddToCart();
     initAutoHideFlash();
+    initAdminUserSearch();
 });
 
 let liveSearchDebounce;
@@ -398,4 +399,38 @@ async function refreshCartSidebar() {
     } catch (error) {
         console.error('Cart sidebar refresh error:', error);
     }
+}
+
+let adminUserSearchDebounce;
+
+function initAdminUserSearch() {
+    const searchInput = document.getElementById('user-search-input');
+    const roleFilter = document.getElementById('role-filter');
+
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', () => {
+        clearTimeout(adminUserSearchDebounce);
+        adminUserSearchDebounce = setTimeout(() => {
+            const query = searchInput.value.trim();
+            const role = roleFilter ? roleFilter.value.split('role=')[1]?.split('&')[0] || 'all' : 'all';
+            const url = new URL(searchInput.form.action, window.location.origin);
+            url.searchParams.set('q', query);
+            url.searchParams.set('role', role);
+
+            fetch(url, { credentials: 'same-origin' })
+                .then((response) => response.text())
+                .then((html) => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newResults = doc.getElementById('users-search-results');
+                    const currentResults = document.getElementById('users-search-results');
+
+                    if (newResults && currentResults) {
+                        currentResults.innerHTML = newResults.innerHTML;
+                    }
+                })
+                .catch((error) => console.error('User search error:', error));
+        }, 250);
+    });
 }
