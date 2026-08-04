@@ -244,6 +244,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `2413470` - "fix: Revert to margin-left so header does not cover sidebar"
 - `9130eb4` - "fix: Ensure header width matches remaining space beside sidebar"
 - `00601a4` - "refactor: Remove Storefront link from admin sidebar"
+- `0137333` - "feat: Force user sidebar expanded on home page"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -260,6 +261,11 @@ Extracted the storefront header into a shared partial and included it in both th
 
 ### Admin Sidebar
 - Removed the `Storefront` nav link from the admin sidebar (`resources/views/layouts/admin.blade.php`)
+
+### User Sidebar on Home Page
+- The user sidebar is now forced to stay expanded on the storefront home page (`inventory.index`)
+- Added `data-force-expanded` to the `body` on that route
+- `initUserSidebar` in `resources/js/app.js` ignores the saved collapsed state and hides the toggle when on the home page
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
