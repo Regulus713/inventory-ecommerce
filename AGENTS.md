@@ -251,6 +251,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `687cf00` - "refactor: Remove user side panel, keep admin side panel"
 - `c579ea2` - "feat: Show admin sidebar on storefront pages"
 - `0e11598` - "fix: Correct admin body class quote escaping and remove top sidebar padding"
+- `6567f03` - "feat: Reintroduce user sidebar with user name as title"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -290,6 +291,14 @@ Extracted the storefront header into a shared partial and included it in both th
 - `layouts/app.blade.php` now includes the admin sidebar for admin users on all pages (home, product list, category, product detail, etc.)
 - Fixed the `body` class attribute so `admin-sidebar` is applied correctly (Blade `{{ }}` was escaping the quotes)
 - Removed the 120px top padding from `.app-sidebar` so the admin sidebar reaches the top of the viewport on storefront pages
+
+### User Sidebar Reintroduced
+- Reintroduced the user side panel for authenticated non-admin users
+- Created `resources/views/partials/user-sidebar.blade.php`
+- The sidebar title is the authenticated user's name
+- Includes Dashboard, My Orders, Profile, and Log Out links
+- `layouts/app.blade.php` selects the correct sidebar and body class (admin vs user)
+- Added `body.user-sidebar` CSS for the header wrapper and main content margin
 - `layouts/admin.blade.php` reuses the same partial
 
 ### Current Development Status
