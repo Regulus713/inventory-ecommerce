@@ -143,22 +143,24 @@
 
     <div class="dashboard-section">
         <div class="dashboard-section-header">
-            <h3>Recent Users</h3>
-            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary btn-sm">View All</a>
+            <h3>Users</h3>
+            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary btn-sm">Manage Users</a>
         </div>
         <div class="dashboard-section-body">
-            @if($recentUsers->count() > 0)
+            @if($users->count() > 0)
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>User</th>
-                            <th>Email</th>
+                            <th>Username</th>
                             <th>Role</th>
+                            <th>Orders</th>
                             <th>Joined</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($recentUsers as $user)
+                        @foreach($users as $user)
                             <tr>
                                 <td>
                                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -166,9 +168,32 @@
                                         <span>{{ $user->name }}</span>
                                     </div>
                                 </td>
-                                <td>{{ $user->email }}</td>
-                                <td><span class="role-badge {{ $user->role }}">{{ $user->role }}</span></td>
+                                <td>{{ $user->username }}</td>
+                                <td>
+                                    <form method="POST" action="{{ route('admin.users.role', $user->id) }}" class="role-toggle-form">
+                                        @csrf
+                                        <input type="hidden" name="role" id="role-input-{{ $user->id }}" value="{{ $user->role }}">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox"
+                                                   class="toggle-switch-input"
+                                                   onchange="document.getElementById('role-input-{{ $user->id }}').value = this.checked ? 'admin' : 'customer'; this.form.submit();"
+                                                   {{ $user->isAdmin() ? 'checked' : '' }}
+                                                   {{ $user->id === auth()->id() ? 'disabled' : '' }}>
+                                            <span class="toggle-switch-slider"></span>
+                                            <span class="toggle-switch-label">{{ $user->isAdmin() ? 'Admin' : 'Customer' }}</span>
+                                        </label>
+                                    </form>
+                                </td>
+                                <td>{{ $user->orders_count }}</td>
                                 <td>{{ $user->created_at->format('M j, Y') }}</td>
+                                <td>
+                                    <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-secondary btn-sm">View</a>
+                                    <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" style="display: inline;" onsubmit="return confirm('Delete this user?');">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm" {{ $user->id === auth()->id() ? 'disabled' : '' }}>Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

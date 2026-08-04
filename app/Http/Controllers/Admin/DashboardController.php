@@ -25,7 +25,7 @@ class DashboardController extends Controller
 
         $recentOrders = Order::with('user', 'items')->latest()->take(5)->get();
         $lowStockItems = Product::where('quantity', '<=', 5)->with('category')->latest()->take(5)->get();
-        $recentUsers = User::latest()->take(5)->get();
+        $users = User::withCount('orders')->latest()->get();
 
         return view('admin.dashboard', compact(
             'totalProducts',
@@ -38,7 +38,7 @@ class DashboardController extends Controller
             'outOfStockProducts',
             'recentOrders',
             'lowStockItems',
-            'recentUsers',
+            'users',
         ));
     }
 }
