@@ -242,6 +242,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `3b394eb` - "fix: Allow category links to navigate when pjax main is absent"
 - `6f7903e` - "fix: Use sticky left inset to keep sidebar at the top on all pages"
 - `2413470` - "fix: Revert to margin-left so header does not cover sidebar"
+- `9130eb4` - "fix: Ensure header width matches remaining space beside sidebar"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -253,7 +254,8 @@ Extracted the storefront header into a shared partial and included it in both th
 ### Sidebar Top on All Pages
 - Reverted to `margin-left` for `.site-header` to push the entire header to the right
 - Removed `left`/`right` sticky insets that were causing the header to overlap the sidebar
-- Sidebar now sits flush at the top of the viewport on every page
+- Added explicit `width: calc(100% - X)` to `.site-header` for each sidebar width so the header cannot overflow and cover the sidebar on storefront pages
+- Mobile media query resets `margin-left: 0` and `width: 100%`
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
