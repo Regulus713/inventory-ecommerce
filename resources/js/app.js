@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAddToCart();
     initAutoHideFlash();
     initAdminUserSearch();
+    initThemeToggle();
 });
 
 let liveSearchDebounce;
@@ -432,5 +433,37 @@ function initAdminUserSearch() {
                 })
                 .catch((error) => console.error('User search error:', error));
         }, 250);
+    });
+}
+
+function initThemeToggle() {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+
+    const moonIcon = document.getElementById('theme-icon-moon');
+    const sunIcon = document.getElementById('theme-icon-sun');
+
+    function updateIcons() {
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+            if (moonIcon) moonIcon.style.display = 'none';
+            if (sunIcon) sunIcon.style.display = 'block';
+        } else {
+            if (moonIcon) moonIcon.style.display = 'block';
+            if (sunIcon) sunIcon.style.display = 'none';
+        }
+    }
+
+    updateIcons();
+
+    toggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        }
+        updateIcons();
     });
 }
