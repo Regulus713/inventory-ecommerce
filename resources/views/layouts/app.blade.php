@@ -7,8 +7,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    @php($cartCount = array_sum(session('shopping_cart', [])))
-
     @include('partials.site-header')
 
     @auth

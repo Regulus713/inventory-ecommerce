@@ -44,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('cartItems', $cartItems);
             $view->with('cartSubtotal', $cartSubtotal);
+            $view->with('cartCount', array_sum($cart));
         });
     }
 }
