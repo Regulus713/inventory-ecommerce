@@ -29,6 +29,7 @@
 - `e13d621` - "feat: Add product search bar above categories with name/SKU/manufacturer/model filtering"
 - `03fd797` - "feat: Add real-time product search with debounced AJAX and JSON API"
 - `e53a4c0` - "feat: Implement dummy checkout system with cart, checkout, and inventory adjustment"
+- `152b3e4` - "feat: Add storefront header with category nav, search, and action icons"
 - Branch: `feature/ui-modernization`
 
 ## Project Overview
