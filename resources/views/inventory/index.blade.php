@@ -10,22 +10,6 @@
         <p>Manage your technology products efficiently</p>
     </header>
 
-    <!-- Search -->
-    <div class="search-bar">
-        @include('partials.search')
-    </div>
-
-    <!-- Categories -->
-    <h2 class="section-title" id="categories-title">Categories</h2>
-    <div class="category-list" id="category-list">
-        <a href="{{ route('inventory.index') }}" class="category-chip active">All Products</a>
-        @foreach($categories as $category)
-            <a href="{{ route('inventory.category', $category->slug) }}" class="category-chip">
-                {{ $category->name }}
-            </a>
-        @endforeach
-    </div>
-
     <!-- Featured Products -->
     <div id="featured-products-section">
         @if($featuredProducts->count() > 0)

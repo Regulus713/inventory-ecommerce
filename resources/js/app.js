@@ -1,28 +1,34 @@
 import './bootstrap';
 
-// Mobile sidebar toggle
 document.addEventListener('DOMContentLoaded', () => {
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const sidebar = document.querySelector('.app-sidebar');
-    const overlay = document.querySelector('.sidebar-overlay');
-
-    if (menuBtn && sidebar) {
-        menuBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-            if (overlay) overlay.classList.toggle('open');
-        });
-
-        if (overlay) {
-            overlay.addEventListener('click', () => {
-                sidebar.classList.remove('open');
-                overlay.classList.remove('open');
-            });
-        }
-    }
-
-    // Real-time product search
+    initMobileNavigation();
     initLiveSearch();
 });
+
+function initMobileNavigation() {
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const closeBtn = document.querySelector('.mobile-close-btn');
+    const sidebar = document.querySelector('.app-sidebar');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    const panel = sidebar || mobileNav;
+    if (!menuBtn || !panel) return;
+
+    const open = () => {
+        panel.classList.add('open');
+        if (overlay) overlay.classList.add('open');
+    };
+
+    const close = () => {
+        panel.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+    };
+
+    menuBtn.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (overlay) overlay.addEventListener('click', close);
+}
 
 function initLiveSearch() {
     const searchInput = document.getElementById('product-search-input');
@@ -34,7 +40,6 @@ function initLiveSearch() {
     const pagination = document.getElementById('all-products-pagination');
     const template = document.getElementById('product-card-template');
 
-    // Only enable live search on pages with the products grid and template
     if (!searchInput || !searchForm || !productsGrid || !template) return;
 
     let debounceTimer;
@@ -51,7 +56,6 @@ function initLiveSearch() {
 
     async function performSearch(query) {
         if (!query) {
-            // Reload the page to restore initial state when search is cleared
             window.location.href = window.location.pathname;
             return;
         }
@@ -72,17 +76,14 @@ function initLiveSearch() {
     }
 
     function renderProducts(products, query) {
-        // Hide featured products while searching
         if (featuredSection) featuredSection.style.display = 'none';
         if (pagination) pagination.style.display = 'none';
 
-        // Update title
         if (productsTitle) {
             productsTitle.textContent = `Search results for "${query}"`;
             productsTitle.style.marginTop = '0';
         }
 
-        // Clear grid
         productsGrid.innerHTML = '';
 
         if (products.length === 0) {

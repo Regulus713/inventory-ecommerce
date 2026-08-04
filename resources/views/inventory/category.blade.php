@@ -6,14 +6,9 @@
     @php($currentCategory = $category->slug)
 
     <header class="app-header">
-        <h1>Tech Inventory System</h1>
-        <p>Manage your technology products efficiently</p>
+        <h1>{{ $category->name }}</h1>
+        <p>{{ $category->description ?: 'Browse products in this category' }}</p>
     </header>
-
-    <!-- Search -->
-    <div class="search-bar">
-        @include('partials.search')
-    </div>
 
     <!-- Breadcrumb -->
     <nav class="breadcrumb">
@@ -22,17 +17,7 @@
         <span>{{ $category->name }}</span>
     </nav>
 
-    <!-- Categories -->
-    <div class="category-list">
-        <a href="{{ route('inventory.index') }}" class="category-chip">All Products</a>
-        @foreach($categories as $cat)
-            <a href="{{ route('inventory.category', $cat->slug) }}" class="category-chip {{ $cat->id === $category->id ? 'active' : '' }}">
-                {{ $cat->name }}
-            </a>
-        @endforeach
-    </div>
-
-    <!-- Category Info -->
+    <!-- Products -->
     <h2 class="section-title">{{ $category->name }}</h2>
     @if($category->description)
         <p class="text-center mb-8" style="color: var(--color-text-muted);">{{ $category->description }}</p>
