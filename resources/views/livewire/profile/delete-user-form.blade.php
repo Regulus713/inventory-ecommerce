@@ -62,7 +62,7 @@ new class extends Component
                     {{ __('Cancel') }}
                 </x-secondary-button>
 
-                <x-danger-button>
+                <x-danger-button type="submit">
                     {{ __('Delete Account') }}
                 </x-danger-button>
             </div>
