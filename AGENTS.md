@@ -178,6 +178,38 @@ Added a visual admin toggle switch so admins can promote customers to admin or d
 - Latest commit pushed to GitHub
 - Build passes
 
+## Session Summary (2026-08-04 - Collapsible User Panel Sidebar)
+
+### What Was Accomplished
+Added a fixed, collapsible user panel sidebar that appears on every page for logged-in users, similar to the admin panel.
+
+### User Panel Sidebar
+- Modified `resources/views/layouts/app.blade.php` to render a fixed `aside` for authenticated users
+- The sidebar is visible on all customer and storefront pages (home, product, category, dashboard, profile, orders)
+- Includes navigation links:
+  - Dashboard
+  - My Orders
+  - Profile
+  - Admin Panel (only for admin users)
+  - Log Out
+- Added a minimize/expand toggle button in the sidebar that:
+  - Collapses the sidebar to icon-only
+  - Persists the collapsed state across page loads using `localStorage`
+- Mobile: the hamburger menu now opens/closes the user sidebar
+
+### Files Modified
+- `resources/views/layouts/app.blade.php`
+- `resources/css/app.css`
+- `resources/js/app.js`
+
+### Git Commits
+- `798eaf4` - "feat: Add collapsible user panel sidebar across all customer pages"
+
+### Current Development Status
+- Branch: `feature/ui-modernization`
+- Latest commit pushed to GitHub
+- Build passes
+
 ## Session Summary (2026-08-04 - Username Authentication)
 
 ### What Was Accomplished
