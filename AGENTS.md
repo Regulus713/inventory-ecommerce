@@ -249,6 +249,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `e2e7a03` - "feat: Force user sidebar always expanded for logged-in users"
 - `00f7b9e` - "fix: Wrap header in wrapper so sidebar is not cut off on user pages"
 - `687cf00` - "refactor: Remove user side panel, keep admin side panel"
+- `c579ea2` - "feat: Show admin sidebar on storefront pages"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -282,6 +283,12 @@ Extracted the storefront header into a shared partial and included it in both th
 - Removed `initUserSidebar` and `data-force-expanded` from `resources/js/app.js`
 - Storefront and customer pages now use only the shared top header; no side panel
 - Admin side panel (`resources/views/layouts/admin.blade.php`) is unchanged and remains the only sidebar
+
+### Admin Sidebar on Storefront
+- Extracted admin sidebar into `resources/views/partials/admin-sidebar.blade.php`
+- `layouts/app.blade.php` now includes the admin sidebar for admin users on all pages (home, product list, category, product detail, etc.)
+- Admin users see `body.admin-sidebar` with `app-content` so the sidebar is always present while surfing the storefront
+- `layouts/admin.blade.php` reuses the same partial
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
