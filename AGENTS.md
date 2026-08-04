@@ -258,6 +258,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `a03662d` - "fix: Prevent cart subtotal header from cropping in admin user view"
 - `611b639` - "fix: Widen checkout-grid right column for cart tables"
 - `110dfff` - "feat: Real-time search for admin users"
+- `f67785c` - "style: Round admin user role dropdown corners"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -320,6 +321,9 @@ Extracted the storefront header into a shared partial and included it in both th
 - Added real-time search to `resources/views/admin/users/index.blade.php`
 - Typing in the search box debounces for 250ms, fetches the page, and replaces the `#users-search-results` block
 - Preserves the current `role` filter while searching
+
+### Admin User Search UI
+- Rounded the role dropdown (`#role-filter`) with `--radius-lg` so it matches the pill/rounded theme
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
