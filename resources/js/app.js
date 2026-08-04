@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLiveSearch();
     initAddToCart();
     initAutoHideFlash();
+    initUserSidebar();
 });
 
 let liveSearchDebounce;
@@ -395,4 +396,23 @@ async function refreshCartSidebar() {
     } catch (error) {
         console.error('Cart sidebar refresh error:', error);
     }
+}
+
+function initUserSidebar() {
+    const toggle = document.getElementById('user-sidebar-toggle');
+    const sidebar = document.getElementById('user-sidebar');
+
+    if (!toggle || !sidebar) return;
+
+    const key = 'userSidebarCollapsed';
+    const isCollapsed = localStorage.getItem(key) === 'true';
+
+    if (isCollapsed) {
+        document.body.classList.add('user-sidebar-collapsed');
+    }
+
+    toggle.addEventListener('click', () => {
+        const collapsed = document.body.classList.toggle('user-sidebar-collapsed');
+        localStorage.setItem(key, collapsed);
+    });
 }
