@@ -232,7 +232,7 @@ Switched authentication from email to username. Users now log in and register wi
 - Customer: `test` / `password`
 
 ### Git Commits
-- *to be added after session*
+- `5d5fc61` - "feat: Switch authentication from email to username"
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
