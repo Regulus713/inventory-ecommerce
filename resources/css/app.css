@@ -1373,10 +1373,12 @@ body.admin-sidebar .site-header-wrapper {
     font-size: 0.9rem;
 }
 
-.product-sort select {
+.product-sort select,
+.product-sort .form-select {
     width: auto;
     min-width: 180px;
     cursor: pointer;
+    border-radius: var(--radius-lg);
 }
 
 .product-view-toggle {
