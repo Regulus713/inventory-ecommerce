@@ -3,6 +3,8 @@ import './bootstrap';
 document.addEventListener('DOMContentLoaded', () => {
     initMobileNavigation();
     initPjax();
+    initCartSidebar();
+    initRemoveFromCart();
     initLiveSearch();
     initAddToCart();
     initAutoHideFlash();
@@ -250,6 +252,7 @@ function initAddToCart() {
                 if (data.success) {
                     showToast(data.message, 'success');
                     updateCartCount(data.cart_count);
+                    refreshCartSidebar();
                 } else {
                     showToast(data.message, 'error');
                 }
@@ -261,6 +264,42 @@ function initAddToCart() {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalHtml;
                 }
+            }
+        });
+    });
+}
+
+function initRemoveFromCart() {
+    const forms = document.querySelectorAll('.cart-remove-form');
+    if (forms.length === 0) return;
+
+    forms.forEach((form) => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json',
+                    },
+                    body: formData,
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast(data.message, 'success');
+                    updateCartCount(data.cart_count);
+                    refreshCartSidebar();
+                } else {
+                    showToast(data.message, 'error');
+                }
+            } catch (error) {
+                console.error('Remove from cart error:', error);
+                form.submit();
             }
         });
     });
@@ -299,4 +338,61 @@ function updateCartCount(count) {
 
     badge.textContent = count;
     badge.style.display = count > 0 ? 'inline-flex' : 'none';
+}
+
+function initCartSidebar() {
+    const toggle = document.getElementById('cart-toggle');
+    const overlay = document.getElementById('cart-overlay');
+    const sidebar = document.getElementById('cart-sidebar');
+
+    if (!toggle || !sidebar) return;
+
+    const open = () => {
+        sidebar.classList.add('open');
+        if (overlay) overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeSidebar = () => {
+        sidebar.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+
+    toggle.addEventListener('click', open);
+    if (overlay) overlay.addEventListener('click', closeSidebar);
+
+    sidebar.addEventListener('click', (e) => {
+        if (e.target.closest('#cart-sidebar-close') || e.target.closest('.continue-shopping')) {
+            closeSidebar();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+            closeSidebar();
+        }
+    });
+}
+
+async function refreshCartSidebar() {
+    const sidebar = document.getElementById('cart-sidebar');
+    if (!sidebar) return;
+
+    try {
+        const response = await fetch('/api/cart/sidebar');
+        if (!response.ok) throw new Error('Cart refresh failed');
+        const html = await response.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newSidebar = doc.getElementById('cart-sidebar');
+
+        if (newSidebar) {
+            sidebar.innerHTML = newSidebar.innerHTML;
+            initRemoveFromCart();
+        }
+    } catch (error) {
+        console.error('Cart sidebar refresh error:', error);
+    }
 }

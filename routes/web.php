@@ -15,6 +15,7 @@ Route::get('/api/products/search', [InventoryController::class, 'search'])->name
 
 // Cart routes
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/api/cart/sidebar', [CartController::class, 'sidebar'])->name('cart.sidebar');
 Route::post('/cart/add/{slug}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update/{slug}', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/remove/{slug}', [CartController::class, 'remove'])->name('cart.remove');

@@ -107,6 +107,14 @@ class CartController extends Controller
         unset($cart[$slug]);
         $request->session()->put(self::CART_KEY, $cart);
 
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Item removed from cart.',
+                'cart_count' => array_sum($cart),
+            ]);
+        }
+
         return back()->with('success', 'Item removed from cart.');
     }
 
@@ -114,6 +122,36 @@ class CartController extends Controller
     {
         $request->session()->forget(self::CART_KEY);
 
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Cart cleared.',
+                'cart_count' => 0,
+            ]);
+        }
+
         return redirect()->route('cart.index')->with('success', 'Cart cleared.');
+    }
+
+    public function sidebar(Request $request)
+    {
+        $cart = $request->session()->get(self::CART_KEY, []);
+        $cartItems = [];
+        $cartSubtotal = 0;
+
+        foreach ($cart as $slug => $quantity) {
+            $product = Product::where('slug', $slug)->where('is_active', true)->first();
+            if ($product) {
+                $subtotal = $product->price * $quantity;
+                $cartItems[] = [
+                    'product' => $product,
+                    'quantity' => $quantity,
+                    'subtotal' => $subtotal,
+                ];
+                $cartSubtotal += $subtotal;
+            }
+        }
+
+        return view('partials.cart-sidebar', compact('cartItems', 'cartSubtotal'));
     }
 }
