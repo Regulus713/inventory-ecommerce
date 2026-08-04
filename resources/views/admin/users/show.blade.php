@@ -89,13 +89,13 @@
                 </div>
                 <div class="dashboard-section-body">
                     @if($cart && $cart->items->count() > 0)
-                        <table class="data-table">
+                        <table class="data-table" style="table-layout: fixed; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th>Subtotal</th>
+                                    <th style="width: 42%;">Product</th>
+                                    <th style="width: 20%;">Price</th>
+                                    <th style="width: 14%;">Qty</th>
+                                    <th style="width: 24%;">Subtotal</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,7 +104,7 @@
                                     @php($subtotal = $item->product->price * $item->quantity)
                                     @php($cartTotal += $subtotal)
                                     <tr>
-                                        <td>{{ $item->product->name }}</td>
+                                        <td style="word-break: break-word;">{{ $item->product->name }}</td>
                                         <td>${{ number_format($item->product->price, 2) }}</td>
                                         <td>{{ $item->quantity }}</td>
                                         <td>${{ number_format($subtotal, 2) }}</td>
