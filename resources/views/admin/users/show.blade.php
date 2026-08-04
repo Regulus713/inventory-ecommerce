@@ -44,20 +44,25 @@
 
             <div class="dashboard-section">
                 <div class="dashboard-section-header">
-                    <h3>Change Role</h3>
+                    <h3>Admin Access</h3>
                 </div>
                 <div style="padding: 1.5rem;">
-                    <form action="{{ route('admin.users.role', $user->id) }}" method="POST" style="display: flex; gap: 0.75rem; align-items: flex-end;">
+                    <form action="{{ route('admin.users.role', $user->id) }}" method="POST" class="role-toggle-form">
                         @csrf
-                        <div class="form-group" style="flex: 1; margin: 0;">
-                            <label class="form-label" for="role">User Role</label>
-                            <select name="role" id="role" class="form-select">
-                                <option value="customer" {{ $user->role === 'customer' ? 'selected' : '' }}>Customer</option>
-                                <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Role</button>
+                        <input type="hidden" name="role" id="role-input-{{ $user->id }}" value="{{ $user->role }}">
+                        <label class="toggle-switch" style="font-size: 1rem;">
+                            <input type="checkbox"
+                                   class="toggle-switch-input"
+                                   onchange="document.getElementById('role-input-{{ $user->id }}').value = this.checked ? 'admin' : 'customer'; this.form.submit();"
+                                   {{ $user->isAdmin() ? 'checked' : '' }}
+                                   {{ $user->id === auth()->id() ? 'disabled' : '' }}>
+                            <span class="toggle-switch-slider"></span>
+                            <span class="toggle-switch-label">{{ $user->isAdmin() ? 'Admin' : 'Customer' }}</span>
+                        </label>
                     </form>
+                    @if($user->id === auth()->id())
+                        <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--color-text-muted);">You cannot change your own role.</p>
+                    @endif
                 </div>
             </div>
         </div>

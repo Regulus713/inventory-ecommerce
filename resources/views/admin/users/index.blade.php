@@ -54,7 +54,21 @@
                                     </div>
                                 </td>
                                 <td>{{ $user->email }}</td>
-                                <td><span class="role-badge {{ $user->role }}">{{ $user->role }}</span></td>
+                                <td>
+                                    <form method="POST" action="{{ route('admin.users.role', $user->id) }}" class="role-toggle-form">
+                                        @csrf
+                                        <input type="hidden" name="role" id="role-input-{{ $user->id }}" value="{{ $user->role }}">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox"
+                                                   class="toggle-switch-input"
+                                                   onchange="document.getElementById('role-input-{{ $user->id }}').value = this.checked ? 'admin' : 'customer'; this.form.submit();"
+                                                   {{ $user->isAdmin() ? 'checked' : '' }}
+                                                   {{ $user->id === auth()->id() ? 'disabled' : '' }}>
+                                            <span class="toggle-switch-slider"></span>
+                                            <span class="toggle-switch-label">{{ $user->isAdmin() ? 'Admin' : 'Customer' }}</span>
+                                        </label>
+                                    </form>
+                                </td>
                                 <td>{{ $user->orders_count }}</td>
                                 <td>{{ $user->created_at->format('M j, Y') }}</td>
                                 <td><a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-secondary btn-sm">View</a></td>
