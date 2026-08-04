@@ -6,6 +6,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\UserController;
 
 // Public inventory routes
 Route::get('/', [InventoryController::class, 'index'])->name('inventory.index');
@@ -26,6 +29,39 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.in
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/checkout/success/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
 
-// Admin CRUD routes
-Route::resource('categories', CategoryController::class);
-Route::resource('products', ProductController::class);
+// Auth routes (Breeze)
+require __DIR__.'/auth.php';
+
+// Logout route
+Route::post('/logout', function () {
+    auth()->logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect()->route('inventory.index');
+})->name('logout');
+
+// Profile route
+Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
+
+// Admin routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Orders
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.status');
+
+    // Users
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::post('/users/{id}/role', [UserController::class, 'updateRole'])->name('users.role');
+});
+
+// Admin CRUD routes (categories & products)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class);
+});

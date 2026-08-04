@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Order;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    public function index(Request $request)
+    {
+        $search = $request->input('q');
+        $role = $request->input('role', 'all');
+
+        $query = User::withCount('orders');
+
+        if ($role !== 'all') {
+            $query->where('role', $role);
+        }
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        $users = $query->latest()->paginate(15)->withQueryString();
+
+        return view('admin.users.index', compact('users', 'search', 'role'));
+    }
+
+    public function show($id)
+    {
+        $user = User::withCount('orders')->findOrFail($id);
+        $orders = Order::where('user_id', $user->id)->latest()->paginate(10);
+
+        return view('admin.users.show', compact('user', 'orders'));
+    }
+
+    public function updateRole(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validated = $request->validate([
+            'role' => 'required|in:admin,customer',
+        ]);
+
+        if ($user->id === auth()->id() && $validated['role'] !== 'admin') {
+            return back()->with('error', 'You cannot demote yourself.');
+        }
+
+        $user->role = $validated['role'];
+        $user->save();
+
+        return back()->with('success', 'User role updated to ' . ucfirst($validated['role']) . '.');
+    }
+}

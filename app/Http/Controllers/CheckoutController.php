@@ -98,7 +98,7 @@ class CheckoutController extends Controller
 
         try {
             $order = Order::create([
-                'user_id' => null,
+                'user_id' => auth()->id(),
                 'order_number' => $this->generateOrderNumber(),
                 'status' => 'pending',
                 'subtotal' => $subtotal,
