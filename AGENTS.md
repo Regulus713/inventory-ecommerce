@@ -33,6 +33,7 @@
 - `666ad98` - "feat: Add toast notification on Add to Cart and update header cart count"
 - `1e9347d` - "feat: Add product sorting and card/list view toggle"
 - `9ac86b9` - "feat: Add PJAX-style seamless category switching"
+- `a94fa09` - "feat: Add slide-in cart sidebar with live updates"
 - Branch: `feature/ui-modernization`
 
 ## Project Overview
