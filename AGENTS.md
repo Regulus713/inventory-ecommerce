@@ -289,6 +289,28 @@ Admins can now delete user accounts, the first registered user is automatically 
 - Latest commit pushed to GitHub
 - Build passes, routes verified
 
+## Session Summary (2026-08-04 - Admin Dashboard User Management)
+
+### What Was Accomplished
+Replaced the "Recent Users" widget on the admin dashboard with a full user management section that lists all registered accounts and allows promote/demote and delete actions.
+
+### Admin Dashboard Users Section
+- Updated `App\Http\Controllers\Admin\DashboardController` to pass `users` (with order counts) instead of `recentUsers`
+- Rewrote the users table in `resources/views/admin/dashboard.blade.php`:
+  - Shows all registered users
+  - Columns: User, Username, Role, Orders, Joined, Actions
+  - Includes the admin role toggle switch to promote or demote any user
+  - Includes a "Delete" button with confirmation
+  - Prevents self-delete and self-demotion
+
+### Git Commits
+- `272db54` - "feat: Add full user management section to admin dashboard"
+
+### Current Development Status
+- Branch: `feature/ui-modernization`
+- Latest commit pushed to GitHub
+- Build passes
+
 ## Session Summary (2026-08-04 - Customer Dashboard, Orders, and Profile)
 
 ### What Was Accomplished
