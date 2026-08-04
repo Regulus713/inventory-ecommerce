@@ -64,6 +64,24 @@
                     <strong>Description</strong>
                     <p style="margin-top: 0.5rem;">{{ $product->description }}</p>
                 </div>
+
+                @if($product->quantity > 0)
+                    <form action="{{ route('cart.add', $product->slug) }}" method="POST" class="add-to-cart-form">
+                        @csrf
+                        <div class="form-group flex items-center gap-3" style="align-items: flex-end;">
+                            <div style="flex: 1;">
+                                <label for="quantity">Quantity</label>
+                                <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ $product->quantity }}" class="form-input" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="padding: 0.85rem 1.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </form>
+                @else
+                    <div class="alert alert-error">This product is currently out of stock.</div>
+                @endif
             </div>
         </div>
     </div>
