@@ -144,6 +144,40 @@ Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.
 5. Build e-commerce frontend for tech products
 6. Create seeders for initial tech categories and sample products
 
+## Session Summary (2026-08-04 - Admin User Role Toggle)
+
+### What Was Accomplished
+Added a visual admin toggle switch so admins can promote customers to admin or demote other admins to customers.
+
+### Admin Role Toggle
+- Added `.toggle-switch`, `.toggle-switch-slider`, `.toggle-switch-input`, and `.toggle-switch-label` CSS classes to `resources/css/app.css`
+- Replaced the static role badge in `admin/users/index.blade.php` with a toggle switch
+  - Toggle posts to `admin.users.role` route on change
+  - Checked state sets role to `admin`
+  - Unchecked state sets role to `customer`
+  - Toggle is disabled for the currently logged-in admin to prevent self-demotion
+- Updated `admin/users/show.blade.php` to use the same toggle switch in the "Admin Access" section
+  - Also disables the toggle for the current user and shows a helper message
+- `Admin\UserController@updateRole` remains unchanged and continues to enforce the self-demotion guard
+
+### Behavior
+- Admins can promote any customer to admin by toggling the switch on
+- Admins can demote other admins to customer by toggling the switch off
+- An admin cannot demote themselves; the backend rejects this and the UI disables the toggle on their own row
+
+### Files Modified
+- `resources/css/app.css` (toggle switch styles)
+- `resources/views/admin/users/index.blade.php`
+- `resources/views/admin/users/show.blade.php`
+
+### Git Commits
+- `a0d5653` - "feat: Add admin toggle for promoting and demoting users"
+
+### Current Development Status
+- Branch: `feature/ui-modernization`
+- Latest commit pushed to GitHub
+- Build passes
+
 ## Session Summary (2026-08-04 - Customer Dashboard, Orders, and Profile)
 
 ### What Was Accomplished
