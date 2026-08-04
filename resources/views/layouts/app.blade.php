@@ -15,7 +15,7 @@
                 <button class="mobile-menu-btn" aria-label="Open navigation menu">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
                 </button>
-                <a href="{{ route('inventory.index') }}" class="header-logo">
+                <a href="{{ route('inventory.index') }}" class="header-logo" data-pjax="main">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="3" y="4" rx="2" ry="2"/><line x1="2" x2="22" y1="20" y2="20"/></svg>
                     Tech Inventory
                 </a>
@@ -50,10 +50,10 @@
             </div>
         </div>
 
-        <nav class="header-categories">
-            <a href="{{ route('inventory.index') }}" class="header-category-link {{ request()->routeIs('inventory.index') ? 'active' : '' }}">All Products</a>
+        <nav class="header-categories" id="header-categories">
+            <a href="{{ route('inventory.index') }}" class="header-category-link {{ request()->routeIs('inventory.index') ? 'active' : '' }}" data-pjax="main">All Products</a>
             @foreach($categories as $category)
-                <a href="{{ route('inventory.category', $category->slug) }}" class="header-category-link {{ request()->is('category/' . $category->slug) ? 'active' : '' }}">
+                <a href="{{ route('inventory.category', $category->slug) }}" class="header-category-link {{ request()->is('category/' . $category->slug) ? 'active' : '' }}" data-pjax="main">
                     {{ $category->name }}
                 </a>
             @endforeach
@@ -67,16 +67,16 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             </div>
-            <div class="mobile-nav-links">
-                <a href="{{ route('inventory.index') }}" class="mobile-nav-link {{ request()->routeIs('inventory.index') ? 'active' : '' }}">All Products</a>
+            <div class="mobile-nav-links" id="mobile-nav-links">
+                <a href="{{ route('inventory.index') }}" class="mobile-nav-link {{ request()->routeIs('inventory.index') ? 'active' : '' }}" data-pjax="main">All Products</a>
                 @foreach($categories as $category)
-                    <a href="{{ route('inventory.category', $category->slug) }}" class="mobile-nav-link {{ request()->is('category/' . $category->slug) ? 'active' : '' }}">{{ $category->name }}</a>
+                    <a href="{{ route('inventory.category', $category->slug) }}" class="mobile-nav-link {{ request()->is('category/' . $category->slug) ? 'active' : '' }}" data-pjax="main">{{ $category->name }}</a>
                 @endforeach
             </div>
         </nav>
     </header>
 
-    <main class="main-content">
+    <main class="main-content" id="pjax-main">
         <div class="app-container">
             <div class="app-main">
                 @yield('content')
