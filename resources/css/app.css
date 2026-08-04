@@ -129,6 +129,10 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
+.app-nav-link.logout:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
 .app-nav-link.active {
     background: rgba(255, 255, 255, 0.2);
     font-weight: 600;

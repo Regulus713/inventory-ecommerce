@@ -22,7 +22,7 @@
     <nav class="app-nav" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.12);">
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <button type="submit" class="app-nav-link" style="width: 100%; border: none; background: transparent; cursor: pointer; text-align: left;">
+            <button type="submit" class="app-nav-link logout" style="width: 100%; border: none; background: transparent; cursor: pointer; text-align: left;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
                 Log Out
             </button>
