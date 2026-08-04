@@ -265,7 +265,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `043f599` - "feat: Add dark theme toggle"
 - `2a0dc06` - "style: Make cart notification badge orange"
 - `66f396b` - "style: Switch dark theme from bluish to ash grey"
-- `a057b18` - "style: Cart badge blue background with reddit orange text"
+- `8010f85` - "Revert style: Cart badge blue background with reddit orange text"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -351,7 +351,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - Dark mode now uses an ash-grey palette instead of a bluish one
 
 ### Cart Badge
-- Cart badge now uses the primary blue background (`--color-primary-600`) with `#ff4500` (Reddit orange) text
+- Reverted cart badge back to a full `#ff4500` (Reddit orange) background
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
