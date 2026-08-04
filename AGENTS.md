@@ -239,6 +239,56 @@ Switched authentication from email to username. Users now log in and register wi
 - Build passes
 - Login and registration verified with username credentials
 
+## Session Summary (2026-08-04 - Admin User Management & Cart Visibility)
+
+### What Was Accomplished
+Admins can now delete user accounts, the first registered user is automatically an admin, and admins can view a user's persisted cart, role, and order history.
+
+### First User Becomes Admin
+- Updated `resources/views/livewire/pages/auth/register.blade.php`
+  - `User::count() === 0 ? 'admin' : 'customer'`
+  - The very first account created on a fresh install gets the `admin` role
+  - Subsequent registrations remain `customer`
+
+### Admin User Deletion
+- Added `Admin\UserController@destroy`
+  - Prevents an admin from deleting their own account
+- Added `DELETE /admin/users/{id}` route in `routes/web.php`
+- Added "Delete" button to `admin/users/index.blade.php`
+- Added "Delete User" section to `admin/users/show.blade.php`
+
+### Cart Persistence for Admin Visibility
+- Created `App\Models\Cart` and `App\Models\CartItem` with migrations
+- `CartController` now syncs the in-memory session cart to the `carts`/`cart_items` tables for authenticated users on every `add`, `update`, `remove`, and `clear`
+- Added `User->cart()` `hasOne` relationship
+- Admin user detail page now displays:
+  - **Current Cart** (items, quantities, subtotals, total)
+  - **Order History** (existing)
+  - **Role / Joined / Total Orders**
+
+### Files Created
+- `app/Models/Cart.php`
+- `app/Models/CartItem.php`
+- `database/migrations/2026_08_04_025345_create_carts_table.php`
+- `database/migrations/2026_08_04_025345_create_cart_items_table.php`
+
+### Files Modified
+- `resources/views/livewire/pages/auth/register.blade.php`
+- `app/Http/Controllers/Admin/UserController.php`
+- `app/Http/Controllers/CartController.php`
+- `app/Models/User.php`
+- `resources/views/admin/users/index.blade.php`
+- `resources/views/admin/users/show.blade.php`
+- `routes/web.php`
+
+### Git Commits
+- `2dad6cd` - "feat: First registered user becomes admin, admin can delete users and view carts"
+
+### Current Development Status
+- Branch: `feature/ui-modernization`
+- Latest commit pushed to GitHub
+- Build passes, routes verified
+
 ## Session Summary (2026-08-04 - Customer Dashboard, Orders, and Profile)
 
 ### What Was Accomplished
