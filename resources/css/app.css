@@ -195,28 +195,24 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 70px;
 }
 
-.user-sidebar-collapsed .site-header {
+.user-sidebar-collapsed .site-header-wrapper {
     margin-left: 70px;
-    width: calc(100% - 70px);
 }
 
-body.user-sidebar .site-header {
+body.user-sidebar .site-header-wrapper {
     margin-left: 240px;
-    width: calc(100% - 240px);
 }
 
-body.admin-sidebar .site-header {
+body.admin-sidebar .site-header-wrapper {
     margin-left: 260px;
-    width: calc(100% - 260px);
 }
 
 body.user-sidebar .main-content.user-content {
     margin-left: 240px;
 }
 
-body.user-sidebar-collapsed .site-header {
+body.user-sidebar-collapsed .site-header-wrapper {
     margin-left: 70px;
-    width: calc(100% - 70px);
 }
 
 body.user-sidebar-collapsed .main-content.user-content {
@@ -1551,10 +1547,13 @@ body.user-sidebar-collapsed .main-content.user-content {
         padding: 4.5rem 1rem 1.5rem;
     }
 
-    body.user-sidebar .site-header,
-    body.admin-sidebar .site-header,
-    body.user-sidebar-collapsed .site-header {
+    body.user-sidebar .site-header-wrapper,
+    body.admin-sidebar .site-header-wrapper,
+    body.user-sidebar-collapsed .site-header-wrapper {
         margin-left: 0;
+    }
+
+    .site-header {
         width: 100%;
     }
 

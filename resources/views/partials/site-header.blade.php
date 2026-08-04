@@ -1,4 +1,5 @@
-<header class="site-header">
+<div class="site-header-wrapper">
+    <header class="site-header">
         <div class="header-top">
             <div class="header-left">
                 <button class="mobile-menu-btn" aria-label="Open navigation menu">
@@ -87,3 +88,4 @@
             </div>
         </nav>
     </header>
+</div>
