@@ -8,6 +8,11 @@
         <p>Manage your technology products efficiently</p>
     </header>
 
+    <!-- Search -->
+    <div class="search-bar">
+        @include('partials.search')
+    </div>
+
     <!-- Breadcrumb -->
     <nav class="breadcrumb">
         <a href="{{ route('inventory.index') }}">Home</a>

@@ -8,13 +8,27 @@ use App\Models\Product;
 
 class InventoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
-        $featuredProducts = Product::where('is_active', true)->where('is_featured', true)->get();
-        $allProducts = Product::where('is_active', true)->latest()->paginate(12);
+        $search = $request->input('q');
 
-        return view('inventory.index', compact('categories', 'featuredProducts', 'allProducts'));
+        $productQuery = Product::where('is_active', true);
+
+        if ($search) {
+            $productQuery->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orWhere('sku', 'like', '%' . $search . '%')
+                    ->orWhere('manufacturer', 'like', '%' . $search . '%')
+                    ->orWhere('model', 'like', '%' . $search . '%');
+            });
+        }
+
+        $allProducts = $productQuery->latest()->paginate(12)->withQueryString();
+        $featuredProducts = $search ? collect() : Product::where('is_active', true)->where('is_featured', true)->get();
+
+        return view('inventory.index', compact('categories', 'featuredProducts', 'allProducts', 'search'));
     }
 
     public function category($slug)

@@ -8,6 +8,11 @@
         <p>Manage your technology products efficiently</p>
     </header>
 
+    <!-- Search -->
+    <div class="search-bar">
+        @include('partials.search')
+    </div>
+
     <!-- Categories -->
     <h2 class="section-title">Categories</h2>
     <div class="category-list">
