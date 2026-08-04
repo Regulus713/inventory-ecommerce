@@ -1421,7 +1421,7 @@ body.admin-sidebar .site-header-wrapper {
 /* Checkout & cart */
 .checkout-grid {
     display: grid;
-    grid-template-columns: 1fr 360px;
+    grid-template-columns: 1fr minmax(420px, 1.2fr);
     gap: 1.5rem;
     align-items: start;
 }

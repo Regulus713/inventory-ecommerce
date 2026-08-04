@@ -256,6 +256,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `7ffb16d` - "fix: Move user sidebar logout to bottom with separator"
 - `4aab5ee` - "style: Add red hover to user sidebar logout"
 - `a03662d` - "fix: Prevent cart subtotal header from cropping in admin user view"
+- `a03662d` - "fix: Prevent cart subtotal header from cropping in admin user view"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
