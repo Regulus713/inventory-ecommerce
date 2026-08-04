@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('layouts.app', function ($view) {
+        View::composer(['layouts.app', 'layouts.admin'], function ($view) {
             $view->with('categories', Category::where('is_active', true)->orderBy('sort_order')->get());
 
             $cart = session('shopping_cart', []);
