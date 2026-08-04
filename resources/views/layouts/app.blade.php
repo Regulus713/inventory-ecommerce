@@ -6,10 +6,14 @@
     <title>@yield('title', config('app.name', 'Tech Inventory'))</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body {{ auth()->check() && auth()->user()->isAdmin() ? 'class="admin-sidebar"' : '' }}>
     @include('partials.site-header')
 
-    <main class="main-content" id="pjax-main">
+    @if(auth()->check() && auth()->user()->isAdmin())
+        @include('partials.admin-sidebar')
+    @endif
+
+    <main class="{{ auth()->check() && auth()->user()->isAdmin() ? 'app-content' : 'main-content' }}" id="pjax-main">
         <div class="app-container">
             <div class="app-main">
                 @yield('content')
