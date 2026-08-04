@@ -239,9 +239,14 @@ Extracted the storefront header into a shared partial and included it in both th
 - `8a1ea0d` - "feat: Share site header across storefront, admin, and user pages"
 - `b9bd56d` - "fix: Provide cartCount to shared header partial in admin layout"
 - `9bb467c` - "style: Cleaner sidebar layout with header beside sidebar"
+- `3b394eb` - "fix: Allow category links to navigate when pjax main is absent"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
+
+### Category Navigation from Dashboard
+- Updated `pjaxLoad` in `resources/js/app.js` to fall back to a full page load when `#pjax-main` is missing
+- This lets the header category menu work on the dashboard and admin pages where PJAX is not used
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
