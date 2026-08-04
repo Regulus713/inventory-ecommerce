@@ -11,7 +11,7 @@
 
     <header class="app-header">
         <h1>{{ $user->name }}</h1>
-        <p>{{ $user->email }}</p>
+        <p>{{ $user->username }}</p>
     </header>
 
     @if(session('success'))
@@ -32,12 +32,11 @@
                         <div class="user-avatar" style="width: 4rem; height: 4rem; font-size: 1.75rem;">{{ strtoupper($user->name[0]) }}</div>
                         <div>
                             <h2 style="margin: 0; font-size: 1.5rem;">{{ $user->name }}</h2>
-                            <p style="margin: 0.25rem 0 0 0; color: var(--color-text-muted);">{{ $user->email }}</p>
+                            <p style="margin: 0.25rem 0 0 0; color: var(--color-text-muted);">{{ $user->username }}</p>
                         </div>
                     </div>
                     <p><strong>Role:</strong> <span class="role-badge {{ $user->role }}">{{ $user->role }}</span></p>
                     <p><strong>Joined:</strong> {{ $user->created_at->format('M j, Y') }}</p>
-                    <p><strong>Email Verified:</strong> {{ $user->email_verified_at ? 'Yes' : 'No' }}</p>
                     <p><strong>Total Orders:</strong> {{ $user->orders_count }}</p>
                 </div>
             </div>

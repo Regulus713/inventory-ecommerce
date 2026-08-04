@@ -11,7 +11,7 @@ use Livewire\Volt\Component;
 new #[Layout('layouts.guest')] class extends Component
 {
     public string $name = '';
-    public string $email = '';
+    public string $username = '';
     public string $password = '';
     public string $password_confirmation = '';
 
@@ -22,11 +22,12 @@ new #[Layout('layouts.guest')] class extends Component
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'username' => ['required', 'string', 'lowercase', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
+        $validated['email'] = uniqid() . '@localhost';
         $validated['role'] = 'customer';
 
         event(new Registered($user = User::create($validated)));
@@ -51,9 +52,9 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
 
         <div class="form-group">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" type="email" name="email" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" />
+            <x-input-label for="username" :value="__('Username')" />
+            <x-text-input wire:model="username" id="username" type="text" name="username" required autocomplete="username" />
+            <x-input-error :messages="$errors->get('username')" />
         </div>
 
         <div class="form-group">

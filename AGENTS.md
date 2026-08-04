@@ -178,6 +178,67 @@ Added a visual admin toggle switch so admins can promote customers to admin or d
 - Latest commit pushed to GitHub
 - Build passes
 
+## Session Summary (2026-08-04 - Username Authentication)
+
+### What Was Accomplished
+Switched authentication from email to username. Users now log in and register with a username and password; email is no longer required or displayed.
+
+### Username Login
+- Added `username` column to `users` table via migration `2026_08_04_030000_add_username_to_users_table.php`
+  - Populated `username` for existing users from their display name
+  - Username is unique
+- Updated `App\Models\User` to include `username` in `$fillable`
+- Updated `App\Livewire\Forms\LoginForm`:
+  - Validates and stores `username` instead of `email`
+  - Attempts login with `Auth::attempt(['username', 'password'])`
+  - Rate limiting uses `username` in the throttle key
+
+### Username Registration
+- Updated `resources/views/livewire/pages/auth/register.blade.php`:
+  - Registration now collects `name` and `username` (no email field)
+  - Email is generated internally as a unique placeholder so the existing `users.email` column is satisfied
+  - New users default to the `customer` role
+- `database/factories/UserFactory.php` and `database/seeders/DatabaseSeeder.php` updated to set `username` for seeded users
+
+### Profile Page
+- Updated `resources/views/livewire/profile/update-profile-information-form.blade.php`
+  - Removed email field and email verification
+  - Profile now only allows updating `name`
+
+### Admin User Management
+- Updated `admin/users/index.blade.php` and `admin/users/show.blade.php` to display `username` instead of `email`
+- Updated `Admin\UserController` search to look at `name` and `username`
+
+### Auth Routes
+- Trimmed `routes/auth.php` to only `register` and `login`
+- Removed `forgot-password`, `reset-password`, `verify-email`, and `confirm-password` routes since they require email
+
+### Files Modified
+- `app/Models/User.php`
+- `app/Livewire/Forms/LoginForm.php`
+- `app/Http/Controllers/Admin/UserController.php`
+- `database/migrations/2026_08_04_030000_add_username_to_users_table.php` (new)
+- `database/factories/UserFactory.php`
+- `database/seeders/DatabaseSeeder.php`
+- `resources/views/livewire/pages/auth/login.blade.php`
+- `resources/views/livewire/pages/auth/register.blade.php`
+- `resources/views/livewire/profile/update-profile-information-form.blade.php`
+- `resources/views/admin/users/index.blade.php`
+- `resources/views/admin/users/show.blade.php`
+- `routes/auth.php`
+
+### Credentials
+- Admin: `admin` / `password`
+- Customer: `test` / `password`
+
+### Git Commits
+- *to be added after session*
+
+### Current Development Status
+- Branch: `feature/ui-modernization`
+- Build passes
+- Login and registration verified with username credentials
+
 ## Session Summary (2026-08-04 - Customer Dashboard, Orders, and Profile)
 
 ### What Was Accomplished

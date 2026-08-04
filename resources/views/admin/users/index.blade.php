@@ -37,7 +37,7 @@
                     <thead>
                         <tr>
                             <th>User</th>
-                            <th>Email</th>
+                            <th>Username</th>
                             <th>Role</th>
                             <th>Orders</th>
                             <th>Joined</th>
@@ -53,7 +53,7 @@
                                         <span>{{ $user->name }}</span>
                                     </div>
                                 </td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->username }}</td>
                                 <td>
                                     <form method="POST" action="{{ route('admin.users.role', $user->id) }}" class="role-toggle-form">
                                         @csrf
