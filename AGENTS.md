@@ -247,6 +247,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `0137333` - "feat: Force user sidebar expanded on home page"
 - `84c7630` - "fix: Force user sidebar expanded on all storefront pages"
 - `e2e7a03` - "feat: Force user sidebar always expanded for logged-in users"
+- `00f7b9e` - "fix: Wrap header in wrapper so sidebar is not cut off on user pages"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -273,6 +274,12 @@ Extracted the storefront header into a shared partial and included it in both th
 - The user sidebar is now forced to stay expanded on every page for authenticated users, just like the admin sidebar
 - `data-force-expanded` is set on the `body` whenever `auth()->check()` is true
 - The collapse toggle is hidden and the saved collapsed state is ignored
+
+### Header Wrapper Fix
+- Wrapped the site header in a `.site-header-wrapper` div in `resources/views/partials/site-header.blade.php`
+- Moved the `margin-left` for sidebars from `.site-header` to `.site-header-wrapper`
+- `.site-header` keeps `position: sticky` while the wrapper pushes it right of the sidebar
+- This ensures the user panel extends to the top of the viewport on the home page and all user pages, matching the admin panel
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
