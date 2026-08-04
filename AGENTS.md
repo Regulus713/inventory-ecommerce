@@ -263,6 +263,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `40d07db` - "feat: Add user account disable/enable toggle"
 - `ad2c87f` - "feat: Add hover login dropdown in header"
 - `043f599` - "feat: Add dark theme toggle"
+- `2a0dc06` - "style: Make cart notification badge orange"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -345,6 +346,9 @@ Extracted the storefront header into a shared partial and included it in both th
 - Added a theme toggle button to the site header with sun/moon icons
 - Dark theme CSS uses `html[data-theme="dark"]` to override surface, text, and border CSS variables
 - Theme preference is stored in `localStorage` and applied before the page renders
+
+### Cart Badge
+- Changed the `.header-cart-count` badge background to `#ff4500` (Reddit orange)
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
