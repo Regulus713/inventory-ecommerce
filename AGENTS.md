@@ -210,6 +210,37 @@ Added a fixed, collapsible user panel sidebar that appears on every page for log
 - Latest commit pushed to GitHub
 - Build passes
 
+## Session Summary (2026-08-04 - Shared Site Header Across All Pages)
+
+### What Was Accomplished
+Extracted the storefront header into a shared partial and included it in both the customer (`layouts/app`) and admin (`layouts/admin`) layouts so the header is active on every page.
+
+### Shared Header
+- Extracted `site-header` block from `resources/views/layouts/app.blade.php` into `resources/views/partials/site-header.blade.php`
+- Included the shared header in `resources/views/layouts/admin.blade.php`
+- `AppServiceProvider` view composer now supplies `categories`, `cartItems`, and `cartSubtotal` to both `layouts.app` and `layouts.admin`
+- The shared header provides search, category navigation, notifications, dashboard/profile/admin/cart actions, and mobile nav on every page
+
+### Sidebar Adjustments
+- Updated `.app-sidebar` base CSS to use `padding-top: 120px` so the sticky header does not overlap sidebar content
+- Added a mobile close button to the admin sidebar
+- Adjusted the user and admin mobile close buttons to sit below the header
+
+### Files Modified
+- `resources/views/partials/site-header.blade.php` (new)
+- `resources/views/layouts/app.blade.php`
+- `resources/views/layouts/admin.blade.php`
+- `app/Providers/AppServiceProvider.php`
+- `resources/css/app.css`
+
+### Git Commits
+- `8a1ea0d` - "feat: Share site header across storefront, admin, and user pages"
+
+### Current Development Status
+- Branch: `feature/ui-modernization`
+- Latest commit pushed to GitHub
+- Build passes
+
 ## Session Summary (2026-08-04 - Username Authentication)
 
 ### What Was Accomplished
