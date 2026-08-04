@@ -356,8 +356,8 @@ body.admin-sidebar .site-header-wrapper {
     height: 1.15rem;
     padding: 0 0.25rem;
     border-radius: 999px;
-    background: var(--color-primary-600);
-    color: #ff4500;
+    background: #ff4500;
+    color: white;
     font-size: 0.65rem;
     font-weight: 800;
     display: inline-flex;
