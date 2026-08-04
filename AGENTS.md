@@ -246,6 +246,7 @@ Extracted the storefront header into a shared partial and included it in both th
 - `00601a4` - "refactor: Remove Storefront link from admin sidebar"
 - `0137333` - "feat: Force user sidebar expanded on home page"
 - `84c7630` - "fix: Force user sidebar expanded on all storefront pages"
+- `e2e7a03` - "feat: Force user sidebar always expanded for logged-in users"
 
 ### Hotfix
 - The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
@@ -267,6 +268,11 @@ Extracted the storefront header into a shared partial and included it in both th
 - The user sidebar is now forced to stay expanded on all storefront pages (`inventory.*` routes: home, category, product)
 - Added `data-force-expanded` to the `body` on those routes
 - `initUserSidebar` in `resources/js/app.js` ignores the saved collapsed state and hides the toggle when on the storefront
+
+### User Sidebar Always Expanded
+- The user sidebar is now forced to stay expanded on every page for authenticated users, just like the admin sidebar
+- `data-force-expanded` is set on the `body` whenever `auth()->check()` is true
+- The collapse toggle is hidden and the saved collapsed state is ignored
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
