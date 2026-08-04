@@ -6,7 +6,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\DashboardController as UserDashboardController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -40,14 +41,20 @@ Route::post('/logout', function () {
     return redirect()->route('inventory.index');
 })->name('logout');
 
-// Profile route
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+// Authenticated account routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+
+    Route::view('profile', 'profile')->name('profile');
+
+    // Customer account orders
+    Route::get('/account/orders', [\App\Http\Controllers\Account\OrderController::class, 'index'])->name('account.orders.index');
+    Route::get('/account/orders/{id}', [\App\Http\Controllers\Account\OrderController::class, 'show'])->name('account.orders.show');
+});
 
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     // Orders
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
