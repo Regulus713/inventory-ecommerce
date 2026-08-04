@@ -20,8 +20,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
+        'role',
+        'is_active',
     ];
 
     /**
@@ -44,7 +47,13 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
     }
 
     public function orders()
@@ -55,5 +64,20 @@ class User extends Authenticatable
     public function reviews()
     {
         return $this->hasMany(ProductReview::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isCustomer(): bool
+    {
+        return $this->role === 'customer';
+    }
+
+    public function isActive(): bool
+    {
+        return $this->is_active;
     }
 }

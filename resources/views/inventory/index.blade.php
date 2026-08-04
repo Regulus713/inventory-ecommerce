@@ -1,267 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Inventory System</title>
-    @vite(['resources/css/app.css'])
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #ffffff;
-            color: #1a1a2e;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-        }
-        .sidebar { 
-            width: 260px; 
-            background: #6366f1;
-            padding: 24px; 
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            box-shadow: 2px 0 32px rgba(99, 102, 241, 0.15);
-            overflow-y: auto;
-        }
-        .content-wrapper {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-        .sidebar h2 { 
-            color: white; 
-            font-weight: 800; 
-            font-size: 20px; 
-            margin-bottom: 24px; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px;
-        }
-        .nav-links { display: flex; flex-direction: column; gap: 8px; }
-        .nav-link { 
-            color: rgba(255, 255, 255, 0.8); 
-            text-decoration: none; 
-            padding: 12px 16px; 
-            border-radius: 12px; 
-            font-weight: 500; 
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .nav-link:hover, .nav-link.active { 
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-        .nav-link.active { 
-            background: rgba(255, 255, 255, 0.25);
-            font-weight: 600;
-        }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .main-content { width: 100%; }
-        .header { 
-            background: #6366f1;
-            color: white; 
-            padding: 32px; 
-            margin-bottom: 40px; 
-            border-radius: 20px; 
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
-            text-align: center;
-        }
-        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; }
-        .header p { opacity: 0.9; font-size: 16px; font-weight: 400; }
-        .categories { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center; }
-        .category { 
-            background: #f8f9fa;
-            padding: 14px 24px; 
-            border-radius: 12px; 
-            text-decoration: none; 
-            color: #1a1a2e; 
-            font-weight: 600; 
-            border: 2px solid #e9ecef;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-        .category:hover { 
-            background: #6366f1;
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-            border-color: transparent;
-        }
-        .category.active { 
-            background: #6366f1;
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-            border-color: transparent;
-        }
-        .section-title { margin-bottom: 24px; color: #1a1a2e; font-weight: 700; font-size: 28px; text-align: center; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-items: center; }
-        .product-card { 
-            background: white; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid #e9ecef;
-        }
-        .product-card:hover { 
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-        }
-        .product-image { 
-            background: #f3f4f6;
-            height: 220px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: #6366f1;
-            font-weight: 600;
-        }
-        .product-info { padding: 24px; }
-        .product-name { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #1a1a2e; }
-        .product-description { color: #666; font-size: 14px; margin-bottom: 16px; line-height: 1.6; }
-        .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
-        .product-price { font-size: 22px; font-weight: 800; color: #6366f1; }
-        .product-stock { font-size: 12px; padding: 6px 12px; border-radius: 20px; font-weight: 600; }
-        .in-stock { background: #d1fae5; color: #0f5132; }
-        .low-stock { background: #ffedd5; color: #c85a17; }
-        .out-of-stock { background: #ffe3e3; color: #c92a2a; }
-        .featured { border: 2px solid #6366f1; }
-        .featured-badge { 
-            position: absolute; 
-            top: 12px; 
-            right: 12px; 
-            background: #6366f1;
-            color: white; 
-            padding: 6px 12px; 
-            border-radius: 20px; 
-            font-size: 11px; 
-            font-weight: 700;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
-        }
-        .admin-link { 
-            background: rgba(255, 255, 255, 0.9);
-            color: #6366f1; 
-            padding: 10px 20px; 
-            border-radius: 12px; 
-            text-decoration: none; 
-            font-weight: 600; 
-            border: 2px solid rgba(99, 102, 241, 0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-        .admin-link:hover { 
-            background: #6366f1;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-            border-color: transparent;
-        }
-    </style>
-</head>
-<body>
-    <div class="sidebar">
-        <h2>🖥️ Tech Inventory</h2>
-        <div class="nav-links">
-            <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
-                <span>🏠</span> Home
-            </a>
-            <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
-                <span>📦</span> Categories
-            </a>
-            <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
-                <span>📊</span> Products
-            </a>
-        </div>
-    </div>
-    <div class="content-wrapper">
-        <div class="container">
-        <div class="main-content">
-            <div class="header">
-                <h1>Tech Inventory System</h1>
-                <p>Manage your technology products efficiently</p>
-            </div>
+@extends('layouts.app')
 
-            <!-- Categories -->
-            <h2 class="section-title">Categories</h2>
-            <div class="categories">
-                <a href="/" class="category">All Products</a>
-                @foreach($categories as $category)
-                    <a href="{{ route('inventory.category', $category->slug) }}" class="category">
-                        @if($category->image)
-                            <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; vertical-align: middle; margin-right: 8px;">
-                        @endif
-                        {{ $category->name }}
-                    </a>
-                @endforeach
-            </div>
+@section('title', 'Tech Inventory System')
 
-            <!-- Featured Products -->
-            @if($featuredProducts->count() > 0)
-                <h2 class="section-title">⭐ Featured Products</h2>
-                <div class="products-grid">
-                    @foreach($featuredProducts as $product)
-                        <div class="product-card featured" style="position: relative;">
-                            <div class="featured-badge">FEATURED</div>
-                            <div class="product-image">
+@section('content')
+    @php($currentCategory = '')
+
+    <header class="app-header">
+        <h1>Tech Inventory System</h1>
+        <p>Manage your technology products efficiently</p>
+    </header>
+
+    <!-- Featured Products -->
+    <div id="featured-products-section">
+        @if($featuredProducts->count() > 0)
+            <h2 class="section-title">Featured Products</h2>
+            <div class="products-grid" id="featured-products-grid">
+                @foreach($featuredProducts as $product)
+                    <div class="card card-featured">
+                        <span class="card-badge">Featured</span>
+                        <a href="{{ route('inventory.product', $product->slug) }}" class="card-link">
+                            <div class="card-image">
                                 @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                                 @else
                                     {{ $product->name }}
                                 @endif
                             </div>
-                            <div class="product-info">
-                                <div class="product-name">{{ $product->name }}</div>
-                                <div class="product-description">{{ Str::limit($product->description, 80) }}</div>
-                                <div class="product-meta">
-                                    <div class="product-price">${{ number_format($product->price, 2) }}</div>
-                                    <div class="product-stock {{ $product->isInStock() ? 'in-stock' : ($product->isLowStock() ? 'low-stock' : 'out-of-stock') }}">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ $product->name }}</h3>
+                                <p class="card-text">{{ Str::limit($product->description, 80) }}</p>
+                                <div class="card-meta">
+                                    <span class="card-price">${{ number_format($product->price, 2) }}</span>
+                                    <span class="badge {{ $product->isInStock() ? 'badge-success' : ($product->isLowStock() ? 'badge-warning' : 'badge-danger') }}">
                                         {{ $product->quantity }} in stock
-                                    </div>
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </div>
 
-            <!-- All Products -->
-            <h2 class="section-title">All Products</h2>
-            <div class="products-grid">
-                @foreach($allProducts as $product)
-                    <div class="product-card">
-                        <div class="product-image">
+    <!-- All Products -->
+    <h2 class="section-title" style="margin-top: 2.5rem;" id="all-products-title">All Products</h2>
+    @include('partials.product-toolbar')
+
+    @if($view === 'card')
+        <div class="products-grid" id="all-products-grid">
+            @foreach($allProducts as $product)
+                <div class="card" data-product-id="{{ $product->id }}">
+                    <a href="{{ route('inventory.product', $product->slug) }}" class="card-link">
+                        <div class="card-image">
                             @if($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                             @else
                                 {{ $product->name }}
                             @endif
                         </div>
-                        <div class="product-info">
-                            <div class="product-name">{{ $product->name }}</div>
-                            <div class="product-description">{{ Str::limit($product->description, 80) }}</div>
-                            <div class="product-meta">
-                                <div class="product-price">${{ number_format($product->price, 2) }}</div>
-                                <div class="product-stock {{ $product->isInStock() ? 'in-stock' : ($product->isLowStock() ? 'low-stock' : 'out-of-stock') }}">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ $product->name }}</h3>
+                            <p class="card-text">{{ Str::limit($product->description, 80) }}</p>
+                            <div class="card-meta">
+                                <span class="card-price">${{ number_format($product->price, 2) }}</span>
+                                <span class="badge {{ $product->isInStock() ? 'badge-success' : ($product->isLowStock() ? 'badge-warning' : 'badge-danger') }}">
                                     {{ $product->quantity }} in stock
-                                </div>
+                                </span>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
-
-            @if($allProducts->hasPages())
-                <div style="margin-top: 30px; text-align: center;">
-                    {{ $allProducts->links() }}
+                    </a>
                 </div>
-            @endif
+            @endforeach
         </div>
+    @else
+        <div class="products-list" id="all-products-list">
+            @foreach($allProducts as $product)
+                @include('partials.product-list-item', ['product' => $product])
+            @endforeach
+        </div>
+    @endif
+
+    <div class="empty-state" id="no-products-message" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem; color: var(--color-primary-400);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <p>No products found matching your search.</p>
     </div>
-</body>
-</html>
+
+    <div id="all-products-pagination">
+        @if($allProducts->hasPages())
+            <div class="pagination">
+                {{ $allProducts->links() }}
+            </div>
+        @endif
+    </div>
+
+    <template id="product-card-template">
+        <div class="card">
+            <a href="" class="card-link product-card-link">
+                <div class="card-image">
+                    <img src="" alt="" class="product-card-img" style="display: none;">
+                    <span class="product-card-img-placeholder"></span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title product-card-name"></h3>
+                    <p class="card-text product-card-description"></p>
+                    <div class="card-meta">
+                        <span class="card-price product-card-price"></span>
+                        <span class="badge product-card-stock"></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </template>
+@endsection

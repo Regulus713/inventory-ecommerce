@@ -23,8 +23,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
+            'name' => 'Admin User',
+            'username' => 'admin',
+            'email' => uniqid() . '@localhost',
+            'role' => 'admin',
+        ]);
+
+        User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'username' => 'test',
+            'email' => uniqid() . '@localhost',
+            'role' => 'customer',
         ]);
     }
 }

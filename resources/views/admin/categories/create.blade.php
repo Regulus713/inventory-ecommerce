@@ -1,230 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Category - Admin</title>
-    @vite(['resources/css/app.css'])
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #ffffff;
-            color: #1a1a2e;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-        }
-        .sidebar {
-            width: 260px;
-            background: #6366f1;
-            padding: 24px;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            box-shadow: 2px 0 32px rgba(99, 102, 241, 0.15);
-            overflow-y: auto;
-        }
-        .content-wrapper {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-        .sidebar h2 { 
-            color: white; 
-            font-weight: 800; 
-            font-size: 20px; 
-            margin-bottom: 24px; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px;
-        }
-        .nav-links { display: flex; flex-direction: column; gap: 8px; }
-        .nav-link { 
-            color: rgba(255, 255, 255, 0.8); 
-            text-decoration: none; 
-            padding: 12px 16px; 
-            border-radius: 12px; 
-            font-weight: 500; 
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .nav-link:hover, .nav-link.active { 
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-        .nav-link.active { 
-            background: rgba(255, 255, 255, 0.25);
-            font-weight: 600;
-        }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .main-content { width: 100%; }
-        .header {
-            background: #6366f1;
-            color: white;
-            padding: 32px;
-            margin-bottom: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
-        }
-        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; }
-        .header p { opacity: 0.9; font-size: 16px; font-weight: 400; }
-        .form-container { 
-            background: white; 
-            padding: 32px; 
-            border-radius: 20px; 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e9ecef;
-        }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: #1a1a2e; font-size: 14px; }
-        .form-group input, .form-group textarea, .form-group select { 
-            width: 100%; 
-            padding: 14px 16px; 
-            border: 2px solid #e9ecef; 
-            border-radius: 12px; 
-            font-size: 14px; 
-            background: white;
-            color: #1a1a2e;
-            transition: all 0.3s ease;
-        }
-        .form-group textarea { resize: vertical; min-height: 120px; }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
-        .btn { 
-            padding: 12px 24px; 
-            border: none; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            text-decoration: none; 
-            display: inline-block; 
-            font-weight: 600; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            font-size: 14px;
-        }
-        .btn-primary {
-            background: #6366f1;
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2);
-        }
-        .btn-secondary {
-            background: #f8f9fa;
-            color: #6366f1;
-            border: 2px solid #e9ecef;
-        }
-        .btn-secondary:hover { 
-            background: #e9ecef;
-        }
-        .checkbox-group { display: flex; align-items: center; gap: 12px; }
-        .checkbox-group input { width: auto; }
-        .error { color: #ee5a24; font-size: 13px; margin-top: 6px; font-weight: 500; }
-    </style>
-</head>
-<body>
-    <div class="sidebar">
-        <h2>⚙️ Admin Panel</h2>
-        <div class="nav-links">
-            <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
-                <span>🏠</span> Home
-            </a>
-            <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
-                <span>📦</span> Categories
-            </a>
-            <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
-                <span>📊</span> Products
-            </a>
-        </div>
-    </div>
-    <div class="content-wrapper">
-        <div class="container">
-        <div class="main-content">
-            <div class="header">
-                <h1>Create Category</h1>
-                <p>Add a new product category</p>
+@extends('layouts.admin')
+
+@section('title', 'Create Category - Admin')
+
+@section('content')
+    <header class="app-header">
+        <h1>Create Category</h1>
+        <p>Add a new product category</p>
+    </header>
+
+    <div class="form-card">
+        <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+
+            <div class="form-group">
+                <label for="name">Category Name *</label>
+                <input type="text" id="name" name="name" value="{{ old('name') }}" class="form-input" required>
+                @error('name')
+                    <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+                @enderror
             </div>
 
-            <div class="form-container">
-                <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="form-group">
-                        <label for="name">Category Name *</label>
-                        <input type="text" id="name" name="name" value="{{ old('name') }}" required>
-                        @error('name')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="slug">Slug *</label>
-                        <input type="text" id="slug" name="slug" value="{{ old('slug') }}" required>
-                        @error('slug')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description">{{ old('description') }}</textarea>
-                        @error('description')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="parent_id">Parent Category</label>
-                        <select id="parent_id" name="parent_id">
-                            <option value="">No Parent</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('parent_id') == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('parent_id')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image">Category Image</label>
-                        <input type="file" id="image" name="image" accept="image/*">
-                        @error('image')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="sort_order">Sort Order</label>
-                        <input type="number" id="sort_order" name="sort_order" value="{{ old('sort_order', 0) }}">
-                        @error('sort_order')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }}>
-                        <label for="is_active" style="margin: 0;">Active</label>
-                    </div>
-
-                    <div style="display: flex; gap: 10px; margin-top: 30px;">
-                        <button type="submit" class="btn btn-primary">Create Category</button>
-                        <a href="{{ route('categories.index') }}" class="btn btn-secondary">Cancel</a>
-                    </div>
-                </form>
+            <div class="form-group">
+                <label for="slug">Slug *</label>
+                <input type="text" id="slug" name="slug" value="{{ old('slug') }}" class="form-input" required>
+                @error('slug')
+                    <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+                @enderror
             </div>
-        </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" class="form-textarea">{{ old('description') }}</textarea>
+                @error('description')
+                    <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="parent_id">Parent Category</label>
+                <select id="parent_id" name="parent_id" class="form-select">
+                    <option value="">No Parent</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('parent_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('parent_id')
+                    <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="image">Category Image</label>
+                <input type="file" id="image" name="image" accept="image/*" class="form-input">
+                @error('image')
+                    <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="sort_order">Sort Order</label>
+                <input type="number" id="sort_order" name="sort_order" value="{{ old('sort_order', 0) }}" class="form-input">
+                @error('sort_order')
+                    <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group flex items-center gap-3">
+                <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }} class="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                <label for="is_active" class="mb-0">Active</label>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                <button type="submit" class="btn btn-primary">Create Category</button>
+                <a href="{{ route('categories.index') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
     </div>
-</body>
-</html>
+@endsection

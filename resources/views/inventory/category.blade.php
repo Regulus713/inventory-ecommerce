@@ -1,254 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $category->name }} - Tech Inventory</title>
-    @vite(['resources/css/app.css'])
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #ffffff;
-            color: #1a1a2e;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-        }
-        .sidebar { 
-            width: 260px; 
-            background: #6366f1;
-            padding: 24px; 
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            box-shadow: 2px 0 32px rgba(99, 102, 241, 0.15);
-            overflow-y: auto;
-        }
-        .content-wrapper {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-        .sidebar h2 { 
-            color: white; 
-            font-weight: 800; 
-            font-size: 20px; 
-            margin-bottom: 24px; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px;
-        }
-        .nav-links { display: flex; flex-direction: column; gap: 8px; }
-        .nav-link { 
-            color: rgba(255, 255, 255, 0.8); 
-            text-decoration: none; 
-            padding: 12px 16px; 
-            border-radius: 12px; 
-            font-weight: 500; 
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .nav-link:hover, .nav-link.active { 
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-        .nav-link.active { 
-            background: rgba(255, 255, 255, 0.25);
-            font-weight: 600;
-        }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .main-content { width: 100%; }
-        .header { 
-            background: #6366f1;
-            color: white; 
-            padding: 32px; 
-            margin-bottom: 40px; 
-            border-radius: 20px; 
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
-            text-align: center;
-        }
-        .header h1 { margin-bottom: 12px; font-weight: 800; font-size: 32px; }
-        .header p { opacity: 0.9; font-size: 16px; font-weight: 400; }
-        .breadcrumb { margin-bottom: 24px; color: #666; font-size: 14px; font-weight: 500; }
-        .breadcrumb a { color: #6366f1; text-decoration: none; font-weight: 600; }
-        .breadcrumb a:hover { text-decoration: underline; }
-        .categories { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
-        .category { 
-            background: #f8f9fa;
-            padding: 14px 24px; 
-            border-radius: 12px; 
-            text-decoration: none; 
-            color: #1a1a2e; 
-            font-weight: 600; 
-            border: 2px solid #e9ecef;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-        .category:hover { 
-            background: #6366f1;
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-            border-color: transparent;
-        }
-        .category.active { 
-            background: #6366f1;
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-            border-color: transparent;
-        }
-        .section-title { margin-bottom: 24px; color: #1a1a2e; font-weight: 700; font-size: 28px; text-align: center; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-items: center; }
-        .product-card { 
-            background: white; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid #e9ecef;
-        }
-        .product-card:hover { 
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-        }
-        .product-image { 
-            background: #f3f4f6;
-            height: 220px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: #6366f1;
-            font-weight: 600;
-        }
-        .product-info { padding: 24px; }
-        .product-name { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #1a1a2e; }
-        .product-description { color: #666; font-size: 14px; margin-bottom: 16px; line-height: 1.6; }
-        .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
-        .product-price { font-size: 22px; font-weight: 800; color: #6366f1; }
-        .product-stock { font-size: 12px; padding: 6px 12px; border-radius: 20px; font-weight: 600; }
-        .in-stock { background: #d1fae5; color: #0f5132; }
-        .low-stock { background: #ffedd5; color: #c85a17; }
-        .out-of-stock { background: #ffe3e3; color: #c92a2a; }
-        .featured { border: 2px solid #6366f1; }
-        .featured-badge { 
-            position: absolute; 
-            top: 12px; 
-            right: 12px; 
-            background: #6366f1;
-            color: white; 
-            padding: 6px 12px; 
-            border-radius: 20px; 
-            font-size: 11px; 
-            font-weight: 700;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
-        }
-        .admin-link { 
-            background: rgba(255, 255, 255, 0.9);
-            color: #6366f1; 
-            padding: 10px 20px; 
-            border-radius: 12px; 
-            text-decoration: none; 
-            font-weight: 600; 
-            border: 2px solid rgba(99, 102, 241, 0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-        .admin-link:hover { 
-            background: #6366f1;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-            border-color: transparent;
-        }
-    </style>
-</head>
-<body>
-    <div class="sidebar">
-        <h2>🖥️ Tech Inventory</h2>
-        <div class="nav-links">
-            <a href="{{ route('inventory.index') }}" class="nav-link {{ request()->is('inventory.index') ? 'active' : '' }}">
-                <span>🏠</span> Home
-            </a>
-            <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories.*') ? 'active' : '' }}">
-                <span>📦</span> Categories
-            </a>
-            <a href="{{ route('products.index') }}" class="nav-link {{ request()->is('products.*') ? 'active' : '' }}">
-                <span>📊</span> Products
-            </a>
-        </div>
-    </div>
-    <div class="content-wrapper">
-        <div class="container">
-        <div class="main-content">
-            <div class="header">
-                <h1>Tech Inventory System</h1>
-                <p>Manage your technology products efficiently</p>
-            </div>
+@extends('layouts.app')
 
-            <!-- Breadcrumb -->
-            <div class="breadcrumb">
-                <a href="{{ route('inventory.index') }}">Home</a> > {{ $category->name }}
-            </div>
+@section('title', $category->name . ' - Tech Inventory')
 
-            <!-- Categories -->
-            <div class="categories">
-                <a href="{{ route('inventory.index') }}" class="category">All Products</a>
-                @foreach($categories as $cat)
-                    <a href="{{ route('inventory.category', $cat->slug) }}" class="category {{ $cat->id === $category->id ? 'active' : '' }}">
-                        {{ $cat->name }}
-                    </a>
-                @endforeach
-            </div>
+@section('content')
+    @php($currentCategory = $category->slug)
 
-            <!-- Category Info -->
-            <h2 class="section-title">{{ $category->name }}</h2>
-            @if($category->description)
-                <p style="margin-bottom: 20px; color: #6b7280;">{{ $category->description }}</p>
-            @endif
+    <header class="app-header">
+        <h1>{{ $category->name }}</h1>
+        <p>{{ $category->description ?: 'Browse products in this category' }}</p>
+    </header>
 
-            <!-- Products -->
-            @if($products->count() > 0)
-                <div class="products-grid">
-                    @foreach($products as $product)
-                        <div class="product-card {{ $product->is_featured ? 'featured' : '' }}" style="position: relative;">
-                            @if($product->is_featured)
-                                <div class="featured-badge">FEATURED</div>
-                            @endif
-                            <div class="product-image">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="{{ route('inventory.index') }}">Home</a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span>{{ $category->name }}</span>
+    </nav>
+
+    <h2 class="section-title">{{ $category->name }}</h2>
+    @if($category->description)
+        <p class="text-center mb-8" style="color: var(--color-text-muted);">{{ $category->description }}</p>
+    @endif
+
+    @include('partials.product-toolbar')
+
+    @if($products->count() > 0)
+        @if($view === 'card')
+            <div class="products-grid">
+                @foreach($products as $product)
+                    <div class="card {{ $product->is_featured ? 'card-featured' : '' }}">
+                        @if($product->is_featured)
+                            <span class="card-badge">Featured</span>
+                        @endif
+                        <a href="{{ route('inventory.product', $product->slug) }}" class="card-link">
+                            <div class="card-image">
                                 @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                                 @else
                                     {{ $product->name }}
                                 @endif
                             </div>
-                            <div class="product-info">
-                                <div class="product-name">{{ $product->name }}</div>
-                                <div class="product-description">{{ Str::limit($product->description, 80) }}</div>
-                                <div class="product-meta">
-                                    <div class="product-price">${{ number_format($product->price, 2) }}</div>
-                                    <div class="product-stock {{ $product->isInStock() ? 'in-stock' : ($product->isLowStock() ? 'low-stock' : 'out-of-stock') }}">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ $product->name }}</h3>
+                                <p class="card-text">{{ Str::limit($product->description, 80) }}</p>
+                                <div class="card-meta">
+                                    <span class="card-price">${{ number_format($product->price, 2) }}</span>
+                                    <span class="badge {{ $product->isInStock() ? 'badge-success' : ($product->isLowStock() ? 'badge-warning' : 'badge-danger') }}">
                                         {{ $product->quantity }} in stock
-                                    </div>
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                @if($products->hasPages())
-                    <div style="margin-top: 30px; text-align: center;">
-                        {{ $products->links() }}
+                        </a>
                     </div>
-                @endif
-            @else
-                <p style="text-align: center; color: #6b7280; padding: 40px;">No products found in this category.</p>
-            @endif
+                @endforeach
+            </div>
+        @else
+            <div class="products-list">
+                @foreach($products as $product)
+                    @include('partials.product-list-item', ['product' => $product])
+                @endforeach
+            </div>
+        @endif
+
+        @if($products->hasPages())
+            <div class="pagination">
+                {{ $products->links() }}
+            </div>
+        @endif
+    @else
+        <div class="empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem; color: var(--color-primary-400);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <p>No products found in this category.</p>
         </div>
-    </div>
-</body>
-</html>
+    @endif
+@endsection
