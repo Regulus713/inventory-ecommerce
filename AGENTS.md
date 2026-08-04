@@ -235,6 +235,10 @@ Extracted the storefront header into a shared partial and included it in both th
 
 ### Git Commits
 - `8a1ea0d` - "feat: Share site header across storefront, admin, and user pages"
+- `b9bd56d` - "fix: Provide cartCount to shared header partial in admin layout"
+
+### Hotfix
+- The shared header partial referenced `$cartCount`, which was not defined when `layouts.admin` used the partial. Added `cartCount` to the `AppServiceProvider` view composer for both layouts and removed the duplicate `@php($cartCount = ...)` line from `layouts/app.blade.php`.
 
 ### Current Development Status
 - Branch: `feature/ui-modernization`
