@@ -144,6 +144,71 @@ Co-Authored-By: Devin <158243242+devin-ai-integration[bot]@users.noreply.github.
 5. Build e-commerce frontend for tech products
 6. Create seeders for initial tech categories and sample products
 
+## Session Summary (2026-08-04 - Customer Dashboard, Orders, and Profile)
+
+### What Was Accomplished
+Added a customer-facing dashboard, order history pages, and restyled the profile area to match the existing design system.
+
+### Customer Dashboard (`/dashboard`)
+- Created `App\Http\Controllers\DashboardController`
+- New `resources/views/dashboard.blade.php` extending `layouts.app`
+- For admins: redirects to `/admin/dashboard`
+- For customers: shows account summary (total orders, member since), quick actions (My Orders, Edit Profile, Continue Shopping), and recent orders
+- Extends `layouts.app` and uses the same `dashboard-section`, `dashboard-stat-card`, and `data-table` CSS as the admin dashboard
+
+### Customer Order History (`/account/orders`)
+- Created `App\Http\Controllers\Account\OrderController` with `index` and `show`
+- `index` lists the logged-in user's orders with pagination
+- `show` displays an order and its line items only when the order belongs to the user
+- Views: `resources/views/account/orders/index.blade.php` and `show.blade.php`
+- Route group registered in `routes/web.php` under `auth` middleware
+
+### Profile Restyle
+- Rewrote `resources/views/profile.blade.php` to use `@extends('layouts.app')` instead of the Breeze `<x-app-layout>`
+- Restyled the three `livewire/profile/*` forms to use the custom CSS:
+  - `update-profile-information-form.blade.php`
+  - `update-password-form.blade.php`
+  - `delete-user-form.blade.php`
+- Updated `components/action-message.blade.php` to use `.profile-message`
+- Updated `components/modal.blade.php` to use `.modal-backdrop` and `.modal-panel`
+- Added `.profile-section`, `.profile-heading`, `.profile-subheading`, `.profile-form`, `.profile-actions`, `.profile-message`, and modal CSS to `resources/css/app.css`
+
+### Navigation & Redirects
+- Added a **Dashboard** icon in the storefront header for authenticated users
+- Login and register forms now redirect to `route('dashboard')` after success
+- `VerifyEmailController` already pointed at `dashboard`; this is now valid
+
+### Routes Updated
+- `routes/web.php`:
+  - Added `use App\Http\Controllers\DashboardController as UserDashboardController`
+  - Added `use App\Http\Controllers\Admin\DashboardController as AdminDashboardController`
+  - Grouped `/dashboard`, `/profile`, and `/account/orders` routes under `auth` middleware
+
+### Files Created/Modified
+- `app/Http/Controllers/DashboardController.php` (new)
+- `app/Http/Controllers/Account/OrderController.php` (new)
+- `resources/views/dashboard.blade.php` (rewritten)
+- `resources/views/account/orders/index.blade.php` (new)
+- `resources/views/account/orders/show.blade.php` (new)
+- `resources/views/profile.blade.php` (rewritten)
+- `resources/views/livewire/profile/*.blade.php` (restyled)
+- `resources/views/components/action-message.blade.php`
+- `resources/views/components/modal.blade.php`
+- `resources/views/layouts/app.blade.php` (header icons)
+- `resources/views/livewire/pages/auth/login.blade.php` (redirect)
+- `resources/views/livewire/pages/auth/register.blade.php` (redirect)
+- `routes/web.php`
+- `resources/css/app.css`
+
+### Git Commits
+- `3a99347` - "feat: Add customer dashboard, account orders, and restyle profile"
+
+### Current Development Status
+- Branch: `feature/ui-modernization`
+- Latest commit pushed to GitHub
+- Build passes, routes confirmed via `php artisan route:list`
+- Authentication-protected routes (dashboard, profile, account orders) return 302 for guests as expected
+
 ## Session Summary (2026-08-04 - Auth & Admin Dashboard)
 
 ### What Was Accomplished
