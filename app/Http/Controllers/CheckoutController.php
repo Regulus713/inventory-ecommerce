@@ -59,10 +59,10 @@ class CheckoutController extends Controller
         }
 
         $validated = $request->validate([
-            'customer_name' => 'required|string|max:255',
-            'customer_email' => 'required|email|max:255',
+            'customer_name' => 'nullable|string|max:255',
+            'customer_email' => 'nullable|email|max:255',
             'customer_phone' => 'nullable|string|max:50',
-            'shipping_address' => 'required|string|max:500',
+            'shipping_address' => 'nullable|string|max:500',
             'notes' => 'nullable|string|max:1000',
         ]);
 
@@ -109,9 +109,9 @@ class CheckoutController extends Controller
                 'shipping_method' => 'Standard Shipping',
                 'payment_method' => 'Dummy Payment',
                 'payment_status' => 'paid',
-                'shipping_address' => $validated['shipping_address'],
-                'billing_address' => $validated['shipping_address'],
-                'contact_email' => $validated['customer_email'],
+                'shipping_address' => $validated['shipping_address'] ?? 'Guest checkout',
+                'billing_address' => $validated['shipping_address'] ?? 'Guest checkout',
+                'contact_email' => $validated['customer_email'] ?? 'guest@example.com',
                 'contact_phone' => $validated['customer_phone'] ?? null,
                 'notes' => $validated['notes'] ?? null,
             ]);

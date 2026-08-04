@@ -30,14 +30,14 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="customer_name">Full Name *</label>
-                        <input type="text" id="customer_name" name="customer_name" value="{{ old('customer_name') }}" class="form-input" required>
+                        <label for="customer_name">Full Name</label>
+                        <input type="text" id="customer_name" name="customer_name" value="{{ old('customer_name') }}" class="form-input">
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="customer_email">Email Address *</label>
-                            <input type="email" id="customer_email" name="customer_email" value="{{ old('customer_email') }}" class="form-input" required>
+                            <label for="customer_email">Email Address</label>
+                            <input type="email" id="customer_email" name="customer_email" value="{{ old('customer_email') }}" class="form-input">
                         </div>
 
                         <div class="form-group">
@@ -47,18 +47,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="shipping_address">Shipping Address *</label>
-                        <textarea id="shipping_address" name="shipping_address" class="form-textarea" required>{{ old('shipping_address') }}</textarea>
+                        <label for="shipping_address">Shipping Address</label>
+                        <textarea id="shipping_address" name="shipping_address" class="form-textarea">{{ old('shipping_address') }}</textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="notes">Order Notes</label>
                         <textarea id="notes" name="notes" class="form-textarea">{{ old('notes') }}</textarea>
-                    </div>
-
-                    <div class="form-group flex items-center gap-3">
-                        <input type="checkbox" id="terms" name="terms" required class="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                        <label for="terms" class="mb-0" style="color: var(--color-text-muted);">I agree this is a dummy checkout and no real payment will be processed.</label>
                     </div>
 
                     <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
