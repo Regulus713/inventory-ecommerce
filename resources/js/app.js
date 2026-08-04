@@ -56,7 +56,10 @@ function initPjax() {
 
 async function pjaxLoad(url, updateHistory = true) {
     const main = document.getElementById('pjax-main');
-    if (!main) return;
+    if (!main) {
+        window.location.href = url;
+        return;
+    }
 
     main.style.opacity = '0.6';
     main.style.transition = 'opacity 0.2s ease';
