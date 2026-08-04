@@ -6,7 +6,7 @@
     <title>@yield('title', config('app.name', 'Tech Inventory'))</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body {{ auth()->check() && auth()->user()->isAdmin() ? 'class="admin-sidebar"' : '' }}>
+<body class="{{ auth()->check() && auth()->user()->isAdmin() ? 'admin-sidebar' : '' }}">
     @include('partials.site-header')
 
     @if(auth()->check() && auth()->user()->isAdmin())
