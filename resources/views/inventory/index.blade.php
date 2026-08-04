@@ -14,9 +14,6 @@
         <a href="{{ route('inventory.index') }}" class="category-chip active">All Products</a>
         @foreach($categories as $category)
             <a href="{{ route('inventory.category', $category->slug) }}" class="category-chip">
-                @if($category->image)
-                    <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}">
-                @endif
                 {{ $category->name }}
             </a>
         @endforeach
