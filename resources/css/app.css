@@ -300,6 +300,42 @@ body.admin-sidebar .site-header-wrapper {
     height: 1.35rem;
 }
 
+.header-action-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.header-action-dropdown .header-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    width: 300px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 1.25rem;
+    z-index: 100;
+}
+
+.header-action-dropdown:hover .header-dropdown,
+.header-action-dropdown:focus-within .header-dropdown {
+    display: block;
+}
+
+.header-action-dropdown .header-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -0.5rem;
+    right: 1rem;
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-bottom: 0.5rem solid var(--color-surface);
+}
+
 .header-cart-count {
     position: absolute;
     top: 0.25rem;
