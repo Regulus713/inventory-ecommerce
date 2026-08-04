@@ -38,6 +38,15 @@ class LoginForm extends Form
             ]);
         }
 
+        if (! Auth::user()->is_active) {
+            Auth::logout();
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'form.username' => 'Your account has been disabled.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 

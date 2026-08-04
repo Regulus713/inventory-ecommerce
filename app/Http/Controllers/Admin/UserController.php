@@ -59,6 +59,26 @@ class UserController extends Controller
         return back()->with('success', 'User role updated to ' . ucfirst($validated['role']) . '.');
     }
 
+    public function updateStatus(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validated = $request->validate([
+            'is_active' => 'required|boolean',
+        ]);
+
+        if ($user->id === auth()->id() && ! $validated['is_active']) {
+            return back()->with('error', 'You cannot disable your own account.');
+        }
+
+        $user->is_active = $validated['is_active'];
+        $user->save();
+
+        $status = $user->is_active ? 'enabled' : 'disabled';
+
+        return back()->with('success', 'User account ' . $status . '.');
+    }
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);

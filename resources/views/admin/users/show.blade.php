@@ -67,6 +67,30 @@
 
             <div class="dashboard-section">
                 <div class="dashboard-section-header">
+                    <h3>Account Status</h3>
+                </div>
+                <div style="padding: 1.5rem;">
+                    <form action="{{ route('admin.users.status', $user->id) }}" method="POST" class="role-toggle-form">
+                        @csrf
+                        <input type="hidden" name="is_active" id="status-input-{{ $user->id }}" value="{{ $user->is_active ? '1' : '0' }}">
+                        <label class="toggle-switch" style="font-size: 1rem;">
+                            <input type="checkbox"
+                                   class="toggle-switch-input"
+                                   onchange="document.getElementById('status-input-{{ $user->id }}').value = this.checked ? '1' : '0'; this.form.submit();"
+                                   {{ $user->is_active ? 'checked' : '' }}
+                                   {{ $user->id === auth()->id() ? 'disabled' : '' }}>
+                            <span class="toggle-switch-slider"></span>
+                            <span class="toggle-switch-label">{{ $user->is_active ? 'Enabled' : 'Disabled' }}</span>
+                        </label>
+                    </form>
+                    @if($user->id === auth()->id())
+                        <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--color-text-muted);">You cannot disable your own account.</p>
+                    @endif
+                </div>
+            </div>
+
+            <div class="dashboard-section">
+                <div class="dashboard-section-header">
                     <h3>Delete Account</h3>
                 </div>
                 <div style="padding: 1.5rem;">
